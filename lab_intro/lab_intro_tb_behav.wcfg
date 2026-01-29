@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="lab_intro_tb_time_impl.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="lab_intro_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="7,470 ps"></ZoomStartTime>
+      <ZoomEndTime time="9,423 ps"></ZoomEndTime>
+      <Cursor1Time time="7,682 ps"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="158"></NameColumnWidth>
+      <ValueColumnWidth column_width="72"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="5" />
+   <wave_markers>
+      <marker label="" time="8000" />
+      <marker label="" time="8500" />
+   </wave_markers>
+   <wvobject type="array" fp_name="/lab_intro_tb/swt">
+      <obj_property name="ElementShortName">swt[7:0]</obj_property>
+      <obj_property name="ObjectShortName">swt[7:0]</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/lab_intro_tb/led">
+      <obj_property name="ElementShortName">led[7:0]</obj_property>
+      <obj_property name="ObjectShortName">led[7:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/lab_intro_tb/e_led">
+      <obj_property name="ElementShortName">e_led[7:0]</obj_property>
+      <obj_property name="ObjectShortName">e_led[7:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/lab_intro_tb/dut/swt">
+      <obj_property name="ElementShortName">swt[7:0]</obj_property>
+      <obj_property name="ObjectShortName">swt[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/lab_intro_tb/dut/led">
+      <obj_property name="ElementShortName">led[7:0]</obj_property>
+      <obj_property name="ObjectShortName">led[7:0]</obj_property>
+   </wvobject>
+</wave_config>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="impl_1" LaunchPart="xc7z010clg400-1" LaunchTime="1769130502">
+  <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <File Type="BITSTR-SYSDEF" Name="lab_intro.sysdef"/>
+  <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
+  <File Type="BITSTR-LTX" Name="lab_intro.ltx"/>
+  <File Type="BG-BGN" Name="lab_intro.bgn"/>
+  <File Type="RNPI_FILE" Name="lab_intro.rnpi"/>
+  <File Type="BG-DRC" Name="lab_intro.drc"/>
+  <File Type="CFI_FILE" Name="lab_intro.cfi"/>
+  <File Type="RCFI_FILE" Name="lab_intro.rcfi"/>
+  <File Type="BITSTR-MMI" Name="lab_intro.mmi"/>
+  <File Type="BITSTR-BMM" Name="lab_intro_bd.bmm"/>
+  <File Type="BITSTR-NKY" Name="lab_intro.nky"/>
+  <File Type="BITSTR-RBT" Name="lab_intro.rbt"/>
+  <File Type="RBD_FILE" Name="lab_intro.rbd"/>
+  <File Type="BITSTR-MSK" Name="lab_intro.msk"/>
+  <File Type="NPI_FILE" Name="lab_intro.npi"/>
+  <File Type="BG-BIN" Name="lab_intro.bin"/>
+  <File Type="PDI-FILE" Name="lab_intro.pdi"/>
+  <File Type="BG-BIT" Name="lab_intro.bit"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="lab_intro_bus_skew_postroute_physopted.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-PB" Name="lab_intro_bus_skew_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="lab_intro_bus_skew_postroute_physopted.rpt"/>
+  <File Type="RDI-RDI" Name="lab_intro.vdi"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="lab_intro_timing_summary_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="lab_intro_timing_summary_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="lab_intro_postroute_physopt_bb.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="lab_intro_postroute_physopt.dcp"/>
+  <File Type="ROUTE-BUS-SKEW" Name="lab_intro_bus_skew_routed.rpt"/>
+  <File Type="ROUTE-CLK" Name="lab_intro_clock_utilization_routed.rpt"/>
+  <File Type="ROUTE-SIMILARITY" Name="lab_intro_incremental_reuse_routed.rpt"/>
+  <File Type="ROUTE-TIMING-RPX" Name="lab_intro_timing_summary_routed.rpx"/>
+  <File Type="ROUTE-TIMING-PB" Name="lab_intro_timing_summary_routed.pb"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="lab_intro_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-STATUS-PB" Name="lab_intro_route_status.pb"/>
+  <File Type="ROUTE-STATUS" Name="lab_intro_route_status.rpt"/>
+  <File Type="ROUTE-PWR-RPX" Name="lab_intro_power_routed.rpx"/>
+  <File Type="ROUTE-PWR-SUM" Name="lab_intro_power_summary_routed.pb"/>
+  <File Type="PLACE-UTIL" Name="lab_intro_utilization_placed.rpt"/>
+  <File Type="PLACE-CLK" Name="lab_intro_clock_utilization_placed.rpt"/>
+  <File Type="PLACE-IO" Name="lab_intro_io_placed.rpt"/>
+  <File Type="PLACE-DCP" Name="lab_intro_placed.dcp"/>
+  <File Type="PWROPT-DCP" Name="lab_intro_pwropt.dcp"/>
+  <File Type="OPT-TIMING" Name="lab_intro_timing_summary_opted.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="lab_intro_incremental_reuse_pre_placed.rpt"/>
+  <File Type="OPT-HWDEF" Name="lab_intro.hwdef"/>
+  <File Type="OPT-METHODOLOGY-DRC" Name="lab_intro_methodology_drc_opted.rpt"/>
+  <File Type="ROUTE-BUS-SKEW-PB" Name="lab_intro_bus_skew_routed.pb"/>
+  <File Type="PA-TCL" Name="lab_intro.tcl"/>
+  <File Type="PWROPT-DRC" Name="lab_intro_drc_pwropted.rpt"/>
+  <File Type="ROUTE-BUS-SKEW-RPX" Name="lab_intro_bus_skew_routed.rpx"/>
+  <File Type="REPORTS-TCL" Name="lab_intro_reports.tcl"/>
+  <File Type="INIT-TIMING" Name="lab_intro_timing_summary_init.rpt"/>
+  <File Type="PLACE-SIMILARITY" Name="lab_intro_incremental_reuse_placed.rpt"/>
+  <File Type="PWROPT-TIMING" Name="lab_intro_timing_summary_pwropted.rpt"/>
+  <File Type="ROUTE-DRC" Name="lab_intro_drc_routed.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="lab_intro_timing_summary_postroute_physopted.rpx"/>
+  <File Type="PA-DCP" Name="lab_intro.dcp"/>
+  <File Type="PHYSOPT-DRC" Name="lab_intro_drc_physopted.rpt"/>
+  <File Type="OPT-DCP" Name="lab_intro_opt.dcp"/>
+  <File Type="OPT-DRC" Name="lab_intro_drc_opted.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="lab_intro_utilization_placed.pb"/>
+  <File Type="PLACE-CTRL" Name="lab_intro_control_sets_placed.rpt"/>
+  <File Type="PLACE-TIMING" Name="lab_intro_timing_summary_placed.rpt"/>
+  <File Type="ROUTE-DRC-PB" Name="lab_intro_drc_routed.pb"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="lab_intro_postplace_pwropt.dcp"/>
+  <File Type="POSTPLACE-PWROPT-TIMING" Name="lab_intro_timing_summary_postplace_pwropted.rpt"/>
+  <File Type="ROUTE-PWR" Name="lab_intro_power_routed.rpt"/>
+  <File Type="PHYSOPT-DCP" Name="lab_intro_physopt.dcp"/>
+  <File Type="PHYSOPT-TIMING" Name="lab_intro_timing_summary_physopted.rpt"/>
+  <File Type="ROUTE-ERROR-DCP" Name="lab_intro_routed_error.dcp"/>
+  <File Type="ROUTE-DRC-RPX" Name="lab_intro_drc_routed.rpx"/>
+  <File Type="ROUTE-DCP" Name="lab_intro_routed.dcp"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="lab_intro_methodology_drc_routed.rpt"/>
+  <File Type="ROUTE-BLACKBOX-DCP" Name="lab_intro_routed_bb.dcp"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="lab_intro_methodology_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="lab_intro_methodology_drc_routed.pb"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/imports/lab_intro/lab_intro.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/lab_intro.vhd"/>
+        <Attr Name="ImportTime" Val="1672260516"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="lab_intro"/>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <File Path="$PSRCDIR/constrs_1/imports/lab_intro/lab_intro_Zybo.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/lab_intro_Zybo.xdc"/>
+        <Attr Name="ImportTime" Val="1630909076"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1">
+    <Filter Type="Utils"/>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2021">
+      <Desc>Default settings for Implementation.</Desc>
+    </StratHandle>
+    <Step Id="init_design"/>
+    <Step Id="opt_design"/>
+    <Step Id="power_opt_design"/>
+    <Step Id="place_design"/>
+    <Step Id="post_place_power_opt_design"/>
+    <Step Id="phys_opt_design"/>
+    <Step Id="route_design"/>
+    <Step Id="post_route_phys_opt_design"/>
+    <Step Id="write_bitstream"/>
+  </Strategy>
+</GenRun>

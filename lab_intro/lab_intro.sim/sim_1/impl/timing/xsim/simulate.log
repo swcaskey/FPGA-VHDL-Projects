@@ -1,0 +1,201 @@
+Time resolution is 1 ps
+Error: LED output mis-matched at 1000 ps: expected: 1, actual: 0
+Time: 1 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 3000 ps: expected: 0, actual: 0
+Time: 3 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 5000 ps: expected: 7, actual: 0
+Time: 5 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 7000 ps: expected: 6, actual: 0
+Time: 7 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 9000 ps
+Time: 9 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 11000 ps: expected: 0, actual: 2
+Time: 11 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 13000 ps: expected: 1, actual: 5
+Time: 13 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 15000 ps
+Time: 15 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 17000 ps
+Time: 17 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 19000 ps
+Time: 19 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 21000 ps: expected: 7, actual: 3
+Time: 21 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 23000 ps: expected: 6, actual: 4
+Time: 23 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 25000 ps: expected: 13, actual: 1
+Time: 25 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 27000 ps: expected: 12, actual: 2
+Time: 27 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 29000 ps: expected: 13, actual: 5
+Time: 29 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 31000 ps
+Time: 31 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 33000 ps: expected: 17, actual: 13
+Time: 33 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 35000 ps: expected: 16, actual: 12
+Time: 35 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 37000 ps: expected: 23, actual: 31
+Time: 37 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 39000 ps: expected: 22, actual: 20
+Time: 39 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 41000 ps
+Time: 41 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 43000 ps: expected: 16, actual: 18
+Time: 43 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 45000 ps: expected: 17, actual: 21
+Time: 45 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 47000 ps
+Time: 47 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 49000 ps
+Time: 49 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 51000 ps
+Time: 51 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 53000 ps: expected: 23, actual: 19
+Time: 53 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 55000 ps: expected: 22, actual: 20
+Time: 55 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 57000 ps: expected: 29, actual: 17
+Time: 57 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 59000 ps: expected: 28, actual: 18
+Time: 59 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 61000 ps: expected: 29, actual: 21
+Time: 61 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 63000 ps
+Time: 63 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 65000 ps: expected: 33, actual: 29
+Time: 65 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 67000 ps: expected: 32, actual: 28
+Time: 67 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 69000 ps: expected: 39, actual: 47
+Time: 69 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 71000 ps: expected: 38, actual: 36
+Time: 71 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 73000 ps
+Time: 73 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 75000 ps: expected: 32, actual: 34
+Time: 75 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 77000 ps: expected: 33, actual: 37
+Time: 77 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 79000 ps
+Time: 79 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 81000 ps
+Time: 81 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 83000 ps
+Time: 83 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 85000 ps: expected: 39, actual: 35
+Time: 85 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 87000 ps: expected: 38, actual: 36
+Time: 87 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 89000 ps: expected: 45, actual: 33
+Time: 89 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 91000 ps: expected: 44, actual: 34
+Time: 91 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 93000 ps: expected: 45, actual: 37
+Time: 93 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 95000 ps
+Time: 95 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 97000 ps: expected: 49, actual: 45
+Time: 97 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 99000 ps: expected: 48, actual: 44
+Time: 99 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 101000 ps: expected: 55, actual: 63
+Time: 101 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 103000 ps: expected: 54, actual: 52
+Time: 103 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 105000 ps
+Time: 105 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 107000 ps: expected: 48, actual: 50
+Time: 107 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 109000 ps: expected: 49, actual: 53
+Time: 109 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 111000 ps
+Time: 111 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 113000 ps
+Time: 113 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 115000 ps
+Time: 115 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 117000 ps: expected: 55, actual: 51
+Time: 117 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 119000 ps: expected: 54, actual: 52
+Time: 119 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 121000 ps: expected: 61, actual: 49
+Time: 121 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 123000 ps: expected: 60, actual: 50
+Time: 123 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 125000 ps: expected: 61, actual: 53
+Time: 125 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 127000 ps
+Time: 127 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 129000 ps: expected: 65, actual: 61
+Time: 129 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 131000 ps: expected: 64, actual: 60
+Time: 131 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 133000 ps: expected: 71, actual: 79
+Time: 133 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 135000 ps: expected: 70, actual: 68
+Time: 135 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 137000 ps
+Time: 137 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 139000 ps: expected: 64, actual: 66
+Time: 139 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 141000 ps: expected: 65, actual: 69
+Time: 141 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 143000 ps
+Time: 143 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 145000 ps
+Time: 145 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 147000 ps
+Time: 147 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 149000 ps: expected: 71, actual: 67
+Time: 149 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 151000 ps: expected: 70, actual: 68
+Time: 151 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 153000 ps: expected: 77, actual: 65
+Time: 153 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 155000 ps: expected: 76, actual: 66
+Time: 155 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 157000 ps: expected: 77, actual: 69
+Time: 157 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 159000 ps
+Time: 159 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 161000 ps: expected: 81, actual: 77
+Time: 161 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 163000 ps: expected: 80, actual: 76
+Time: 163 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 165000 ps: expected: 87, actual: 95
+Time: 165 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 167000 ps: expected: 86, actual: 84
+Time: 167 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 169000 ps
+Time: 169 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 171000 ps: expected: 80, actual: 82
+Time: 171 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 173000 ps: expected: 81, actual: 85
+Time: 173 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 175000 ps
+Time: 175 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 177000 ps
+Time: 177 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 179000 ps
+Time: 179 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 181000 ps: expected: 87, actual: 83
+Time: 181 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 183000 ps: expected: 86, actual: 84
+Time: 183 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 185000 ps: expected: 93, actual: 81
+Time: 185 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 187000 ps: expected: 92, actual: 82
+Time: 187 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 189000 ps: expected: 93, actual: 85
+Time: 189 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Note: LED output matched at 191000 ps
+Time: 191 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 193000 ps: expected: 97, actual: 93
+Time: 193 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 195000 ps: expected: 96, actual: 92
+Time: 195 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 197000 ps: expected: 103, actual: 111
+Time: 197 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
+Error: LED output mis-matched at 199000 ps: expected: 102, actual: 100
+Time: 199 ns  Iteration: 0  Process: /lab_intro_tb/line__62  File: /home/user/Desktop/lab_intro/lab_intro.srcs/sim_1/imports/lab_intro/lab_intro_tb.vhd
