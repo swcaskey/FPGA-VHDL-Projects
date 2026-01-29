@@ -1,2 +1,2 @@
-* linguist-vendored
-*.vhdl linguist-vendored=false
+*.vhd   linguist-language=VHDL
+*.vhdl linguist-language=VHDL
