@@ -4,65 +4,67 @@ use ieee.numeric_std.all;
 
 entity fancy_counter is
     port (
-        clk     : in  std_logic;
-        clk_en  : in  std_logic; -- From clock_div
-        dir     : in  std_logic;
-        en      : in  std_logic; -- Button
-        ld      : in  std_logic; -- Load button
-        rst     : in  std_logic; -- Reset button
-        updn    : in  std_logic; -- Update direction button
-        val     : in  std_logic_vector(3 downto 0); -- Switch input for limit/load
-        cnt     : out std_logic_vector(3 downto 0)  -- Output to LEDs
+        clk     : in  std_logic; -- Zybo clock
+        clk_en  : in  std_logic; -- clock_div (2 Hz)
+        
+        en      : in  std_logic; -- enable BUTTON *allows for ld, updn, counting logic
+        ld      : in  std_logic; -- load BUTTON, *loads val onto value_reg
+        rst     : in  std_logic; -- reset BUTTON. *loads 0 onto count_reg
+        updn    : in  std_logic; -- allow for update direction BUTTON *when pressed you can change dir (see dir)
+        
+        val     : in  std_logic_vector(3 downto 0); -- *the 4 bit number you make based on the 4 switches
+        dir     : in  std_logic; -- *one of the switches you switch to change the direction
+        cnt     : out std_logic_vector(3 downto 0)  -- *LED output for each of the 4 LEDs
     );
 end fancy_counter;
 
 architecture behavioral of fancy_counter is
     signal count_reg : unsigned(3 downto 0) := (others => '0');
-    signal dir_reg   : std_logic := '0'; -- 0 = Up, 1 = Down
-    signal value_reg : unsigned(3 downto 0) := "1111"; -- Default limit
+    signal dir_reg   : std_logic := '0'; -- 0 = count up, 1 = count down
+    signal value_reg : unsigned(3 downto 0) := "1111"; -- sets the max value
 begin
 
     process(clk)
     begin
-        if rising_edge(clk) then
-            -- 1. Synchronous Reset (Highest Priority)
+        if rising_edge(clk) then -- Everything has to occur on the rising clock edge pg6
+            -- * Reset Button pressed
             if (rst = '1') then
                 count_reg <= (others => '0');
            
-            -- 2. Global Enable Check
+            -- * Enable button pressed
             elsif (en = '1') then
                
-                -- A. Load Value
+                -- * Load button pressed
                 if (ld = '1') then
                     value_reg <= unsigned(val);
                 end if;
                
-                -- B. Update Direction
+                -- * Allow for direction change button pressed
                 if (updn = '1') then
                     dir_reg <= dir;
                 end if;
                
-                -- C. Counting Logic (Only happens if clk_en is '1')
+                -- * The actual counting (ONLY WHEN clock_div (2 Hz) is high
                 if (clk_en = '1') then
-                    if (dir_reg = '0') then -- Count Up
-                        if (count_reg >= value_reg) then
-                            count_reg <= (others => '0');
+                    if (dir_reg = '0') then -- Do count up
+                        if (count_reg >= value_reg) then -- if the current count is bigger than the max number
+                            count_reg <= (others => '0'); -- reset the count register
                         else
-                            count_reg <= count_reg + 1;
+                            count_reg <= count_reg + 1; -- count up by 1
                         end if;
-                    else -- Count Down
-                        if (count_reg = 0) then
-                            count_reg <= value_reg;
+                    else -- Do count down
+                        if (count_reg = 0) then -- if the current count reaches 0
+                            count_reg <= value_reg; -- set the count register to the max number
                         else
-                            count_reg <= count_reg - 1;
+                            count_reg <= count_reg - 1; -- count down by 1
                         end if;
                     end if;
-                end if; -- End clk_en check
+                end if; -- End clock_div if statement for counting
                
-            end if; -- End enable check
-        end if; -- End rising_edge
-    end process;
+            end if; -- End enable if statement
+        end if; -- End rising_edge if statement
+    end process; -- Stop checking Zybo clock
 
-    cnt <= std_logic_vector(count_reg);
+    cnt <= std_logic_vector(count_reg); -- Set the LEDs
 
 end behavioral;

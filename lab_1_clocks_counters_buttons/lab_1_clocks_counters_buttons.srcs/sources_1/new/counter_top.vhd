@@ -5,9 +5,9 @@ use ieee.numeric_std.all;
 entity counter_top is
     port (
         clk  : in  std_logic;
-        btn  : in  std_logic_vector(3 downto 0); -- Buttons
-        sw   : in  std_logic_vector(3 downto 0); -- Switches
-        led  : out std_logic_vector(3 downto 0)  -- LEDs
+        btn  : in  std_logic_vector(3 downto 0); -- Buttons (#0 on the right, #3 on the left)
+        sw   : in  std_logic_vector(3 downto 0); -- Switches (#0 on the right, #3 on the left)
+        led  : out std_logic_vector(3 downto 0)  -- LEDs (#0 on the right, #3 on the left)
     );
 end counter_top;
 
@@ -61,7 +61,7 @@ begin
     );
 
     -- 2. INSTANTIATE DEBOUNCERS (One for each button)
-    -- Button 0
+    -- Button 0 (_ _ _ x)
     DB1: debounce
     port map (
         clk  => clk,
@@ -69,7 +69,7 @@ begin
         dbnc => dbnc_btn(0)
     );
    
-    -- Button 1
+    -- Button 1 (_ _ x _)
     DB2: debounce
     port map (
         clk  => clk,
@@ -77,7 +77,7 @@ begin
         dbnc => dbnc_btn(1)
     );
 
-    -- Button 2
+    -- Button 2 (_ x _ _)
     DB3: debounce
     port map (
         clk  => clk,
@@ -85,7 +85,7 @@ begin
         dbnc => dbnc_btn(2)
     );
 
-    -- Button 3
+    -- Button 3 (x _ _ _)
     DB4: debounce
     port map (
         clk  => clk,
