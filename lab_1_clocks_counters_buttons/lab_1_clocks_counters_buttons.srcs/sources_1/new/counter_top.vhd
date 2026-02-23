@@ -5,22 +5,22 @@ use ieee.numeric_std.all;
 entity counter_top is
     port (
         clk  : in  std_logic;
-        btn  : in  std_logic_vector(3 downto 0); -- Buttons (#0 on the right, #3 on the left)
-        sw   : in  std_logic_vector(3 downto 0); -- Switches (#0 on the right, #3 on the left)
-        led  : out std_logic_vector(3 downto 0)  -- LEDs (#0 on the right, #3 on the left)
+        btn  : in  std_logic_vector(3 downto 0); -- buttons (0 on the right, 3 on the left)
+        sw   : in  std_logic_vector(3 downto 0); -- switches (0 on the right, 3 on the left)
+        led  : out std_logic_vector(3 downto 0)  -- lEDs (0 on the right, 3 on the left)
     );
 end counter_top;
 
-architecture structural of counter_top is
-
-    -- COMPONENT DECLARATIONS
+architecture structural of counter_top is -- * Declare Components
+    -- Clock Divider
     component clock_div is
         port (
             clk : in  std_logic;
             div : out std_logic
         );
     end component;
-
+    
+    -- Debouncer
     component debounce is
         generic (
             clk_freq    : integer := 125_000_000;
@@ -32,7 +32,8 @@ architecture structural of counter_top is
             dbnc : out std_logic
         );
     end component;
-
+    
+    -- Counter
     component fancy_counter is
         port (
             clk     : in  std_logic;
@@ -47,62 +48,58 @@ architecture structural of counter_top is
         );
     end component;
 
-    -- SIGNALS
-    signal div_en_sig : std_logic;                   -- 2 Hz clock enable
+    -- Signals
+    signal div_en_sig : std_logic;                   -- 2Hz clock enable
     signal dbnc_btn   : std_logic_vector(3 downto 0); -- Debounced buttons
 
 begin
-
-    -- 1. INSTANTIATE CLOCK DIVIDER
+    -- * Instantiate Clock Divider
     U1: clock_div
     port map (
         clk => clk,
         div => div_en_sig
     );
 
-    -- 2. INSTANTIATE DEBOUNCERS (One for each button)
+    -- * Instantiate Debouncers
     -- Button 0 (_ _ _ x)
-    DB1: debounce
+    DB0: debounce
     port map (
         clk  => clk,
         btn  => btn(0),
         dbnc => dbnc_btn(0)
     );
-   
     -- Button 1 (_ _ x _)
-    DB2: debounce
+    DB1: debounce
     port map (
         clk  => clk,
         btn  => btn(1),
         dbnc => dbnc_btn(1)
     );
-
     -- Button 2 (_ x _ _)
-    DB3: debounce
+    DB2: debounce
     port map (
         clk  => clk,
         btn  => btn(2),
         dbnc => dbnc_btn(2)
     );
-
     -- Button 3 (x _ _ _)
-    DB4: debounce
+    DB3: debounce
     port map (
         clk  => clk,
         btn  => btn(3),
         dbnc => dbnc_btn(3)
     );
 
-    -- 3. INSTANTIATE FANCY COUNTER
-    CT1: fancy_counter
+    -- * Instantiate Counter
+    CT1: fancy_counter -- Match the diagram on pg7
     port map (
         clk     => clk,
         clk_en  => div_en_sig,       -- Pulse from clock_div
         dir     => sw(0),            -- Use Switch 0 for direction
-        en      => dbnc_btn(0),      -- Button 0 enables counting
-        rst     => dbnc_btn(1),      -- Button 1 resets
-        ld      => dbnc_btn(2),      -- Button 2 loads 'val'
-        updn    => dbnc_btn(3),      -- Button 3 updates direction
+        rst     => dbnc_btn(0),      -- Reset is             _ _ _ x
+        en      => dbnc_btn(1),      -- Enable is            _ _ x _
+        updn    => dbnc_btn(2),      -- Direction enable is  _ x _ _
+        ld      => dbnc_btn(3),      -- Load is              x _ _ _
         val     => sw,               -- Switches set the count limit/value
         cnt     => led               -- Display count on LEDs
     );

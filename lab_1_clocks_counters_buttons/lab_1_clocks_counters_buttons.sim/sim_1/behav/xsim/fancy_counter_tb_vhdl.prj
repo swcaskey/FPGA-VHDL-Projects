@@ -1,0 +1,7 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../lab_1_clocks_counters_buttons.srcs/sources_1/new/fancy_counter.vhd" \
+"../../../../lab_1_clocks_counters_buttons.srcs/sim_1/new/fancy_counter_tb.vhd" \
+
+# Do not sort compile order
+nosort
