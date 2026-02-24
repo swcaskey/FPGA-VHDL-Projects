@@ -1,3 +1,5 @@
+-- Set sim time to 10us
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -6,7 +8,6 @@ entity fancy_counter_tb is
 end fancy_counter_tb;
 
 architecture testbench of fancy_counter_tb is
-
     component fancy_counter is
         port (
             clk     : in  std_logic;
@@ -22,17 +23,15 @@ architecture testbench of fancy_counter_tb is
     end component;
 
     signal clk_tb    : std_logic := '0';
-    -- Set these to '1' immediately to match the "starts running instantly" look
     signal clk_en_tb : std_logic := '1';
     signal dir_tb    : std_logic := '0';
     signal en_tb     : std_logic := '1';
     signal ld_tb     : std_logic := '0';
     signal rst_tb    : std_logic := '0';
     signal updn_tb   : std_logic := '0';
-    signal val_tb    : std_logic_vector(3 downto 0) := "1111"; -- Limit = 15 (F)
+    signal val_tb    : std_logic_vector(3 downto 0) := "1111"; -- Limit is 15 (F)
     signal cnt_tb    : std_logic_vector(3 downto 0);
 
-    -- UPDATED: 2 ns period to fit 16 counts into 32 ns (500 MHz)
     constant clk_period : time := 2 ns;
 
 begin
@@ -50,7 +49,7 @@ begin
         cnt     => cnt_tb
     );
 
-    -- Clock Generation
+    -- Clock Gen
     clk_process: process
     begin
         clk_tb <= '0';
@@ -59,11 +58,9 @@ begin
         wait for clk_period/2;
     end process;
 
-    -- Stimulus Process
     stim_proc: process
     begin
-        -- No complex setup needed because signals are initialized above.
-        -- Just wait for the 32 ns duration to see the full 0 -> F -> 0 cycle.
+        -- wait for the 32 ns duration to see the full 0 -> F -> 0 cycle
         wait for 32 ns;
         wait;
     end process;

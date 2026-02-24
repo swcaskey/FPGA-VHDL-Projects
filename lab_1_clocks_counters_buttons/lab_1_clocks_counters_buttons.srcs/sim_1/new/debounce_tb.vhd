@@ -8,7 +8,6 @@ entity debounce_tb is
 end debounce_tb;
 
 architecture testbench of debounce_tb is
-
     component debounce is
         generic (
             clk_freq    : integer;
@@ -28,8 +27,7 @@ architecture testbench of debounce_tb is
     constant clk_period : time := 8 ns; -- 125 MHz
 
 begin
-
-    -- Instantiate UUT with a shorter time for simulation (1 ms)
+    -- Instantiate with a shorter time for simulation (1 ms)
     uut: debounce
     generic map (
         clk_freq    => 125_000_000,
@@ -41,7 +39,6 @@ begin
         dbnc => dbnc_tb
     );
 
-    -- Clock Process
     clk_proc: process
     begin
         clk_tb <= '0';
@@ -50,21 +47,20 @@ begin
         wait for clk_period/2;
     end process;
 
-    -- Stimulus Process
     stim_proc: process
     begin
         wait for 100 ns;
        
-        -- SIMULATE BOUNCING: Toggle button rapidly
+        -- Toggle button rapidly
         btn_tb <= '1'; wait for 50 us;
         btn_tb <= '0'; wait for 50 us;
         btn_tb <= '1'; wait for 50 us;
         btn_tb <= '0'; wait for 50 us;
        
-        -- SIMULATE STABLE PRESS
+        -- Stable press
         btn_tb <= '1';
        
-        -- Wait for the stable time (1 ms) + buffer
+        -- Wait for  stable time (1 ms) + buffer
         wait for 2 ms;
        
         -- Release button

@@ -2,5 +2,10 @@
 2020.2
 Jun 10 2021
 19:45:28
-/home/user/Desktop/lab_1_clocks_counters_buttons/lab_1_clocks_counters_buttons.srcs/sim_1/new/fancy_counter_tb.vhd,1771889664,vhdl,,,,fancy_counter_tb,,,,,,,,
+/home/user/Desktop/lab_1_clocks_counters_buttons/lab_1_clocks_counters_buttons.srcs/sim_1/new/debounce_tb.vhd,1771886931,vhdl,,,,debounce_tb,,,,,,,,
+/home/user/Desktop/lab_1_clocks_counters_buttons/lab_1_clocks_counters_buttons.srcs/sim_1/new/divider_top_tb.vhd,1771886931,vhdl,,,,divider_top_tb,,,,,,,,
+/home/user/Desktop/lab_1_clocks_counters_buttons/lab_1_clocks_counters_buttons.srcs/sim_1/new/fancy_counter_tb.vhd,1771902433,vhdl,,,,fancy_counter_tb,,,,,,,,
+/home/user/Desktop/lab_1_clocks_counters_buttons/lab_1_clocks_counters_buttons.srcs/sources_1/new/clock_div.vhd,1771886931,vhdl,,,,clock_div,,,,,,,,
+/home/user/Desktop/lab_1_clocks_counters_buttons/lab_1_clocks_counters_buttons.srcs/sources_1/new/debounce.vhd,1771886931,vhdl,,,,debounce,,,,,,,,
+/home/user/Desktop/lab_1_clocks_counters_buttons/lab_1_clocks_counters_buttons.srcs/sources_1/new/divider_top.vhd,1771886931,vhdl,,,,divider_top,,,,,,,,
 /home/user/Desktop/lab_1_clocks_counters_buttons/lab_1_clocks_counters_buttons.srcs/sources_1/new/fancy_counter.vhd,1771886931,vhdl,,,,fancy_counter,,,,,,,,

@@ -1,7 +1,7 @@
 Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2021.1 (lin64) Build 3247384 Thu Jun 10 19:36:07 MDT 2021
-| Date         : Thu Feb 19 16:55:15 2026
+| Date         : Mon Feb 23 22:31:31 2026
 | Host         : ece15 running 64-bit Ubuntu 20.04.2 LTS
 | Command      : report_utilization -file counter_top_utilization_synth.rpt -pb counter_top_utilization_synth.pb
 | Design       : counter_top
