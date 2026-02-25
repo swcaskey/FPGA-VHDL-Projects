@@ -1,8 +1,8 @@
 Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2021.1 (lin64) Build 3247384 Thu Jun 10 19:36:07 MDT 2021
-| Date         : Mon Feb 23 22:31:31 2026
-| Host         : ece15 running 64-bit Ubuntu 20.04.2 LTS
+| Date         : Wed Feb 25 16:47:30 2026
+| Host         : ece09 running 64-bit Ubuntu 20.04.2 LTS
 | Command      : report_utilization -file counter_top_utilization_synth.rpt -pb counter_top_utilization_synth.pb
 | Design       : counter_top
 | Device       : 7z010clg400-1
@@ -152,7 +152,7 @@ Table of Contents
 | LUT5     |    9 |                 LUT |
 | LUT1     |    9 |                 LUT |
 | IBUF     |    9 |                  IO |
-| LUT4     |    7 |                 LUT |
+| LUT4     |    8 |                 LUT |
 | OBUF     |    4 |                  IO |
 | LUT3     |    2 |                 LUT |
 | LUT2     |    1 |                 LUT |

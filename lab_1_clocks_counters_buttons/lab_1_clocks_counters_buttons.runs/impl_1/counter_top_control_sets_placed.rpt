@@ -1,8 +1,8 @@
 Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2021.1 (lin64) Build 3247384 Thu Jun 10 19:36:07 MDT 2021
-| Date         : Mon Feb 23 23:10:19 2026
-| Host         : ece15 running 64-bit Ubuntu 20.04.2 LTS
+| Date         : Wed Feb 25 16:47:55 2026
+| Host         : ece09 running 64-bit Ubuntu 20.04.2 LTS
 | Command      : report_control_sets -verbose -file counter_top_control_sets_placed.rpt
 | Design       : counter_top
 | Device       : xc7z010
@@ -58,10 +58,10 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              14 |           10 |
+| No           | No                    | No                     |              14 |            9 |
 | No           | No                    | Yes                    |               0 |            0 |
 | No           | Yes                   | No                     |              25 |            7 |
-| Yes          | No                    | No                     |               5 |            3 |
+| Yes          | No                    | No                     |               5 |            2 |
 | Yes          | No                    | Yes                    |               0 |            0 |
 | Yes          | Yes                   | No                     |              92 |           25 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
@@ -73,14 +73,14 @@ Table of Contents
 +----------------+---------------------------+---------------------------+------------------+----------------+--------------+
 |  Clock Signal  |       Enable Signal       |      Set/Reset Signal     | Slice Load Count | Bel Load Count | Bels / Slice |
 +----------------+---------------------------+---------------------------+------------------+----------------+--------------+
-|  clk_IBUF_BUFG | DB2/dir_reg               |                           |                1 |              1 |         1.00 |
+|  clk_IBUF_BUFG | DB0/dir_reg               |                           |                1 |              1 |         1.00 |
+|  clk_IBUF_BUFG | DB3/E[0]                  |                           |                1 |              4 |         4.00 |
 |  clk_IBUF_BUFG | U1/div_reg_0[0]           | CT1/count_reg[3]_i_1_n_0  |                1 |              4 |         4.00 |
-|  clk_IBUF_BUFG | DB3/E[0]                  |                           |                2 |              4 |         2.00 |
-|  clk_IBUF_BUFG |                           |                           |               10 |             14 |         1.40 |
+|  clk_IBUF_BUFG |                           |                           |                9 |             14 |         1.56 |
 |  clk_IBUF_BUFG | DB1/counter[0]_i_2__0_n_0 | DB1/counter[0]_i_1__0_n_0 |                6 |             22 |         3.67 |
-|  clk_IBUF_BUFG | DB0/counter[0]_i_2_n_0    | DB0/clear                 |                6 |             22 |         3.67 |
 |  clk_IBUF_BUFG | DB2/counter[0]_i_2__1_n_0 | DB2/counter[0]_i_1__1_n_0 |                6 |             22 |         3.67 |
 |  clk_IBUF_BUFG | DB3/counter[0]_i_2__2_n_0 | DB3/counter[0]_i_1__2_n_0 |                6 |             22 |         3.67 |
+|  clk_IBUF_BUFG | DB0/counter[0]_i_2_n_0    | DB0/clear                 |                6 |             22 |         3.67 |
 |  clk_IBUF_BUFG |                           | U1/counter[25]_i_1_n_0    |                7 |             25 |         3.57 |
 +----------------+---------------------------+---------------------------+------------------+----------------+--------------+
 

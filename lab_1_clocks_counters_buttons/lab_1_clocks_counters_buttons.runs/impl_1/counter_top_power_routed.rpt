@@ -1,8 +1,8 @@
 Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2021.1 (lin64) Build 3247384 Thu Jun 10 19:36:07 MDT 2021
-| Date             : Mon Feb 23 23:10:27 2026
-| Host             : ece15 running 64-bit Ubuntu 20.04.2 LTS
+| Date             : Wed Feb 25 16:48:03 2026
+| Host             : ece09 running 64-bit Ubuntu 20.04.2 LTS
 | Command          : report_power -file counter_top_power_routed.rpt -pb counter_top_power_summary_routed.pb -rpx counter_top_power_routed.rpx
 | Design           : counter_top
 | Device           : xc7z010clg400-1
@@ -53,12 +53,12 @@ Table of Contents
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
 | Clocks         |     0.001 |        3 |       --- |             --- |
-| Slice Logic    |    <0.001 |      229 |       --- |             --- |
+| Slice Logic    |    <0.001 |      230 |       --- |             --- |
 |   LUT as Logic |    <0.001 |       49 |     17600 |            0.28 |
 |   CARRY4       |    <0.001 |       31 |      4400 |            0.70 |
 |   Register     |    <0.001 |      136 |     35200 |            0.39 |
 |   Others       |     0.000 |       11 |       --- |             --- |
-| Signals        |    <0.001 |      208 |       --- |             --- |
+| Signals        |    <0.001 |      209 |       --- |             --- |
 | I/O            |    <0.001 |       13 |       100 |           13.00 |
 | Static Power   |     0.093 |          |           |                 |
 | Total          |     0.095 |          |           |                 |

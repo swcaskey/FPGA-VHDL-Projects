@@ -125,6 +125,7 @@ set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
   set_param chipscope.maxJobs 2
+  set_param xicom.use_bs_reader 1
 OPTRACE "create in-memory project" START { }
   create_project -in_memory -part xc7z010clg400-1
   set_property design_mode GateLvl [current_fileset]
@@ -141,7 +142,7 @@ OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
   add_files -quiet /home/user/Desktop/lab_1_clocks_counters_buttons/lab_1_clocks_counters_buttons.runs/synth_1/counter_top.dcp
 OPTRACE "read constraints: implementation" START { }
-  read_xdc /home/user/Desktop/lab_1_clocks_counters_buttons/zybo_blinker_Z7-10.xdc
+  read_xdc /home/user/Desktop/lab_1_clocks_counters_buttons/zybo_old_board.xdc
 OPTRACE "read constraints: implementation" END { }
 OPTRACE "add files" END { }
 OPTRACE "link_design" START { }

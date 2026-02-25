@@ -20,7 +20,7 @@ architecture behavioral of debounce is
     -- Find the cycles for the debounce time. 0.02s * 125,000,000cycles/s = 2,500,000 cycles
     constant COUNTER_MAX : integer := (clk_freq / 1000) * stable_time;
     
-    -- We need to count up to 2,500,000.
+    -- We need to count up to 2,500,000
     -- Therefre we need 22 bits, 2^22 = 4194304, to hold count
     signal counter : unsigned(21 downto 0) := (others => '0');
    
@@ -32,6 +32,7 @@ begin
     process(clk)
     begin
         if rising_edge(clk) then
+            dbnc <= '0'; -- Make sure dbnc is put to a known value every clock cycle
             -- Shift the button input into the register (sync) to avoid meta-state
             shift_reg(1) <= shift_reg(0); -- "bit 1 get value at bit 0" pg4
             shift_reg(0) <= btn; -- Actual button input "each clock bit 0 gets new value" pg4

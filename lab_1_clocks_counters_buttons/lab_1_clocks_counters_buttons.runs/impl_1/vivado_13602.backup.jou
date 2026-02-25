@@ -2,8 +2,8 @@
 # Vivado v2021.1 (64-bit)
 # SW Build 3247384 on Thu Jun 10 19:36:07 MDT 2021
 # IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
-# Start of session at: Wed Feb 25 16:47:34 2026
-# Process ID: 77142
+# Start of session at: Wed Feb 25 15:47:46 2026
+# Process ID: 13602
 # Current directory: /home/user/Desktop/lab_1_clocks_counters_buttons/lab_1_clocks_counters_buttons.runs/impl_1
 # Command line: vivado -log counter_top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source counter_top.tcl -notrace
 # Log file: /home/user/Desktop/lab_1_clocks_counters_buttons/lab_1_clocks_counters_buttons.runs/impl_1/counter_top.vdi

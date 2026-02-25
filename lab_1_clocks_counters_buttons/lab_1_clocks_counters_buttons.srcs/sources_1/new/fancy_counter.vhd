@@ -30,19 +30,17 @@ begin
             -- * Reset Button pressed
             if (rst = '1') then
                 count_reg <= (others => '0');
+                    
+            -- * Load button pressed
+            elsif (ld = '1') then
+                value_reg <= unsigned(val);
            
+            -- * Allow for direction change button pressed
+            elsif (updn = '1') then
+                dir_reg <= dir;
+                
             -- * Enable button pressed
             elsif (en = '1') then
-               
-                -- * Load button pressed
-                if (ld = '1') then
-                    value_reg <= unsigned(val);
-                end if;
-               
-                -- * Allow for direction change button pressed
-                if (updn = '1') then
-                    dir_reg <= dir;
-                end if;
                
                 -- * The actual counting (ONLY WHEN clock_div (2 Hz) is high
                 if (clk_en = '1') then
