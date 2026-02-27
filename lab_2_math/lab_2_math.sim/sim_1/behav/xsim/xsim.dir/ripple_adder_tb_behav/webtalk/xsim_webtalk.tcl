@@ -1,6 +1,6 @@
 webtalk_init -webtalk_dir /home/user/Desktop/lab_2_math/lab_2_math.sim/sim_1/behav/xsim/xsim.dir/ripple_adder_tb_behav/webtalk/
 webtalk_register_client -client project
-webtalk_add_data -client project -key date_generated -value "Fri Feb 27 16:21:14 2026" -context "software_version_and_target_device"
+webtalk_add_data -client project -key date_generated -value "Fri Feb 27 16:29:01 2026" -context "software_version_and_target_device"
 webtalk_add_data -client project -key product_version -value "XSIM v2021.1 (64-bit)" -context "software_version_and_target_device"
 webtalk_add_data -client project -key build_version -value "3247384" -context "software_version_and_target_device"
 webtalk_add_data -client project -key os_platform -value "LIN64" -context "software_version_and_target_device"
@@ -14,7 +14,7 @@ webtalk_add_data -client project -key target_package -value "not_applicable" -co
 webtalk_add_data -client project -key target_speed -value "not_applicable" -context "software_version_and_target_device"
 webtalk_add_data -client project -key random_id -value "73bf09b1-9074-4fcd-a753-9dacd3782e4c" -context "software_version_and_target_device"
 webtalk_add_data -client project -key project_id -value "f9cb581a06be4b0baf961d8df267a20b" -context "software_version_and_target_device"
-webtalk_add_data -client project -key project_iteration -value "4" -context "software_version_and_target_device"
+webtalk_add_data -client project -key project_iteration -value "5" -context "software_version_and_target_device"
 webtalk_add_data -client project -key os_name -value "Ubuntu" -context "user_environment"
 webtalk_add_data -client project -key os_release -value "Ubuntu 20.04.2 LTS" -context "user_environment"
 webtalk_add_data -client project -key cpu_name -value "Intel(R) Core(TM) i7-7700 CPU @ 3.60GHz" -context "user_environment"
@@ -24,9 +24,9 @@ webtalk_add_data -client project -key system_ram -value "16.000 GB" -context "us
 webtalk_register_client -client xsim
 webtalk_add_data -client xsim -key Command -value "xsim" -context "xsim\\command_line_options"
 webtalk_add_data -client xsim -key trace_waveform -value "true" -context "xsim\\usage"
-webtalk_add_data -client xsim -key runtime -value "23 us" -context "xsim\\usage"
+webtalk_add_data -client xsim -key runtime -value "1 us" -context "xsim\\usage"
 webtalk_add_data -client xsim -key iteration -value "0" -context "xsim\\usage"
-webtalk_add_data -client xsim -key Simulation_Time -value "0.04_sec" -context "xsim\\usage"
+webtalk_add_data -client xsim -key Simulation_Time -value "0.03_sec" -context "xsim\\usage"
 webtalk_add_data -client xsim -key Simulation_Memory -value "116704_KB" -context "xsim\\usage"
-webtalk_transmit -clientid 2123230998 -regid "" -xml /home/user/Desktop/lab_2_math/lab_2_math.sim/sim_1/behav/xsim/xsim.dir/ripple_adder_tb_behav/webtalk/usage_statistics_ext_xsim.xml -html /home/user/Desktop/lab_2_math/lab_2_math.sim/sim_1/behav/xsim/xsim.dir/ripple_adder_tb_behav/webtalk/usage_statistics_ext_xsim.html -wdm /home/user/Desktop/lab_2_math/lab_2_math.sim/sim_1/behav/xsim/xsim.dir/ripple_adder_tb_behav/webtalk/usage_statistics_ext_xsim.wdm -intro "<H3>XSIM Usage Report</H3><BR>"
+webtalk_transmit -clientid 4057457572 -regid "" -xml /home/user/Desktop/lab_2_math/lab_2_math.sim/sim_1/behav/xsim/xsim.dir/ripple_adder_tb_behav/webtalk/usage_statistics_ext_xsim.xml -html /home/user/Desktop/lab_2_math/lab_2_math.sim/sim_1/behav/xsim/xsim.dir/ripple_adder_tb_behav/webtalk/usage_statistics_ext_xsim.html -wdm /home/user/Desktop/lab_2_math/lab_2_math.sim/sim_1/behav/xsim/xsim.dir/ripple_adder_tb_behav/webtalk/usage_statistics_ext_xsim.wdm -intro "<H3>XSIM Usage Report</H3><BR>"
 webtalk_terminate
