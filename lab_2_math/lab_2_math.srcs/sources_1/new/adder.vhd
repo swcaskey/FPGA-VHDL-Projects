@@ -9,7 +9,7 @@ entity adder is
 end adder;
 
 architecture behavioral of adder is
-    signal abcin : std_logic_vector (2 downto 0);
+    signal abcin : std_logic_vector(2 downto 0);
 begin
     abcin <= a & b & cin;
 adding: process (abcin)
