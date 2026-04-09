@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2021.1 (64-bit)
+# SW Build 3247384 on Thu Jun 10 19:36:07 MDT 2021
+# IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
+# Start of session at: Thu Apr  9 16:21:08 2026
+# Process ID: 223194
+# Current directory: /home/user/Desktop/lab_4_VGA_Video/lab_4_VGA_Video.runs/synth_1
+# Command line: vivado -log image_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source image_top.tcl
+# Log file: /home/user/Desktop/lab_4_VGA_Video/lab_4_VGA_Video.runs/synth_1/image_top.vds
+# Journal file: /home/user/Desktop/lab_4_VGA_Video/lab_4_VGA_Video.runs/synth_1/vivado.jou
+#-----------------------------------------------------------
+source image_top.tcl -notrace
