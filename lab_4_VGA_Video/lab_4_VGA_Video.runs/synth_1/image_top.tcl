@@ -70,6 +70,8 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param chipscope.maxJobs 2
+set_param xicom.use_bs_reader 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7z010clg400-1
 
@@ -88,9 +90,7 @@ set_property ip_output_repo /home/user/Desktop/lab_4_VGA_Video/lab_4_VGA_Video.c
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-add_files /home/user/Desktop/lab_4_VGA_Video/Additional/Rutgers_Logo.coe
 read_vhdl -library xil_defaultlib {
-  /home/user/Desktop/lab_4_VGA_Video/lab_4_VGA_Video.srcs/sources_1/new/clock_div.vhd
   /home/user/Desktop/lab_4_VGA_Video/lab_4_VGA_Video.srcs/sources_1/new/pixel_pusher.vhd
   /home/user/Desktop/lab_4_VGA_Video/lab_4_VGA_Video.srcs/sources_1/new/vga_ctrl.vhd
   /home/user/Desktop/lab_4_VGA_Video/lab_4_VGA_Video.srcs/sources_1/new/image_top.vhd

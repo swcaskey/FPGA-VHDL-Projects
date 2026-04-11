@@ -52,7 +52,6 @@ architecture behavioral of image_top is
     component picture is
         port (
             clka : in std_logic;
-            ena : in std_logic;
             addra : in std_logic_vector(17 downto 0);
             douta : out std_logic_vector(7 downto 0)
         );
@@ -92,7 +91,6 @@ begin
     picture_inst : picture
         port map (
             clka => clk,
-            ena => '1',
             addra => addr,
             douta => pixel
         );

@@ -55,7 +55,6 @@
 COMPONENT picture
   PORT (
     clka : IN STD_LOGIC;
-    ena : IN STD_LOGIC;
     addra : IN STD_LOGIC_VECTOR(17 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
   );
@@ -69,7 +68,6 @@ END COMPONENT;
 your_instance_name : picture
   PORT MAP (
     clka => clka,
-    ena => ena,
     addra => addra,
     douta => douta
   );

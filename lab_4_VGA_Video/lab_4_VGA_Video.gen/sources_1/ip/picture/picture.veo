@@ -56,7 +56,6 @@
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
 picture your_instance_name (
   .clka(clka),    // input wire clka
-  .ena(ena),      // input wire ena
   .addra(addra),  // input wire [17 : 0] addra
   .douta(douta)  // output wire [7 : 0] douta
 );
