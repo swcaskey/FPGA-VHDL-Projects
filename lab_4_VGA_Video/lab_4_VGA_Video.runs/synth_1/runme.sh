@@ -20,7 +20,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='/home/user/Desktop/lab_4_VGA_Video/lab_4_VGA_Video.runs/synth_1'
+HD_PWD='/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.runs/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

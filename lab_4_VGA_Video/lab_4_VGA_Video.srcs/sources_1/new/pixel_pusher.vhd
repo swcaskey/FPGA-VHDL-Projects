@@ -44,7 +44,7 @@ begin
             end if;
 
             -- Registered RGB output (stable at VGA pins)
-            if vid = '1' and hcount_unsigned >= IMAGE_X_START and hcount_unsigned < IMAGE_X_END then
+            if enable = '1' and vid = '1' and hcount_unsigned >= IMAGE_X_START and hcount_unsigned < IMAGE_X_END then
                 r_reg <= pixel(7 downto 5) & "00";
                 g_reg <= pixel(4 downto 2) & "000";
                 b_reg <= pixel(1 downto 0) & "000";
