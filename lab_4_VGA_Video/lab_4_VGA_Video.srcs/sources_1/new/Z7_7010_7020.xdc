@@ -10,24 +10,24 @@ create_clock -add -name sys_clk_pin -period 8.00 -waveform {0 4} [get_ports { cl
 
 
 ## VGA Pmod (JC connector) - Uncomment to enable VGA output
-set_property -dict { PACKAGE_PIN V15   IOSTANDARD LVCMOS33 } [get_ports { vga_r[0] }]; #IO_L10P_T1_34 Sch=jc_p[1]
-set_property -dict { PACKAGE_PIN W15   IOSTANDARD LVCMOS33 } [get_ports { vga_r[1] }]; #IO_L10N_T1_34 Sch=jc_n[1]
-set_property -dict { PACKAGE_PIN T11   IOSTANDARD LVCMOS33 } [get_ports { vga_r[2] }]; #IO_L1P_T0_34 Sch=jc_p[2]
-set_property -dict { PACKAGE_PIN T10   IOSTANDARD LVCMOS33 } [get_ports { vga_r[3] }]; #IO_L1N_T0_34 Sch=jc_n[2]
-set_property -dict { PACKAGE_PIN W14   IOSTANDARD LVCMOS33 } [get_ports { vga_r[4] }]; #IO_L8P_T1_34 Sch=jc_p[3]
-set_property -dict { PACKAGE_PIN Y14   IOSTANDARD LVCMOS33 } [get_ports { vga_g[0] }]; #IO_L8N_T1_34 Sch=jc_n[3]
-set_property -dict { PACKAGE_PIN T12   IOSTANDARD LVCMOS33 } [get_ports { vga_g[1] }]; #IO_L2P_T0_34 Sch=jc_p[4]
-set_property -dict { PACKAGE_PIN U12   IOSTANDARD LVCMOS33 } [get_ports { vga_g[2] }]; #IO_L2N_T0_34 Sch=jc_n[4]
-set_property -dict { PACKAGE_PIN T14   IOSTANDARD LVCMOS33 } [get_ports { vga_g[3] }]; #IO_L5P_T0_34 Sch=jd_p[1]
-set_property -dict { PACKAGE_PIN T15   IOSTANDARD LVCMOS33 } [get_ports { vga_g[4] }]; #IO_L5N_T0_34 Sch=jd_n[1]
-set_property -dict { PACKAGE_PIN P14   IOSTANDARD LVCMOS33 } [get_ports { vga_g[5] }]; #IO_L6P_T0_34 Sch=jd_p[2]
-set_property -dict { PACKAGE_PIN R14   IOSTANDARD LVCMOS33 } [get_ports { vga_b[0] }]; #IO_L6N_T0_VREF_34 Sch=jd_n[2]
-set_property -dict { PACKAGE_PIN U14   IOSTANDARD LVCMOS33 } [get_ports { vga_b[1] }]; #IO_L11P_T1_SRCC_34 Sch=jd_p[3]
-set_property -dict { PACKAGE_PIN U15   IOSTANDARD LVCMOS33 } [get_ports { vga_b[2] }]; #IO_L11N_T1_SRCC_34 Sch=jd_n[3]
-set_property -dict { PACKAGE_PIN V17   IOSTANDARD LVCMOS33 } [get_ports { vga_b[3] }]; #IO_L21P_T3_DQS_34 Sch=jd_p[4]
-set_property -dict { PACKAGE_PIN V18   IOSTANDARD LVCMOS33 } [get_ports { vga_b[4] }]; #IO_L21N_T3_DQS_34 Sch=jd_n[4]
-set_property -dict { PACKAGE_PIN V12   IOSTANDARD LVCMOS33 } [get_ports { vga_hs }]; #IO_L4P_T0_34 Sch=je[1]
-set_property -dict { PACKAGE_PIN W16   IOSTANDARD LVCMOS33 } [get_ports { vga_vs }]; #IO_L18N_T2_34 Sch=je[2]
+#set_property -dict { PACKAGE_PIN V15   IOSTANDARD LVCMOS33 } [get_ports { vga_r[0] }]; #IO_L10P_T1_34 Sch=jc_p[1]
+#set_property -dict { PACKAGE_PIN W15   IOSTANDARD LVCMOS33 } [get_ports { vga_r[1] }]; #IO_L10N_T1_34 Sch=jc_n[1]
+#set_property -dict { PACKAGE_PIN T11   IOSTANDARD LVCMOS33 } [get_ports { vga_r[2] }]; #IO_L1P_T0_34 Sch=jc_p[2]
+#set_property -dict { PACKAGE_PIN T10   IOSTANDARD LVCMOS33 } [get_ports { vga_r[3] }]; #IO_L1N_T0_34 Sch=jc_n[2]
+#set_property -dict { PACKAGE_PIN W14   IOSTANDARD LVCMOS33 } [get_ports { vga_r[4] }]; #IO_L8P_T1_34 Sch=jc_p[3]
+#set_property -dict { PACKAGE_PIN Y14   IOSTANDARD LVCMOS33 } [get_ports { vga_g[0] }]; #IO_L8N_T1_34 Sch=jc_n[3]
+#set_property -dict { PACKAGE_PIN T12   IOSTANDARD LVCMOS33 } [get_ports { vga_g[1] }]; #IO_L2P_T0_34 Sch=jc_p[4]
+#set_property -dict { PACKAGE_PIN U12   IOSTANDARD LVCMOS33 } [get_ports { vga_g[2] }]; #IO_L2N_T0_34 Sch=jc_n[4]
+#set_property -dict { PACKAGE_PIN T14   IOSTANDARD LVCMOS33 } [get_ports { vga_g[3] }]; #IO_L5P_T0_34 Sch=jd_p[1]
+#set_property -dict { PACKAGE_PIN T15   IOSTANDARD LVCMOS33 } [get_ports { vga_g[4] }]; #IO_L5N_T0_34 Sch=jd_n[1]
+#set_property -dict { PACKAGE_PIN P14   IOSTANDARD LVCMOS33 } [get_ports { vga_g[5] }]; #IO_L6P_T0_34 Sch=jd_p[2]
+#set_property -dict { PACKAGE_PIN R14   IOSTANDARD LVCMOS33 } [get_ports { vga_b[0] }]; #IO_L6N_T0_VREF_34 Sch=jd_n[2]
+#set_property -dict { PACKAGE_PIN U14   IOSTANDARD LVCMOS33 } [get_ports { vga_b[1] }]; #IO_L11P_T1_SRCC_34 Sch=jd_p[3]
+#set_property -dict { PACKAGE_PIN U15   IOSTANDARD LVCMOS33 } [get_ports { vga_b[2] }]; #IO_L11N_T1_SRCC_34 Sch=jd_n[3]
+#set_property -dict { PACKAGE_PIN V17   IOSTANDARD LVCMOS33 } [get_ports { vga_b[3] }]; #IO_L21P_T3_DQS_34 Sch=jd_p[4]
+#set_property -dict { PACKAGE_PIN V18   IOSTANDARD LVCMOS33 } [get_ports { vga_b[4] }]; #IO_L21N_T3_DQS_34 Sch=jd_n[4]
+#set_property -dict { PACKAGE_PIN V12   IOSTANDARD LVCMOS33 } [get_ports { vga_hs }]; #IO_L4P_T0_34 Sch=je[1]
+#set_property -dict { PACKAGE_PIN W16   IOSTANDARD LVCMOS33 } [get_ports { vga_vs }]; #IO_L18N_T2_34 Sch=je[2]
 
 ##Switches
 #set_property -dict { PACKAGE_PIN G15   IOSTANDARD LVCMOS33 } [get_ports { sw0 }]; #IO_L19N_T3_VREF_35 Sch=sw[0]
@@ -115,6 +115,17 @@ set_property -dict { PACKAGE_PIN W16   IOSTANDARD LVCMOS33 } [get_ports { vga_vs
 #set_property -dict { PACKAGE_PIN C20   IOSTANDARD TMDS_33     } [get_ports { hdmi_tx_p[1] }]; #IO_L1P_T0_AD0P_35 Sch=hdmi_tx_p[1]
 #set_property -dict { PACKAGE_PIN A20   IOSTANDARD TMDS_33     } [get_ports { hdmi_tx_n[2] }]; #IO_L2N_T0_AD8N_35 Sch=hdmi_tx_n[2]
 #set_property -dict { PACKAGE_PIN B19   IOSTANDARD TMDS_33     } [get_ports { hdmi_tx_p[2] }]; #IO_L2P_T0_AD8P_35 Sch=hdmi_tx_p[2]
+
+## HDMI TX constraints for hdmi_top port names
+set_property -dict { PACKAGE_PIN H17   IOSTANDARD TMDS_33 } [get_ports { hdmi_clk_n }]; #hdmi_tx_clk_n
+set_property -dict { PACKAGE_PIN H16   IOSTANDARD TMDS_33 } [get_ports { hdmi_clk_p }]; #hdmi_tx_clk_p
+set_property -dict { PACKAGE_PIN D20   IOSTANDARD TMDS_33 } [get_ports { hdmi_d_n[0] }]; #hdmi_tx_n[0]
+set_property -dict { PACKAGE_PIN D19   IOSTANDARD TMDS_33 } [get_ports { hdmi_d_p[0] }]; #hdmi_tx_p[0]
+set_property -dict { PACKAGE_PIN B20   IOSTANDARD TMDS_33 } [get_ports { hdmi_d_n[1] }]; #hdmi_tx_n[1]
+set_property -dict { PACKAGE_PIN C20   IOSTANDARD TMDS_33 } [get_ports { hdmi_d_p[1] }]; #hdmi_tx_p[1]
+set_property -dict { PACKAGE_PIN A20   IOSTANDARD TMDS_33 } [get_ports { hdmi_d_n[2] }]; #hdmi_tx_n[2]
+set_property -dict { PACKAGE_PIN B19   IOSTANDARD TMDS_33 } [get_ports { hdmi_d_p[2] }]; #hdmi_tx_p[2]
+set_property -dict { PACKAGE_PIN F17   IOSTANDARD LVCMOS33 } [get_ports { hdmi_out_en }]; #dummy enable pin for shared top-level
 
 ##HDMI TX CEC 
 #set_property -dict { PACKAGE_PIN E19   IOSTANDARD LVCMOS33 } [get_ports { hdmi_tx_cec }]; #IO_L5N_T0_AD9N_35 Sch=hdmi_tx_cec

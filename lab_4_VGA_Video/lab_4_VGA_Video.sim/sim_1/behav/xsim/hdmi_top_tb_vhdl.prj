@@ -1,0 +1,17 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../lab_4_VGA_Video.ip_user_files/ipstatic/src/ClockGen.vhd" \
+"../../../../lab_4_VGA_Video.ip_user_files/ipstatic/src/SyncAsync.vhd" \
+"../../../../lab_4_VGA_Video.ip_user_files/ipstatic/src/SyncAsyncReset.vhd" \
+"../../../../lab_4_VGA_Video.ip_user_files/ipstatic/src/DVI_Constants.vhd" \
+"../../../../lab_4_VGA_Video.ip_user_files/ipstatic/src/OutputSERDES.vhd" \
+"../../../../lab_4_VGA_Video.ip_user_files/ipstatic/src/TMDS_Encoder.vhd" \
+"../../../../lab_4_VGA_Video.ip_user_files/ipstatic/src/rgb2dvi.vhd" \
+"../../../../lab_4_VGA_Video.gen/sources_1/ip/rgb2dvi_0/sim/rgb2dvi_0.vhd" \
+"../../../../lab_4_VGA_Video.srcs/sources_1/new/hdmi_top.vhd" \
+"../../../../lab_4_VGA_Video.srcs/sources_1/new/pixel_pusher_hdmi.vhd" \
+"../../../../lab_4_VGA_Video.srcs/sources_1/new/vga_ctrl.vhd" \
+"../../../../lab_4_VGA_Video.srcs/sim_1/new/hdmi_top_tb.vhd" \
+
+# Do not sort compile order
+nosort

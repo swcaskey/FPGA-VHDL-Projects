@@ -1,0 +1,18 @@
+0.7
+2020.2
+Jun 10 2021
+19:45:28
+/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.gen/sources_1/ip/picture/sim/picture.v,1776113274,verilog,,,,picture,,,,,,,,
+/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.gen/sources_1/ip/rgb2dvi_0/sim/rgb2dvi_0.vhd,1776120936,vhdl,,,,rgb2dvi_0,,,,,,,,
+/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.ip_user_files/ipstatic/src/ClockGen.vhd,1776120938,vhdl,/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.ip_user_files/ipstatic/src/rgb2dvi.vhd,,,clockgen,,,,,,,,
+/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.ip_user_files/ipstatic/src/DVI_Constants.vhd,1776120938,vhdl,/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.ip_user_files/ipstatic/src/TMDS_Encoder.vhd,,,dvi_constants,,,,,,,,
+/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.ip_user_files/ipstatic/src/OutputSERDES.vhd,1776120938,vhdl,/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.ip_user_files/ipstatic/src/rgb2dvi.vhd,,,outputserdes,,,,,,,,
+/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.ip_user_files/ipstatic/src/SyncAsync.vhd,1776120938,vhdl,/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.ip_user_files/ipstatic/src/SyncAsyncReset.vhd,,,syncasync,,,,,,,,
+/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.ip_user_files/ipstatic/src/SyncAsyncReset.vhd,1776120938,vhdl,/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.ip_user_files/ipstatic/src/rgb2dvi.vhd,,,resetbridge,,,,,,,,
+/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.ip_user_files/ipstatic/src/TMDS_Encoder.vhd,1776120938,vhdl,/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.ip_user_files/ipstatic/src/rgb2dvi.vhd,,,tmds_encoder,,,,,,,,
+/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.ip_user_files/ipstatic/src/rgb2dvi.vhd,1776120938,vhdl,,,,rgb2dvi,,,,,,,,
+/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.sim/sim_1/behav/xsim/glbl.v,1623370582,verilog,,,,glbl,,,,,,,,
+/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.srcs/sim_1/new/hdmi_top_tb.vhd,1776120472,vhdl,,,,hdmi_top_tb,,,,,,,,
+/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.srcs/sources_1/new/hdmi_top.vhd,1776120467,vhdl,,,,hdmi_top,,,,,,,,
+/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.srcs/sources_1/new/pixel_pusher_hdmi.vhd,1776120454,vhdl,,,,pixel_pusher_hdmi,,,,,,,,
+/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.srcs/sources_1/new/vga_ctrl.vhd,1776113274,vhdl,,,,vga_ctrl,,,,,,,,
