@@ -44,10 +44,12 @@ begin
                 end if;
 
                 if active_pixel = '1' then
-                    -- Expand 3:3:2 color to 8:8:8 while preserving brightness steps.
-                    r_reg <= pixel(7 downto 5) & pixel(7 downto 5) & pixel(7 downto 6);
-                    g_reg <= pixel(4 downto 2) & pixel(4 downto 2) & pixel(4 downto 3);
-                    b_reg <= pixel(1 downto 0) & pixel(1 downto 0) & pixel(1 downto 0) & pixel(1 downto 0);
+                    --R, G: 3 bits (max 7) to 8 bits (max 255)
+                    r_reg <= std_logic_vector(to_unsigned((to_integer(unsigned(pixel(7 downto 5))) * 255) / 7, 8));
+                    g_reg <= std_logic_vector(to_unsigned((to_integer(unsigned(pixel(4 downto 2))) * 255) / 7, 8));
+                    
+                    --B: 2 bits (max 3) to 8 bits (max 255)
+                    b_reg <= std_logic_vector(to_unsigned((to_integer(unsigned(pixel(1 downto 0))) * 255) / 3, 8));
                 else
                     r_reg <= (others => '0');
                     g_reg <= (others => '0');

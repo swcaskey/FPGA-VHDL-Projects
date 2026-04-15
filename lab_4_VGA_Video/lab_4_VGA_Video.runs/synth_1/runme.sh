@@ -20,7 +20,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.runs/synth_1'
+HD_PWD='/home/user/Desktop/lab_4_VGA_Video/lab_4_VGA_Video.runs/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
@@ -36,4 +36,4 @@ EAStep()
      fi
 }
 
-EAStep vivado -log image_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source image_top.tcl
+EAStep vivado -log hdmi_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source hdmi_top.tcl

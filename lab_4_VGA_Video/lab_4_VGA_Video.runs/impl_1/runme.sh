@@ -20,7 +20,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='/home/user/Desktop/NewTest/lab_4_VGA_Video/lab_4_VGA_Video.runs/impl_1'
+HD_PWD='/home/user/Desktop/lab_4_VGA_Video/lab_4_VGA_Video.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
@@ -38,6 +38,6 @@ EAStep()
 
 # pre-commands:
 /bin/touch .init_design.begin.rst
-EAStep vivado -log image_top.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source image_top.tcl -notrace
+EAStep vivado -log hdmi_top.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source hdmi_top.tcl -notrace
 
 
