@@ -1,0 +1,47 @@
+﻿swc70
+HW10 Vahid Chapter 4
+
+
+4.1) Given the timer structure (see slide 12 of lecture), and a clock frequency of 10 MHz, determine
+  
+
+Range and resolution:
+* 1/10MHz = 100ns is the clock period
+* Resolution: 100 ns
+* Range: 16 bit timer counts to 216 which is 16,536 values aka up to 16,535. 16,535 * 100ns = 6.5535 ms
+Terminal count value needed to measure 3 ms intervals:
+* 3ms/100ns = 30,000
+If pre-scaler is added, what is the minimum division needed to measure interval of 100 ms  (Divisions in power of 2)?, determine range and resolution:
+* Base range is 6.5535. To measure up to 100ms, the clock has to be divided by atleast 100/6.5535 which is about 15.26. The smallest power of 2x that is >= to 15.26 is 16. 16 is hte minimum division needed.
+* 100 ns & 16µs = 1600ns. This is the new resolution, it is the base clock * scalar
+* 16 bit max count * new resolution. So 65,535 * 1.6µs = 104.856ms. This is the new range
+Instead of pre-scaler, a second 16-bit counter is cascaded (see slide 13 of lecture), what is the range and resolution now?:
+* Cascading two 16 bit counters makes a 32 bit counter. The range is extgended while keeping the same resolution. The resolution is 100ns, which is the original clock period
+* The new range is now 232 - 1 so 4,294,967,295. 4,294,967,295 * 100ns = approx 429.4967295 seconds
+
+
+4.2) A watchdog timer uses two-cascaded 16-bit up-counters (see slide 13 of lecture), and is connected to an 11.981 MHz oscillator.  A timeout should occur if a function "reset" is not called within 5 minutes.  What is the value that should be loaded into the up-counter pair when the function is called?:
+* 5 min * 60s/min = 300s
+* Cycles = 300s * 11,981,000Hz = 3,594,300,000 cycles
+* Range is 232 (as we have two 16 bit counters) = 4,294,967,296
+* Make sure the timer opverflows and resets, has to occur when x cycles passed so make the timer start counting from Range - x
+   * Loaded value = 4,294,967,296 - 3,594,300,000 = 700,667,296
+* Load the value 700,667,296
+
+
+4.6) A particular motor operates at 10 revolutions per second when its controlling input voltage is 3.7 V.  Assume a microcontroller with a PWM whose output port can be set to High (5 V) or low (0 V)
+Compute duty cycle needed to obtain 10 revolutions per second:
+* Duty Cycle is target voltage / Max voltage = 3.7/5.0 = 0.74. The duty cycle needed is 74%. PWM controls the average voltage by switching the output between low and high very quickly.
+Provide values for a pulse width and period that achieves this duty cycle  (No limit on minimum or maximum frequency, but should be reasonable. There can be multiple answers to this problem based on your own design:
+* To get a 74% duty cycle and given a DC motor goes between 100HZ to 20kHZ we could try a frequency of 1KHz aka 1000Hz
+   * Period = 1/1000Hz = 0.001s = 1ms
+   * The pulse width is the time the signal remains high during a period: 1ms * 0.74 + 0.74ms
+   * The pulse width is 0.74 ms or 740µs
+* If you try 100 Hz, the period would be 10ms and a pulse width of 7.4ms
+
+
+4.15) Compute the memory needed in bytes to store a 4-bit digital encoding of a 3-second analog audio signal sampled every 10 milliseconds:
+* Samples over 3s. 10ms is 0.01s. So 3s/(0.01s/sample) = 300 samples
+* 300 samples * 4bits/sample = 1200 bits
+* 1200 bits is 150 bytes (divide by 8)
+* The memory needed to store the encoded audio signal is 150 bytes

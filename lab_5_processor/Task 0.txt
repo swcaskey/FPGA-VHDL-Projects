@@ -1,0 +1,23 @@
+﻿1. Modify the entity “my_alu” from Lab 2 to have a width of 16 bits and the following opcodes given in the below table. Make it synchronous with a clock enable input.
+Opcode,Function
+"x""0""",A+B 
+"x""1""",A-B 
+"x""2""",A+1 
+"x""3""",A-1 
+"x""4""",0-A 
+"x""5""",A<<1 (shift left logical) 
+"x""6""",A>>1 (shift right logical) 
+"x""7""",A>>>1 (shift right arithmetic) 
+"x""8""",A and B 
+"x""9""",A or B 
+"x""A""",A xor B 
+"x""B""",A<B (signed) (as bit 0 of output) 
+"x""C""",A>B (signed) (as bit 0 of output) 
+"x""D""",A=B (as bit 0 of output) 
+"x""E""",A<B (as bit 0 of output) 
+"x""F""",A>B (as bit 0 of output)
+
+
+2. Modify the entity “pixel_pusher” and “vga_ctrl” from Lab 4 to output a 64x64 resolution image
+from hcount = [0, 63] and vcount = [0, 63] using a 12-bit “addr”. It will read in a 16-bit pixel
+instead of an 8-bit one with the following distribution: [R,G,B] = [5,6,5]

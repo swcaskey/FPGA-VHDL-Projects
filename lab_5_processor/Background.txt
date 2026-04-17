@@ -1,0 +1,49 @@
+﻿Introduction:
+In this lab, we are going to use almost everything we have learned and created thus far in order to make
+the most recognizable design in all of ECE; a processor. Our design is a general purpose processor with
+some application specific instructions for video and communications. In this way, it is similar to a
+simplified Application-Specific Instruction-Set Processor (ASIP).
+In order to implement it, a fully detailed Instruction Set Architecture (ISA) has been created that will
+be the core of the design. By modifying previous components to fit our needs and leveraging the
+memory IP available in the Vivado tool, an entire computer system will be created with relatively
+little effort on our part. Once the design has been created, it will be tested by running programs that
+were written in assembly and passed through a custom assembler as well as running it through a full
+system simulator.
+
+
+Background:
+Before we can go about making our processor, we have to understand how it works. To do so, we must
+examine the ISA that has been created. This will tell us the available instructions, memory organization,
+register file structure, and instruction formats.
+In general, a processor consists of a group of “dumb” components, like memories, general-purpose
+registers, multiplexers, an ALU, and a “smart” controller. By using a Finite State Machine as the
+controller, we can put those components to work to accomplish meaningful tasks.
+For the bulk of this lab, we will be creating and modifying these components in order to prepare them for
+our top level design. Then, we will create the most complicated part; the controller.
+Understand how to use the Vivado IP Integrator Tool.
+Read through these ISA specifications in this table:
+Instruction,Opcode,Format,Meaning
+,add ,0b00000 ,[op][reg1][reg2][reg3] 
+,sub ,0b00001 ,[op][reg1][reg2][reg3] 
+,sll ,0b00010 ,[op][reg1][reg2][*reg3] 
+,srl ,0b00011 ,[op][reg1][reg2][*reg3] 
+,sra ,0b00100 ,[op][reg1][reg2][*reg3] 
+,and ,0b00101 ,[op][reg1][reg2][reg3] 
+,or ,0b00110 ,[op][reg1][reg2][reg3] 
+,xor ,0b00111 ,[op][reg1][reg2][reg3] 
+,slt ,0b01000 ,[op][reg1][reg2][reg3] 
+,sgt ,0b01001 ,[op][reg1][reg2][reg3] 
+,seq ,0b01010 ,[op][reg1][reg2][reg3] 
+,send (asip) ,0b01011 ,[op][reg1][*reg2][*reg3] 
+,recv (asip) ,0b01100 ,[op][reg1][*reg2][*reg3] 
+,jr ,0b01101 ,[op][reg1][*reg2][*reg3] 
+,wpix (asip) ,0b01110 ,[op][reg1][reg2][*reg3] 
+,rpix (asip) ,0b01111 ,[op][reg1][reg2][*reg3] 
+,beq ,0b10000 ,[op][reg1][reg2][imm] 
+,bne ,0b10001 ,[op][reg1][reg2][imm] 
+,ori ,0b10010 ,[op][reg1][reg2][imm] 
+,lw ,0b10011 ,[op][reg1][reg2][imm] 
+,sw ,0b10100 ,[op][reg1][reg2][imm] 
+,jmp ,0b11000 ,[op][imm] 
+,jal ,0b11001 ,[op][imm] 
+,clrscr (asip) ,0b11010 ,[op][imm]

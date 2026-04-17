@@ -1,0 +1,32 @@
+// UART and Video Memory Program
+// Prints "Hello_World" over UART, then reads characters and fills video memory
+
+.data
+
+str_data: str "Hello_World"
+
+.text
+// Initialize counters and constants
+ori $r3 $zero 0      // counter for string indexing
+ori $r4 $zero 0      // counter for video memory
+ori $r5 $zero 1      // constant 1
+ori $r6 $zero 4096   // constant for video memory max address
+
+// UART Output Loop: read char from string and send over UART
+uart_loop:
+lw $r7 $r3 str_data   // load char from string
+beq $r7 $zero recv_input // if char is null, go to input loop
+send $r7               // send char to UART
+add $r3 $r3 $r5       // increment string pointer
+j uart_loop
+
+// Video Memory Fill Loop: read from UART and write to all video memory
+recv_input:
+recv $r8              // read character from UART into $r8
+ori $r4 $zero 0      // reset video memory counter
+
+video_loop:
+beq $r4 $r6 recv_input  // if counter reaches max, get another char
+wpix $r4 $r8           // write character to video memory
+add $r4 $r4 $r5       // increment video memory counter
+j video_loop

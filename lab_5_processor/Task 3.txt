@@ -1,0 +1,123 @@
+﻿Background:
+We have finally reached it, the big kahuna. In this section we are going to make the brains of the
+operation, the controller. Everything ends up becoming a state in our machine and adding custom
+instructions is as simple as adding more states to the machine. This makes the controller mostly
+mindless grunt work, since the FSM states themselves are relatively simple. Our FSM models a multi-
+cycle CPU with an average CPI of roughly 5 clock cycles.
+
+
+Tasks:
+1) Create the FSM for the control unit “controls”. See listing (5.5) for entity declaration. In order to facilitate the development of the controller, a simplified state diagram and state behavior table have been given in Figure (5.1) and Table (5.2) respectively. It will need more “wait” states in some areas due to latency with memories and the ALU (see notes below). You only need to create those instructions referenced in the assembly program. Hint: There are 8 of them.
+
+
+2) Simulate your controller for a simple arithmetic instruction by asserting the instruction “add
+$r3 $r4 $r5” (x“00C85000”). Verify that it goes through the proper states and asserts the
+correct control signals.
+
+
+Listing 5.5: Controls Entity Description
+entity controls is
+port (
+    -- Timing Signals
+    clk, en, rst : in std_logic;
+
+
+    -- Register File IO
+    rID1, rID2       : out std_logic_vector(4 downto 0);
+    wr_enR1, wr_enR2 : out std_logic;
+    regrD1, regrD2   : in std_logic_vector(15 downto 0);
+    regwD1, regwD2   : out std_logic_vector(15 downto 0);
+
+
+    -- Framebuffer IO
+    fbRST    : out std_logic;
+    fbAddr1  : out std_logic_vector(11 downto 0);
+    fbDin1   : in std_logic_vector(15 downto 0);
+    fbDout1  : out std_logic_vector(15 downto 0);
+    fbWr_en  : out std_logic;
+    
+    -- Instruction Memory IO
+    irAddr : out std_logic_vector(13 downto 0);
+    irWord : in std_logic_vector(31 downto 0);
+
+
+    -- Data Memory IO
+    dAddr   : out std_logic_vector(14 downto 0);
+    d_wr_en : out std_logic;
+    dOut    : out std_logic_vector(15 downto 0);
+    dIn     : in std_logic_vector(15 downto 0);
+
+
+    -- ALU IO
+    aluA, aluB : out std_logic_vector(15 downto 0);
+    aluOp      : out std_logic_vector(3 downto 0);
+    aluResult  : in std_logic_vector(15 downto 0);
+
+
+    -- UART IO
+    ready, newChar : in std_logic;
+    send           : out std_logic;
+    charRec        : in std_logic_vector(7 downto 0);
+    charSend       : out std_logic_vector(7 downto 0)
+);
+end controls
+
+
+Figure 5.1:
+The main loop:
+- It starts at fetch, which points to decode.
+- decode splits into three main branches: Rops, Iops, and Jops.
+- Everything eventually funnels down into finish, which loops all the way back up to fetch.
+Branch 1: Rops (R-Type Operations)
+From Rops, the system can transition into six different states:
+- calc (goes to store)
+- jr (goes to store)
+- recv* (has a self-loop, and goes to store)
+- rpix* (goes to store)
+- wpix* (goes directly to finish)
+- send* (has a self-loop, and goes directly to finish)
+Branch 2: Iops (I-Type Operations)
+From Iops, the system can transition into five different states:
+- equals (goes to store)
+- nequal (goes to store)
+- ori (goes to store)
+- lw (goes to store)
+- sw (goes directly to finish)
+Branch 3: Jops (J-Type Operations)
+From Jops, the system can transition into three different states:
+- jmp (goes directly to finish)
+- jal (goes directly to finish)
+- clrscr* (goes directly to finish)
+The Funnel States:
+- store: All the states that calculate or read data (calc, jr, recv*, rpix*, equals, nequal, ori, lw) point to store. From store, it goes to finish.
+- finish: All the write/jump states (wpix*, send*, sw, jmp, jal, clrscr*) point directly here, along with store.
+NOTE 1: Reading from irMem and dMem has a 1 clock cycle latency. Your results will not be available
+until the next rising edge after you assert your control signals. This 1 cycle latency also exists for reading
+the result from your ALU
+NOTE 2: Any control signals asserted should be immediately de-asserted on the next state in your state
+machine
+
+
+Table 5.2: “Controls” State Transition and BehaviorTable
+Current State,Actions,Next State
+,fetch,get current pc from reg into signal 
+,decode,store irMem[pc_signal] into a signal. store pc_signal+1 into register 1 
+Rops,Break up instruction into arguments. Use arguments to fetch register contents for reg2 and reg3 into signals ,jr if opcode is 01101 else recv if 01100 else rpix if 01111 else wpix if 01110 else send if 01011 else calc 
+Iops,Break up instruction into arguments. Use arguments to fetch register contents for reg2 into signal ,equals if opcode bottom 3 bits are 000 else nequal if 001 else ori if 010 else lw if 011 else sw 
+Jops,Break up instruction into arguments ,jmp if opcode is 11000 else jal if 11001 else clrscr 
+calc,Apply the register operands and the correct opcode to the ALU and store the result into an alu result signal ,store 
+store,Store the alu result signal into the appropriate register given by argument reg1 ,finish 
+jr,Read the register value specified and store it in alu result signal ,store 
+recv (asip),Store charRec into alu result signal ,recv if newChar is 0 else store 
+rpix (asip),Read the framebuffer memory at the address of the value in reg2 and store it in alu result signal ,store 
+wpix (asip),Store the value read from reg2 into framebuffer[reg1] ,finish 
+send (asip),Make send 1 and assign the value read from reg1 to charSend ,"If ready is 1 finish, else send "
+equals,If values equal set alu signal to immediate and set reg1 signal to pc id ,store 
+nequal,If values not equal set alu signal to immediate and set reg1 signal to pc id ,store 
+ori,Store the result of the immediate bitwise ORed with the value from reg2 into the alu signal ,store 
+lw,Set the value of the alu signal to the value in dmem[reg2+imm] ,store 
+sw,Store the value of reg1 into dmem[reg2+imm] ,finish 
+jmp,Set the value of the pc register to the immediate ,finish 
+jal,Set the value of the ra register to the value of the pc register and set the value of the pc register to the immediate ,finish 
+clrscr (asip),Set fbRST to 1 ,finish 
+finish,De-assert any required control signals ,fetch

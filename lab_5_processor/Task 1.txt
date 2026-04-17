@@ -1,0 +1,11 @@
+﻿I already did everything in this txt file, but I am writing it to tell you what I did…
+
+
+Background:
+In order to use our processor, we’re going to need some programs to run on it. In order to get those, we can write them ourselves. However, writing binary instructions is really annoying and time-intensive. Instead, two versions of an assembler have been prepared that will convert raw text assembly programs into binary files to use with our design. One was written using MATLAB, while the other was written using Python. See the folder “Assembler”.
+For our test programs, we will do simple tasks that exercise the IO interfaces available in the architecture, the UART and the VGA display. By using these interfaces with some simple programs, we can easily prove the basic functionality of the design.
+In order to understand the format of the assembly language, please look at the provided text files in the “Assembler” folder. Please note that the syntax varies slightly depending on which assembler you choose to use. *** SpecificallyLook at the comments in the assembler source for a description of the allowed formats.
+
+
+Tasks:
+I used the provided assembler program (Python version) that print the string “Hello_ World” over the UART, one byte at a time by reading characters from a string declared in the data segment and sending them until it encounters a null character. After it finishes, it continuously loops through reading a character from the UART into a register and writing that register value to all memory locations in the video memory. Assemble it and store the text and data COE files for later use. Simulate it to verify code functionality using the provided simulator.

@@ -1,0 +1,51 @@
+﻿Background:
+We need to create the memory blocks that will contain the data and instruction information from our assembly
+code. We are going to create these blocks using the Memory Block generator used in Lab 4. We will also bring in the additional blocks we created in the past for the UART, Clock_div, Clock_div (25 MHz), and Debouncer.
+In order to implement this final design on the board, which is clearly gargantuan, we are going to take advantage of a graphical entry tool called the IP Integrator.
+
+
+The majority of the things in this file I have to do by myself in Vivado, which you do not have access to (it is on my other computer). You do have do task 2 though.
+
+
+Tasks:
+1) In order to start working in the IP Integrator, click “Create Block Design” under the IP Integrator flow tab. Specify some arbitrary name (uproc_top_level for instance) for your design and click OK. This will bring you into the integrator window. From here, drop in your designs by right clicking inside the main window and selecting “Add Module” double click the module you wish to add and it will be dropped into the block diagram view. Ignore all connection automation prompts. Implement your design in a top level according to the simplified block diagram given in Figure (5.2). Include your design blocks from prior labs: UART, Clock_div, clock_div (25 MHz) and Debouncer for a reset button connection. We will create the Memory blocks in the next steps.
+Figure (5.2): Lab 5 Simplified Top Level Block Diagram
+Central Hub
+- The controls block is the brain in the center, featuring bidirectional communication with regs, alu, dMem, irMem, and uart.
+- The controls block also sends data one-way to the framebuffer
+Clocking and Enables
+- A global note states that every block has a clk connected to it as an input.
+- The clock_div 115200 Hz block drives the enable (en) lines for controls, regs, alu, uart, and the first enable (en1) of the framebuffer.
+- The clock_div 25 MHz block drives the enable (en) lines for pixel_pusher, vga_ctrl, and the second enable (en2) of the framebuffer.
+Resets
+- An external button signal feeds into the debounce block.
+- The debounce block outputs a reset signal that wires directly to the rst inputs on the controls, regs, and uart blocks
+Video Subsystem
+- The framebuffer has bidirectional communication with the pixel_pusher.
+- The pixel_pusher outputs the video color signals labeled vga r,g,b.
+- The vga_ctrl outputs the video sync signals labeled vga hs,vs.
+External I/O
+- The uart block handles bidirectional communication with the outside world via the pmod connection
+
+
+2) Create an appropriately modified XDC file.
+
+
+3) Create a single port ROM, called “irMem” (Our instruction memory), using the Xilinx Block Memory IP in the same manner as described in Lab 4 Part 2, but using the “Add IP” option inside the Diagram window. Set the Mode to Stand Alone. Set the width to 32 bits and the depth to 16384 (a total of 64 KiB). [Notice how this memory is not large enough to have a 16 bit address space since we are addressing by double word rather than byte. Our processor has a “virtual” address space of 16 bits for the instruction memory but our physical system only has a 14 bit instruction address space due to memory limitations. In our top level design, we will ignore the upper 2 bits of our address when addressing this memory]. Disable any output registering and set the enables to always enabled. In the “Other Options” tab, set it to initialize using the text coe file generated in Part 1. You can change the name of the IP in the Block Properties window.
+
+
+4) Create a single port RAM, called “dMem” (our data memory), using the Xilinx Block Memory IP in the same manner as described in Lab 4 Part 2 and as explained above. Set the width to 16 bits and the depth to 32768 (a total of 64 KiB). [Notice how this memory is not large enough to have a 16 bit address space since we are addressing by word rather than byte. Our processor has a “virtual” address space of 16 bits for the data memory but our physical system only has a 15 bit data address space due to memory limitations. In our top level design, we will ignore the top bit of our address when addressing this memory]. Disable any output registering and set the enables to always enabled. In the “Other Options” tab, set it to initialize using the data coe file generated in Part 1.
+
+
+5) Once all your modules have been dropped in, you can connect them by clicking on a port and dragging the connection to another port. In order to make ports go to your top level IO, right click and select “Make External”. Use both the simplified and detailed Block diagram in Figure (5.2) and Figure (5.3). Start with one block at a time, i.e. connect ALU to Controls, regs to controls, etc..., use the port names and size on the controls block as a guide. Then rename the external contact to match the name in your XDC file by right clicking the port, selecting “External Port Properties”, and renaming the port name.
+
+
+6) After connecting all of your modules, you will need to add ports that are tied to high impedance (Our CTS and RTS signals for the UART PMOD). In order to do so, go to the ports list in the left hand helper window. Right click the “ports” section and select “Create port”. Set the name of your top level port and the direction. Then click OK. That’s it, it stays unconnected to be tied to high impedance via a tri-state buffer. Now click the checkmark icon in order to validate your block design and check for any errors. Once that is done the design is finished. Please include the block diagram image you generate in your final lab report.
+
+
+7) Finally, go back to the “Project Manager” flow tab. Right click your block diagram file and select “Create HDL Wrapper”. The tool will generate warnings about width mismatches for our memories and our controller. This is fine. It will only connect the lower bits together, which is what we want. Then set the VHDL file it creates as your top level design. You are now ready to proceed to synthesis, implementation and bitstream generation.
+
+
+Debug Hints:
+- You can simulate your entire HDL wrapper and watch your entire system execute cycle by cycle. Very useful for testing your design. It will behave exactly the same way in the physical system. Be careful of sensitivity lists for processes to avoid mismatch vs. hardware. You should be able to drag the PC counter, State, and other signals of interest from the UART, Framebuffer etc.. into the simulation window.
+- If Vivado decides to simulate post synthesis and dissolve your busses into wires, copy the top level HDL wrapper and the other HDL files into a new project. Generate the dMem and irMem using the IP Library like in lab 4. Modify the component names in the HDL wrapper. Now you can simulate the RTL version and add signals such as your state to get better waveforms that are easier to read as well as a properly enumerated state instead of one-hot encoded.

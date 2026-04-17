@@ -1,0 +1,133 @@
+﻿Background:
+In order for our processor to have data to work with, we need memories. For simplicity, our system uses a pure
+Harvard Architecture with separate instruction and data memories. In this way, our executable code is stored in a single port read-only memory that is read from by the controller. Our data memory is stored in a single port ram memory that allows read/write access. Additionally, we implement our Register File as a dual port memory in order to allow double reads for R-type instructions. Finally, our VGA controller reads data from a dual port ram known as a framebuffer (which can be written and read to by the CPU) in order to output the contents of the framebuffer to the screen.
+Some of these memories (the instruction and data memories) will be auto generated, in a similar method to the one used in Lab 4, in order to “program” them in advance with the outputs of our assembler. For the others, we are going to manually create them ourselves using simple VHDL that infers memory blocks.
+In order to infer memory, we start by modeling our memory as an array of std_ logic_vectors, similar to how a ROM was inferred in Lab 3 for your NetID. By describing the behavior of operations on indexes in that signal via some clever indexing and type conversions (think Lab 3), we can infer memories that the tool will then replace with the appropriate hardware primitives.
+
+
+Tasks:
+1) Create an entity called “regs” where you infer a true dual port (both ports can independently either read or write to any location) memory consisting of 32 16-bit words (64 Bytes). It should write synchronously and read asynchronously. See listing 5.1 for a black box description, and listing 5.2 for behavior.
+Listing 5.1: Register Entity
+entity regs is port (
+    clk, en, rst    : in std_logic;
+    id1, id2        : in std_logic_vector(4 downto 0);      -- Addresses
+    wr_en1, wr_en2  : in std_logic;
+    din1, din2      : in std_logic_vector(15 downto 0);
+    dout1, dout2    : out std_logic_vector(15 downto 0)
+);
+end regs;
+Listing 5.2: Register Description
+# sudo code for register behavior
+
+
+dout1 = registers(id1)
+dout2 = registers(id2)
+
+
+if on rising edge of clock:
+    registers(0) = 0
+    
+    if reset is 1:
+        registers(all) = 0
+        
+    else if enable is 1:
+        
+        if wr_en1:
+            registers(id1) = din1
+            
+        if wr_en2:
+            registers(id2) = din2
+
+
+2) Create an entity called “framebuffer” where you infer a dual port memory consisting of 4096 16-bit
+words (8 KiB). See listing 5.3 for the black box interface / entity declaration. [Notice how we have two
+different enables going into this device. The CPU side and the video display side are on two different
+clock domains, operating independently of each other. Because one side is only reading we can safely
+do this on a dual port memory. Otherwise we would have to navigate access with a controller and
+some FIFOs]
+Listing 5.3: Framebuffer Entity
+entity framebuffer is
+port (
+    clk1, en1, en2, ld : in std_logic;
+    addr1, addr2       : in std_logic_vector(11 downto 0);
+    wr_en1             : in std_logic;
+    din1               : in std_logic_vector(15 downto 0);
+    dout1, dout2       : out std_logic_vector(15 downto 0)
+);
+end framebuffer;
+
+
+Hint: Our goal with framebuffer is to infer BRAM. In order to fully reset it (i.e. zero out the
+memory), you will need to get creative. Attempting to reset all memory locations simultaneously will
+cause the tool to synthesize framebuffer as registers, which is not what we want.
+
+
+Listing 5.4: Dual Port RAM Infer Sample
+-- a parameterized, inferable, tdp, dual-clock bram in vhdl
+
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+
+entity bram_tdp is
+generic (
+    DATA    : integer := 72;
+    ADDR    : integer := 10
+);
+port (
+    -- port a
+    a_clk   : in std_logic;
+    a_wr    : in std_logic;
+    a_addr  : in std_logic(ADDR-1 downto 0);
+    a_din   : in std_logic(DATA-1 downto 0);
+    a_dout  : out std_logic(DATA-1 downto 0);
+
+
+    -- port b
+    b_clk   : in std_logic;
+    b_wr    : in std_logic;
+    b_addr  : in std_logic(ADDR-1 downto 0);
+    b_din   : in std_logic(DATA-1 downto 0);
+    b_dout  : out std_logic(DATA-1 downto 0)
+);
+end bram_tdp;
+
+
+architecture rtl of bram_tdp is
+
+
+    -- memory
+    type mem_type is array (0 to (2**ADDR)-1) of std_logic_vector(DATA-1 downto 0);
+    signal mem : mem_type;
+
+
+begin
+
+
+    -- port a
+    process(a_clk)
+    begin
+        if rising_edge(a_clk) then
+            if (a_wr = '1') then
+                mem(to_integer(unsigned(a_addr))) <= a_din;
+            end if;
+            a_dout <= mem(to_integer(unsigned(a_addr)));
+        end if;
+    end process;
+
+
+    -- port b
+    process(b_clk)
+    begin
+        if rising_edge(b_clk) then
+            if (b_wr = '1') then
+                mem(to_integer(unsigned(b_addr))) <= b_din;
+            end if;
+            b_dout <= mem(to_integer(unsigned(b_addr)));
+        end if;
+    end process;
+
+
+end rtl;

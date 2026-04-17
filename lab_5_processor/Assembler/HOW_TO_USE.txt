@@ -1,0 +1,132 @@
+================================================================================
+HOW TO ASSEMBLE AND SIMULATE GRISC ASSEMBLY CODE
+================================================================================
+
+STEP 1: CREATE YOUR ASSEMBLY SOURCE FILE
+================================================================================
+Create a .txt file with your GRISC assembly code. Example: my_program.txt
+
+Format:
+  .data
+  label1: str "string"
+  label2: num 42
+
+  .text
+  ori $r3 $zero 0
+  lw $r7 $r3 label1
+  ... (your instructions)
+
+
+STEP 2: ASSEMBLE TO COE FILES
+================================================================================
+Run the assembler to convert assembly to binary COE format:
+
+  python assembler.py
+
+- Prompts for input assembly file (select your .txt file)
+- Prompts for output data COE file (save as _data.coe)
+- Prompts for output text COE file (save as _text.coe)
+
+This generates two files:
+  - *_data.coe: Data memory initialization (strings, constants)
+  - *_text.coe: Instruction memory initialization (program code)
+
+The COE files are binary format ready for FPGA implementation.
+
+
+STEP 3: SIMULATE YOUR PROGRAM
+================================================================================
+Test your code before FPGA:
+
+  python ../Simulator/simulator.py
+
+- Prompts for assembly source file (select your original .txt file)
+- Prompts for breakpoints (enter instruction numbers, -1 to finish)
+- Program runs and stops at breakpoints for inspection
+
+Interactive commands at breakpoints:
+  regs       Show all register values
+  prg        Show full program
+  dPeek      Read data memory
+  vPeek      Read video memory
+  dPoke      Write to data memory
+  rPoke      Write to register
+  vPoke      Write to video memory
+  step       Execute one instruction
+  exit       Resume execution
+
+
+EXAMPLE: HELLO WORLD PROGRAM
+================================================================================
+
+1. Assembly file (hello_world.txt) is already here
+
+2. Generate COE files:
+   python assembler.py
+   - Select: hello_world.txt
+   - Data output: hello_world_data.coe
+   - Text output: hello_world_text.coe
+
+3. Simulate:
+   python ../Simulator/simulator.py
+   - Select: hello_world.txt
+   - Breakpoint: 9
+   - See UART output: "hello_world"
+   - Then test video memory fill
+
+
+FILE STRUCTURE
+================================================================================
+Resources/
+├── Assembler/
+│   ├── hello_world.txt          (Example assembly source)
+│   ├── hello_world_data.coe     (Generated - data memory)
+│   ├── hello_world_text.coe     (Generated - instruction memory)
+│   ├── assembler.py             (Run this to assemble)
+│   ├── gen_coe.py               (Custom COE generator)
+│   └── HOW_TO_USE.txt           (This file)
+│
+└── Simulator/
+    ├── simulator.py             (Run this to simulate)
+    └── HOW_TO_USE.txt           (Link to this file)
+
+
+QUICK REFERENCE
+================================================================================
+
+ASSEMBLE:
+  cd Resources/Assembler
+  python assembler.py
+
+SIMULATE:
+  cd Resources/Simulator
+  python simulator.py
+
+OUTPUT FILES:
+  The assembler creates *_data.coe and *_text.coe in the Assembler folder.
+  These COE files are used in FPGA projects for memory initialization.
+
+
+TROUBLESHOOTING
+================================================================================
+
+Q: Assembler crashes or won't open dialogs
+A: Use gen_coe.py instead (doesn't require GUI)
+
+Q: Simulator won't start
+A: Ensure Python 3.x with Pillow and NumPy installed:
+   pip install Pillow numpy
+
+Q: Want to use command-line without dialogs
+A: Edit assembler.py or gen_coe.py to hardcode input/output file paths
+
+
+NOTES
+================================================================================
+- Assembly source files (.txt) stay in Assembler folder
+- Generated COE files (.coe) also go in Assembler folder
+- Simulator reads the assembly source file (not COE files)
+- COE files are for FPGA implementation, not simulation
+- Each new program needs its own .txt and generates new .coe files
+
+================================================================================
