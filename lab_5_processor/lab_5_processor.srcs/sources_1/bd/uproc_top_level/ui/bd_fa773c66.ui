@@ -1,0 +1,26 @@
+{
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"0.411509",
+   "Default View_TopLeft":"-1582,-921",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
+#  -string -flagsOSRD
+preplace inst irMem -pg 1 -lvl 4 -x 2500 -y -380 -defaultsOSRD
+preplace inst dMem -pg 1 -lvl 4 -x 2500 -y -800 -defaultsOSRD
+preplace inst clock_div_0 -pg 1 -lvl 1 -x 1190 -y -350 -defaultsOSRD
+preplace inst clock_div_25_0 -pg 1 -lvl 1 -x 1190 -y -130 -defaultsOSRD
+preplace inst controls_0 -pg 1 -lvl 3 -x 1890 -y -460 -defaultsOSRD
+preplace inst debounce_0 -pg 1 -lvl 1 -x 1190 -y 100 -defaultsOSRD
+preplace inst framebuffer_0 -pg 1 -lvl 2 -x 1490 -y -50 -defaultsOSRD
+preplace inst my_alu_0 -pg 1 -lvl 2 -x 1490 -y -520 -defaultsOSRD
+preplace inst pixel_pusher_0 -pg 1 -lvl 4 -x 2500 -y -20 -defaultsOSRD
+preplace inst regs_0 -pg 1 -lvl 2 -x 1490 -y -300 -defaultsOSRD -orient R180
+preplace inst vga_ctrl_0 -pg 1 -lvl 3 -x 1890 -y -20 -defaultsOSRD
+preplace inst uart_0 -pg 1 -lvl 4 -x 2500 -y -580 -defaultsOSRD
+levelinfo -pg 1 -30 1190 1490 1890 2500 2700
+pagesize -pg 1 -db -bbox -sgen -30 -1060 2700 240
+"
+}
+{
+   "da_clkrst_cnt":"9"
+}

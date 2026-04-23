@@ -1,0 +1,44 @@
+Here is a rough description of how the top level design is supposed to look. Be careful though because there may be some slight errors in the information below...
+
+Top-Level I/O Ports
+System Clock: Global input port clk.
+
+System Reset: Global input button btn_0.
+
+UART: Global input TXD (Receive line from PC) and global output RXD (Transmit line to PC).
+
+VGA Video: Global output buses vga_r[4:0], vga_b[4:0], and vga_g[5:0].
+
+VGA Sync: Global outputs vga_hs (Horizontal Sync) and vga_vs (Vertical Sync).
+
+Clocking and Reset Infrastructure
+Main Clock Net: The top-level clk port connects directly to the clock inputs of almost every module: clock_div_0.CLK, clock_div_25_0.CLK, debounce_0.clk, my_alu_0.clk, regs_0.clk, framebuffer_0.clk1, controls_0.clk, dMem.clka, uart_0.clk, irMem.clka, vga_ctrl_0.clk, and pixel_pusher_0.clk.
+
+System Enable Net (Divided Clock): The output clock_div_0.DIV connects to the standard enable pins: controls_0.en, my_alu_0.en, regs_0.en, uart_0.en, and framebuffer_0.en1.
+
+VGA Enable Net (25MHz Divided Clock): The output clock_div_25_0.DIV connects to the display pipeline enables: vga_ctrl_0.en, pixel_pusher_0.en, and framebuffer_0.en2.
+
+Debounced Reset: The top-level btn_0 connects to debounce_0.btn. The conditioned output debounce_0.dbnc routes to the reset pins: controls_0.rst, regs_0.rst, and uart_0.rst.
+
+Core Datapath Connections (Hub: controls_0)
+To ALU (my_alu_0): controls_0.aluA[15:0] drives my_alu_0.A[15:0]; controls_0.aluB[15:0] drives my_alu_0.B[15:0]; controls_0.aluOp[3:0] drives my_alu_0.Opcode[3:0]. The result my_alu_0.Outp[15:0] feeds back into controls_0.aluResult[15:0].
+
+To Registers (regs_0): Read addresses controls_0.rID1[4:0] and rID2[4:0] drive regs_0.id1[4:0] and id2[4:0]. Write enables controls_0.wr_enR1 and wr_enR2 connect to regs_0.wr_en1 and wr_en2. Write data lines controls_0.regwD1[15:0] and regwD2[15:0] drive regs_0.din1[15:0] and din2[15:0]. Read data returns via regs_0.dout1[15:0] and dout2[15:0] back to controls_0.regrD1[15:0] and regrD2[15:0].
+
+To UART (uart_0): Handshaking/control lines controls_0.send drives uart_0.send; uart_0.ready returns to controls_0.ready; uart_0.newChar returns to controls_0.newChar. Data flows via controls_0.charSend[7:0] to uart_0.charSend[7:0], and uart_0.charRec[7:0] to controls_0.charRec[7:0].
+
+External UART I/O: The top-level input TXD connects to uart_0.rx. The output uart_0.tx connects to the top-level output RXD.
+
+Memory Subsystem
+Instruction Memory (irMem): controls_0.irAddr[13:0] drives irMem.addra[13:0]. Instructions are fetched via irMem.douta[31:0] back into controls_0.irWord[31:0].
+
+Data Memory (dMem): Address controls_0.dAddr[14:0] drives dMem.addra[14:0]. Write enable controls_0.d_wr_en drives dMem.wea[0:0]. Write data controls_0.dIn[15:0] drives dMem.dina[15:0], and read data dMem.douta[15:0] returns to controls_0.dOut[15:0].
+
+Framebuffer and VGA Display Pipeline
+Control to Framebuffer (Port 1): The controller updates the framebuffer using controls_0.fbRST connected to framebuffer_0.ld; controls_0.fbWr_en to framebuffer_0.wr_en1; controls_0.fbAddr1[11:0] to framebuffer_0.addr1[11:0]; and controls_0.fbDin1[15:0] to framebuffer_0.din1[15:0]. Data can be read back via framebuffer_0.dout1[15:0] to controls_0.fbDout1[15:0].
+
+VGA Read Pipeline (Port 2): The pixel_pusher_0 controls reading from memory. pixel_pusher_0.addr[11:0] connects to framebuffer_0.addr2[11:0], and the pixel data flows from framebuffer_0.dout2[15:0] into pixel_pusher_0.pixel[15:0].
+
+VGA Control Signals: vga_ctrl_0.vid connects to pixel_pusher_0.vid; vga_ctrl_0.hcount[9:0] connects to pixel_pusher_0.hcount[9:0]. The vga_ctrl_0.vs output splits, driving both pixel_pusher_0.vs and the top-level vga_vs port. The vga_ctrl_0.hs output drives the top-level vga_hs port. (Note: vga_ctrl_0.vcount[9:0] is unconnected).
+
+RGB Output: The pixel pusher sends color data directly to the top-level output pins: pixel_pusher_0.R[4:0] to vga_r[4:0], pixel_pusher_0.G[5:0] to vga_g[5:0], and pixel_pusher_0.B[4:0] to vga_b[4:0].
