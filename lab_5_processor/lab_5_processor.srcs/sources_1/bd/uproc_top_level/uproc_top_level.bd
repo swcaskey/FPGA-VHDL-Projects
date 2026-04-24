@@ -14,13 +14,13 @@
       "dMem": "",
       "clock_div_0": "",
       "clock_div_25_0": "",
-      "controls_0": "",
       "debounce_0": "",
       "framebuffer_0": "",
       "my_alu_0": "",
       "pixel_pusher_0": "",
       "regs_0": "",
       "vga_ctrl_0": "",
+      "controls_0": "",
       "uart_0": ""
     },
     "components": {
@@ -140,160 +140,6 @@
           },
           "DIV": {
             "direction": "O"
-          }
-        }
-      },
-      "controls_0": {
-        "vlnv": "xilinx.com:module_ref:controls:1.0",
-        "xci_name": "uproc_top_level_controls_0_0",
-        "xci_path": "ip/uproc_top_level_controls_0_0/uproc_top_level_controls_0_0.xci",
-        "inst_hier_path": "controls_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "controls",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "clk": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "ASSOCIATED_RESET": {
-                "value": "rst",
-                "value_src": "constant"
-              }
-            }
-          },
-          "en": {
-            "direction": "I"
-          },
-          "rst": {
-            "type": "rst",
-            "direction": "I"
-          },
-          "rID1": {
-            "direction": "O",
-            "left": "4",
-            "right": "0"
-          },
-          "rID2": {
-            "direction": "O",
-            "left": "4",
-            "right": "0"
-          },
-          "wr_enR1": {
-            "direction": "O"
-          },
-          "wr_enR2": {
-            "direction": "O"
-          },
-          "regrD1": {
-            "direction": "I",
-            "left": "15",
-            "right": "0"
-          },
-          "regrD2": {
-            "direction": "I",
-            "left": "15",
-            "right": "0"
-          },
-          "regwD1": {
-            "direction": "O",
-            "left": "15",
-            "right": "0"
-          },
-          "regwD2": {
-            "direction": "O",
-            "left": "15",
-            "right": "0"
-          },
-          "fbRST": {
-            "direction": "O"
-          },
-          "fbAddr1": {
-            "direction": "O",
-            "left": "11",
-            "right": "0"
-          },
-          "fbDin1": {
-            "direction": "I",
-            "left": "15",
-            "right": "0"
-          },
-          "fbDout1": {
-            "direction": "O",
-            "left": "15",
-            "right": "0"
-          },
-          "fbWr_en": {
-            "direction": "O"
-          },
-          "irAddr": {
-            "direction": "O",
-            "left": "13",
-            "right": "0"
-          },
-          "irWord": {
-            "direction": "I",
-            "left": "31",
-            "right": "0"
-          },
-          "dAddr": {
-            "direction": "O",
-            "left": "14",
-            "right": "0"
-          },
-          "d_wr_en": {
-            "direction": "O"
-          },
-          "dOut": {
-            "direction": "O",
-            "left": "15",
-            "right": "0"
-          },
-          "dIn": {
-            "direction": "I",
-            "left": "15",
-            "right": "0"
-          },
-          "aluA": {
-            "direction": "O",
-            "left": "15",
-            "right": "0"
-          },
-          "aluB": {
-            "direction": "O",
-            "left": "15",
-            "right": "0"
-          },
-          "aluOp": {
-            "direction": "O",
-            "left": "3",
-            "right": "0"
-          },
-          "aluResult": {
-            "direction": "I",
-            "left": "15",
-            "right": "0"
-          },
-          "ready": {
-            "direction": "I"
-          },
-          "newChar": {
-            "direction": "I"
-          },
-          "send": {
-            "direction": "O"
-          },
-          "charRec": {
-            "direction": "I",
-            "left": "7",
-            "right": "0"
-          },
-          "charSend": {
-            "direction": "O",
-            "left": "7",
-            "right": "0"
           }
         }
       },
@@ -576,6 +422,160 @@
           },
           "vs": {
             "direction": "O"
+          }
+        }
+      },
+      "controls_0": {
+        "vlnv": "xilinx.com:module_ref:controls:1.0",
+        "xci_name": "uproc_top_level_controls_0_0",
+        "xci_path": "ip/uproc_top_level_controls_0_0/uproc_top_level_controls_0_0.xci",
+        "inst_hier_path": "controls_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "controls",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clk": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "rst",
+                "value_src": "constant"
+              }
+            }
+          },
+          "en": {
+            "direction": "I"
+          },
+          "rst": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "rID1": {
+            "direction": "O",
+            "left": "4",
+            "right": "0"
+          },
+          "rID2": {
+            "direction": "O",
+            "left": "4",
+            "right": "0"
+          },
+          "wr_enR1": {
+            "direction": "O"
+          },
+          "wr_enR2": {
+            "direction": "O"
+          },
+          "regrD1": {
+            "direction": "I",
+            "left": "15",
+            "right": "0"
+          },
+          "regrD2": {
+            "direction": "I",
+            "left": "15",
+            "right": "0"
+          },
+          "regwD1": {
+            "direction": "O",
+            "left": "15",
+            "right": "0"
+          },
+          "regwD2": {
+            "direction": "O",
+            "left": "15",
+            "right": "0"
+          },
+          "fbRST": {
+            "direction": "O"
+          },
+          "fbAddr1": {
+            "direction": "O",
+            "left": "11",
+            "right": "0"
+          },
+          "fbDin1": {
+            "direction": "I",
+            "left": "15",
+            "right": "0"
+          },
+          "fbDout1": {
+            "direction": "O",
+            "left": "15",
+            "right": "0"
+          },
+          "fbWr_en": {
+            "direction": "O"
+          },
+          "irAddr": {
+            "direction": "O",
+            "left": "13",
+            "right": "0"
+          },
+          "irWord": {
+            "direction": "I",
+            "left": "31",
+            "right": "0"
+          },
+          "dAddr": {
+            "direction": "O",
+            "left": "14",
+            "right": "0"
+          },
+          "d_wr_en": {
+            "direction": "O"
+          },
+          "dOut": {
+            "direction": "O",
+            "left": "15",
+            "right": "0"
+          },
+          "dIn": {
+            "direction": "I",
+            "left": "15",
+            "right": "0"
+          },
+          "aluA": {
+            "direction": "O",
+            "left": "15",
+            "right": "0"
+          },
+          "aluB": {
+            "direction": "O",
+            "left": "15",
+            "right": "0"
+          },
+          "aluOp": {
+            "direction": "O",
+            "left": "3",
+            "right": "0"
+          },
+          "aluResult": {
+            "direction": "I",
+            "left": "15",
+            "right": "0"
+          },
+          "ready": {
+            "direction": "I"
+          },
+          "newChar": {
+            "direction": "I"
+          },
+          "send": {
+            "direction": "O"
+          },
+          "charRec": {
+            "direction": "I",
+            "left": "7",
+            "right": "0"
+          },
+          "charSend": {
+            "direction": "O",
+            "left": "7",
+            "right": "0"
           }
         }
       },

@@ -1,0 +1,2 @@
+dMem.v,verilog,xil_defaultlib,../../../../lab_5_processor.gen/sources_1/ip/dMem/sim/dMem.v,
+glbl.v,Verilog,xil_defaultlib,glbl.v
