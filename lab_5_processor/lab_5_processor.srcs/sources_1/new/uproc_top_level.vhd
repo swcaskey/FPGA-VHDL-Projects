@@ -247,10 +247,21 @@ begin
 
     -- Video Subsystem
     framebuffer_inst : framebuffer port map (
-        clk1 => clk, en1 => en_115200, en2 => en_25mhz, ld => fbRST_net,
-        addr1 => fbAddr1_net, addr2 => fbAddr2_net,
-        wr_en1 => fbWr_en_net, din1 => fbDin1_net,
-        dout1 => fbDout1_net, dout2 => fbDout2_net
+        clk1   => clk, 
+        en1    => en_115200, 
+        en2    => en_25mhz, 
+        ld     => fbRST_net,
+        addr1  => fbAddr1_net, 
+        addr2  => fbAddr2_net,
+        wr_en1 => fbWr_en_net, 
+        
+        -- FIX: Connect CPU Output to RAM Input
+        din1   => fbDout1_net, 
+        
+        -- FIX: Connect RAM Output to CPU Input
+        dout1  => fbDin1_net,  
+        
+        dout2  => fbDout2_net
     );
 
     vga_ctrl_inst : vga_ctrl port map (

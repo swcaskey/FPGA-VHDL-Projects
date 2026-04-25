@@ -1,0 +1,191 @@
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.1 (lin64) Build 3247384 Thu Jun 10 19:36:07 MDT 2021
+| Date         : Sat Apr 25 00:18:57 2026
+| Host         : ece16 running 64-bit Ubuntu 20.04.2 LTS
+| Command      : report_control_sets -verbose -file uproc_top_level_control_sets_placed.rpt
+| Design       : uproc_top_level
+| Device       : xc7z010
+--------------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |   113 |
+|    Minimum number of control sets                        |   113 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |    58 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |   113 |
+| >= 0 to < 4        |     3 |
+| >= 4 to < 6        |     2 |
+| >= 6 to < 8        |     1 |
+| >= 8 to < 10       |     4 |
+| >= 10 to < 12      |     1 |
+| >= 12 to < 14      |     0 |
+| >= 14 to < 16      |     0 |
+| >= 16              |   102 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              32 |           16 |
+| No           | No                    | Yes                    |               0 |            0 |
+| No           | Yes                   | No                     |               6 |            3 |
+| Yes          | No                    | No                     |             133 |           67 |
+| Yes          | No                    | Yes                    |              80 |           40 |
+| Yes          | Yes                   | No                     |             563 |          399 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++----------------+---------------------------------------------------+-----------------------+------------------+----------------+--------------+
+|  Clock Signal  |                   Enable Signal                   |    Set/Reset Signal   | Slice Load Count | Bel Load Count | Bels / Slice |
++----------------+---------------------------------------------------+-----------------------+------------------+----------------+--------------+
+|  clk_IBUF_BUFG | vga_ctrl_inst/h_cnt                               |                       |                1 |              1 |         1.00 |
+|  clk_IBUF_BUFG | clk_div_25_inst/en_25mhz                          |                       |                1 |              2 |         2.00 |
+|  clk_IBUF_BUFG | clk_div_25_inst/en_25mhz                          | vga_ctrl_inst/DIV_reg |                1 |              3 |         3.00 |
+|  clk_IBUF_BUFG | uart_inst/tx_inst/FSM_onehot_curr[3]_i_1_n_0      | debounce_inst/rst_net |                1 |              4 |         4.00 |
+|  clk_IBUF_BUFG | controls_inst/dest_reg                            | debounce_inst/rst_net |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG |                                                   | debounce_inst/rst_net |                3 |              6 |         2.00 |
+|  clk_IBUF_BUFG | uart_inst/rx_inst/char[7]_i_1_n_0                 |                       |                5 |              8 |         1.60 |
+|  clk_IBUF_BUFG | uart_inst/tx_inst/d[7]_i_1__0_n_0                 | debounce_inst/rst_net |                4 |              8 |         2.00 |
+|  clk_IBUF_BUFG | clk_div_25_inst/en_25mhz                          | vga_ctrl_inst/h_cnt   |                3 |              9 |         3.00 |
+|  clk_IBUF_BUFG | vga_ctrl_inst/h_cnt                               | vga_ctrl_inst/v_cnt   |                2 |              9 |         4.50 |
+|  clk_IBUF_BUFG | uart_inst/rx_inst/count[2]_i_1_n_0                | debounce_inst/rst_net |                4 |             11 |         2.75 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_4[0]                        | debounce_inst/rst_net |               12 |             16 |         1.33 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_10[0]                       | debounce_inst/rst_net |               13 |             16 |         1.23 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_3[0]                        | debounce_inst/rst_net |               13 |             16 |         1.23 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_28[0]                       | debounce_inst/rst_net |               12 |             16 |         1.33 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_27[0]                       | debounce_inst/rst_net |               12 |             16 |         1.33 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_26[0]                       | debounce_inst/rst_net |               11 |             16 |         1.45 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_13[0]                       | debounce_inst/rst_net |               12 |             16 |         1.33 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_11[0]                       | debounce_inst/rst_net |               13 |             16 |         1.23 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_1[0]                        | debounce_inst/rst_net |               13 |             16 |         1.23 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_12[0]                       | debounce_inst/rst_net |               12 |             16 |         1.33 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_5[0]                        | debounce_inst/rst_net |               13 |             16 |         1.23 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_6[0]                        | debounce_inst/rst_net |               11 |             16 |         1.45 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_7[0]                        | debounce_inst/rst_net |               13 |             16 |         1.23 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_8[0]                        | debounce_inst/rst_net |               13 |             16 |         1.23 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_23[0]                       | debounce_inst/rst_net |               12 |             16 |         1.33 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_9[0]                        | debounce_inst/rst_net |               11 |             16 |         1.45 |
+|  clk_IBUF_BUFG | controls_inst/E[0]                                | debounce_inst/rst_net |               13 |             16 |         1.23 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_25[0]                       | debounce_inst/rst_net |               10 |             16 |         1.60 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_20[0]                       | debounce_inst/rst_net |               15 |             16 |         1.07 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_24[0]                       | debounce_inst/rst_net |               12 |             16 |         1.33 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_15[0]                       | debounce_inst/rst_net |               12 |             16 |         1.33 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg[0]                          | debounce_inst/rst_net |               13 |             16 |         1.23 |
+|  clk_IBUF_BUFG | clk_div_inst/en_115200                            |                       |               15 |             16 |         1.07 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_21[0]                       | debounce_inst/rst_net |               10 |             16 |         1.60 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_22[0]                       | debounce_inst/rst_net |               12 |             16 |         1.33 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_18[0]                       | debounce_inst/rst_net |               13 |             16 |         1.23 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_19[0]                       | debounce_inst/rst_net |               12 |             16 |         1.33 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_2[0]                        | debounce_inst/rst_net |               13 |             16 |         1.23 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_17[0]                       | debounce_inst/rst_net |               12 |             16 |         1.33 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_16[0]                       | debounce_inst/rst_net |               12 |             16 |         1.33 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_14[0]                       | debounce_inst/rst_net |               11 |             16 |         1.45 |
+|  clk_IBUF_BUFG | controls_inst/pc                                  | debounce_inst/rst_net |                5 |             16 |         3.20 |
+|  clk_IBUF_BUFG | controls_inst/DIV_reg_0[0]                        | debounce_inst/rst_net |               11 |             16 |         1.45 |
+|  clk_IBUF_BUFG | debounce_inst/counter[0]_i_2_n_0                  | debounce_inst/clear   |                6 |             22 |         3.67 |
+|  clk_IBUF_BUFG | clk_div_inst/en_115200                            | debounce_inst/rst_net |               18 |             28 |         1.56 |
+|  clk_IBUF_BUFG | clk_div_inst/E[0]                                 | debounce_inst/rst_net |               16 |             32 |         2.00 |
+|  clk_IBUF_BUFG |                                                   |                       |               16 |             32 |         2.00 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_14 |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_17 |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_9  |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_4  |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_5  |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[11]_3             |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_8  |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_7  |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[7]_9              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[8]_7              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_3  |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[11]_4             |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_0  |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_6  |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_16 |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[10]_0             |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[10]               |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_2  |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[7]_6              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[7]_7              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[8]_5              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[6]                |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_19 |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_18 |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_12 |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[9]_1              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[9]_0              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[9]                |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[8]_9              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[8]_8              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[8]_6              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[6]_0              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[8]_4              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[8]_3              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[8]_2              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[8]_11             |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[8]_10             |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[8]_1              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[8]_0              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[8]                |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_15 |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_13 |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[7]_5              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[11]_0             |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[6]_5              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[6]_3              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[11]_1             |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[7]_0              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[7]                |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[6]_6              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[7]_2              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[7]_10             |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[7]_1              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[11]               |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[7]_4              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[7]_3              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[6]_2              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[7]_8              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[11]_2             |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[6]_1              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_11 |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_10 |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter_reg[6]_4              |                       |               12 |             44 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/FSM_onehot_current_state_reg[19]_20 |                       |               18 |             66 |         3.67 |
+|  clk_IBUF_BUFG | controls_inst/reset_counter                       |                       |               45 |            106 |         2.36 |
++----------------+---------------------------------------------------+-----------------------+------------------+----------------+--------------+
+
+

@@ -50,16 +50,13 @@ architecture rtl of controls is
     signal pc, pc_next : std_logic_vector(15 downto 0) := (others => '0');
     signal dest_reg, dest_reg_next : std_logic_vector(4 downto 0) := (others => '0');
     
-    -- THE FIX: Latch the instruction so it survives the PC increment
     signal irWord_reg : std_logic_vector(31 downto 0) := (others => '0');
     
-    -- aliases point to the LATCHED instruction, not the raw memory output
     signal opcode : std_logic_vector(4 downto 0);
     signal reg1, reg2, reg3 : std_logic_vector(4 downto 0);
     signal imm : std_logic_vector(15 downto 0);
 
 begin
-    -- decode signals
     opcode <= irWord_reg(31 downto 27);
     reg1   <= irWord_reg(26 downto 22);
     reg2   <= irWord_reg(21 downto 17);
@@ -78,8 +75,6 @@ begin
                 current_state <= next_state;
                 pc <= pc_next;
                 dest_reg <= dest_reg_next;
-                
-                -- Capture the instruction while it is valid
                 if current_state = fetch then
                     irWord_reg <= irWord;
                 end if;
@@ -125,15 +120,11 @@ begin
                 next_state <= decode;
 
             when decode =>
-                -- Update PC in register file
                 rID1 <= "00001";
                 wr_enR1 <= '1';
                 regwD1 <= std_logic_vector(unsigned(pc) + 1);
                 pc_next <= std_logic_vector(unsigned(pc) + 1);
-                
-                -- Default destination register is reg1
                 dest_reg_next <= reg1; 
-
                 if opcode(4 downto 3) = "00" or opcode(4 downto 3) = "01" then
                     next_state <= Rops;
                 elsif opcode(4 downto 2) = "100" or opcode(4 downto 2) = "101" then
@@ -199,7 +190,7 @@ begin
                 rID1 <= reg1;
                 rID2 <= reg2;
                 fbAddr1 <= regrD1(11 downto 0);
-                fbDout1 <= regrD2;
+                fbDout1 <= regrD2; -- Processor driving data OUT
                 fbWr_en <= '1';
                 next_state <= finish;
 
@@ -239,7 +230,7 @@ begin
                 rID2 <= reg2;
                 aluA <= regrD2;
                 aluB <= std_logic_vector(resize(unsigned(imm), 16));
-                aluOp <= x"9"; -- OR
+                aluOp <= x"9"; 
                 next_state <= store;
 
             when lw_op =>
@@ -260,7 +251,7 @@ begin
                 next_state <= finish;
 
             when jal_op =>
-                rID1 <= "11111"; -- RA register
+                rID1 <= "11111"; 
                 wr_enR1 <= '1';
                 regwD1 <= pc;
                 pc_next <= imm;
@@ -273,23 +264,21 @@ begin
             when store =>
                 rID1 <= dest_reg;
                 wr_enR1 <= '1';
-                
                 if opcode = "01100" then -- recv
                     regwD1 <= x"00" & charRec;
                 elsif opcode = "01111" then -- rpix
                     rID2 <= reg2;
                     fbAddr1 <= regrD2(11 downto 0);
-                    regwD1 <= fbDin1;
+                    regwD1 <= fbDin1; -- Processor reading data IN
                 elsif opcode = "10011" then -- lw
                     rID2 <= reg2;
                     dAddr <= std_logic_vector(resize(unsigned(regrD2(14 downto 0)) + unsigned(imm(14 downto 0)), 15));
                     regwD1 <= dIn;
                 elsif opcode = "10000" or opcode = "10001" then -- beq, bne
                     regwD1 <= imm;
-                else -- calc, ori
+                else 
                     regwD1 <= aluResult;
                 end if;
-                
                 next_state <= finish;
 
             when finish =>

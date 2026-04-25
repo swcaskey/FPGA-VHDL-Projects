@@ -1,4 +1,4 @@
--- Use the VGA port
+## Use the VGA port
 
 ##Clock signal
 set_property -dict { PACKAGE_PIN L16   IOSTANDARD LVCMOS33 } [get_ports { clk }];

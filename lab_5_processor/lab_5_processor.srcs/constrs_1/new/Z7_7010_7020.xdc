@@ -1,4 +1,4 @@
--- Dont use this board unless I am doing PMOD* just use other board
+## Dont use this board unless I am doing PMOD* just use other board
 
 ##Clock signal
 set_property -dict { PACKAGE_PIN K17   IOSTANDARD LVCMOS33 } [get_ports { clk }];

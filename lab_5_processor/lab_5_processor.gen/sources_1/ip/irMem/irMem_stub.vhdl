@@ -3,8 +3,8 @@
 -- Tool Version: Vivado v.2021.1 (lin64) Build 3247384 Thu Jun 10 19:36:07 MDT 2021
 -- Date        : Thu Apr 23 20:10:33 2026
 -- Host        : ece17 running 64-bit Ubuntu 20.04.2 LTS
--- Command     : write_vhdl -force -mode synth_stub
---               /home/user/Desktop/lab_5_processor/lab_5_processor.gen/sources_1/ip/irMem/irMem_stub.vhdl
+-- Command     : write_vhdl -force -mode synth_stub -rename_top irMem -prefix
+--               irMem_ irMem_stub.vhdl
 -- Design      : irMem
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7z010clg400-1
