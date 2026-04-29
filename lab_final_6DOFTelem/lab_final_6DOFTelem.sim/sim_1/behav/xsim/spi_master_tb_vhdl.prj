@@ -1,0 +1,7 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../lab_final_6DOFTelem.srcs/sources_1/new/spi_master.vhd" \
+"../../../../lab_final_6DOFTelem.srcs/sim_1/new/spi_master_tb.vhd" \
+
+# Do not sort compile order
+nosort

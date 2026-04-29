@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2021.1 (64-bit)
+# SW Build 3247384 on Thu Jun 10 19:36:07 MDT 2021
+# IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
+# Start of session at: Wed Apr 29 13:20:54 2026
+# Process ID: 287478
+# Current directory: /home/user/Desktop/lab_final_6DOFTelem/lab_final_6DOFTelem.runs/rgb2dvi_0_synth_1
+# Command line: vivado -log rgb2dvi_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source rgb2dvi_0.tcl
+# Log file: /home/user/Desktop/lab_final_6DOFTelem/lab_final_6DOFTelem.runs/rgb2dvi_0_synth_1/rgb2dvi_0.vds
+# Journal file: /home/user/Desktop/lab_final_6DOFTelem/lab_final_6DOFTelem.runs/rgb2dvi_0_synth_1/vivado.jou
+#-----------------------------------------------------------
+source rgb2dvi_0.tcl -notrace
