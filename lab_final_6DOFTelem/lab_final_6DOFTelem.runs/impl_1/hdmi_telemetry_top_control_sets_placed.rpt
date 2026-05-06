@@ -1,0 +1,106 @@
+Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2021.1 (lin64) Build 3247384 Thu Jun 10 19:36:07 MDT 2021
+| Date         : Wed May  6 14:28:24 2026
+| Host         : ece15 running 64-bit Ubuntu 20.04.2 LTS
+| Command      : report_control_sets -verbose -file hdmi_telemetry_top_control_sets_placed.rpt
+| Design       : hdmi_telemetry_top
+| Device       : xc7z010
+-----------------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    28 |
+|    Minimum number of control sets                        |    28 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |   131 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    28 |
+| >= 0 to < 4        |    12 |
+| >= 4 to < 6        |     0 |
+| >= 6 to < 8        |     0 |
+| >= 8 to < 10       |     6 |
+| >= 10 to < 12      |     2 |
+| >= 12 to < 14      |     0 |
+| >= 14 to < 16      |     0 |
+| >= 16              |     8 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |             111 |           32 |
+| No           | No                    | Yes                    |               2 |            1 |
+| No           | Yes                   | No                     |              64 |           25 |
+| Yes          | No                    | No                     |             127 |           44 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |              77 |           33 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++--------------------------+-----------------------------------------+--------------------------------------------------------------------+------------------+----------------+--------------+
+|       Clock Signal       |              Enable Signal              |                          Set/Reset Signal                          | Slice Load Count | Bel Load Count | Bels / Slice |
++--------------------------+-----------------------------------------+--------------------------------------------------------------------+------------------+----------------+--------------+
+|  sysclk_IBUF_BUFG        | U_SPI_NAV/mosi_i_1_n_0                  |                                                                    |                1 |              1 |         1.00 |
+|  sysclk_IBUF_BUFG        | U_JSTK_CTRL/cs_jstk_i_1_n_0             | btn_IBUF[0]                                                        |                1 |              1 |         1.00 |
+|  sysclk_IBUF_BUFG        | U_SPI_JSTK/p_0_in[7]                    |                                                                    |                1 |              1 |         1.00 |
+|  sysclk_IBUF_BUFG        | U_SPI_JSTK/p_0_in[6]                    |                                                                    |                1 |              1 |         1.00 |
+|  sysclk_IBUF_BUFG        | U_SPI_JSTK/p_0_in[5]                    |                                                                    |                1 |              1 |         1.00 |
+|  sysclk_IBUF_BUFG        | U_SPI_JSTK/p_0_in[4]                    |                                                                    |                1 |              1 |         1.00 |
+|  sysclk_IBUF_BUFG        | U_SPI_JSTK/p_0_in[3]                    |                                                                    |                1 |              1 |         1.00 |
+|  sysclk_IBUF_BUFG        | U_SPI_JSTK/p_0_in[1]                    |                                                                    |                1 |              1 |         1.00 |
+|  sysclk_IBUF_BUFG        | U_SPI_JSTK/p_0_in[0]                    |                                                                    |                1 |              1 |         1.00 |
+|  sysclk_IBUF_BUFG        | U_IMU_CTRL/cs_ag_i_1_n_0                | btn_IBUF[0]                                                        |                1 |              1 |         1.00 |
+|  sysclk_IBUF_BUFG        | U_SPI_JSTK/p_0_in[2]                    |                                                                    |                1 |              1 |         1.00 |
+|  U_CLK_WIZ/inst/clk_out1 |                                         | vid_reset                                                          |                1 |              2 |         2.00 |
+|  sysclk_IBUF_BUFG        | U_JSTK_CTRL/yl[7]_i_1_n_0               |                                                                    |                2 |              8 |         4.00 |
+|  sysclk_IBUF_BUFG        | U_JSTK_CTRL/yh[7]_i_1_n_0               |                                                                    |                2 |              8 |         4.00 |
+|  sysclk_IBUF_BUFG        | U_JSTK_CTRL/xl[7]_i_1_n_0               |                                                                    |                5 |              8 |         1.60 |
+|  sysclk_IBUF_BUFG        | U_SPI_JSTK/data_out[7]_i_1_n_0          |                                                                    |                1 |              8 |         8.00 |
+|  sysclk_IBUF_BUFG        | U_JSTK_CTRL/xh[7]_i_1_n_0               |                                                                    |                2 |              8 |         4.00 |
+|  sysclk_IBUF_BUFG        | U_IMU_CTRL/FSM_onehot_state[8]_i_1_n_0  | btn_IBUF[0]                                                        |                3 |              9 |         3.00 |
+|  U_CLK_WIZ/inst/clk_out1 |                                         | U_RGB2DVI/U0/DataEncoders[0].DataEncoder/pDataOutRaw[9]_i_1__1_n_0 |                3 |             10 |         3.33 |
+|  U_CLK_WIZ/inst/clk_out1 | U_VGA_CTRL/v_counter[9]_i_1_n_0         |                                                                    |                4 |             10 |         2.50 |
+|  sysclk_IBUF_BUFG        |                                         |                                                                    |                6 |             19 |         3.17 |
+|  sysclk_IBUF_BUFG        |                                         | btn_IBUF[0]                                                        |                8 |             22 |         2.75 |
+|  U_CLK_WIZ/inst/clk_out1 |                                         | U_RGB2DVI/U0/DataEncoders[0].DataEncoder/SR[0]                     |               14 |             32 |         2.29 |
+|  sysclk_IBUF_BUFG        | U_JSTK_CTRL/x_out[15]_i_1_n_0           | btn_IBUF[0]                                                        |                7 |             32 |         4.57 |
+|  sysclk_IBUF_BUFG        | U_MATH/trans_x[0][8]_i_1_n_0            |                                                                    |               11 |             34 |         3.09 |
+|  sysclk_IBUF_BUFG        | U_MATH/proj_x[0][9]_i_1_n_0             |                                                                    |                8 |             34 |         4.25 |
+|  sysclk_IBUF_BUFG        | U_MATH/FSM_sequential_state_reg_n_0_[2] | btn_IBUF[0]                                                        |               21 |             34 |         1.62 |
+|  U_CLK_WIZ/inst/clk_out1 |                                         |                                                                    |               26 |             92 |         3.54 |
++--------------------------+-----------------------------------------+--------------------------------------------------------------------+------------------+----------------+--------------+
+
+

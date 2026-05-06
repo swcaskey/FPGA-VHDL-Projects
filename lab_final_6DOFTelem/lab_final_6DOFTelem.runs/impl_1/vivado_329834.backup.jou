@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2021.1 (64-bit)
+# SW Build 3247384 on Thu Jun 10 19:36:07 MDT 2021
+# IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
+# Start of session at: Wed May  6 13:40:51 2026
+# Process ID: 329834
+# Current directory: /home/user/Desktop/lab_final_6DOFTelem/lab_final_6DOFTelem.runs/impl_1
+# Command line: vivado -log hdmi_telemetry_top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source hdmi_telemetry_top.tcl -notrace
+# Log file: /home/user/Desktop/lab_final_6DOFTelem/lab_final_6DOFTelem.runs/impl_1/hdmi_telemetry_top.vdi
+# Journal file: /home/user/Desktop/lab_final_6DOFTelem/lab_final_6DOFTelem.runs/impl_1/vivado.jou
+#-----------------------------------------------------------
+source hdmi_telemetry_top.tcl -notrace
