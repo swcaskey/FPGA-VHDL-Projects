@@ -1,5 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity hdmi_telemetry_top is
     port (
@@ -23,7 +24,10 @@ entity hdmi_telemetry_top is
         TMDS_Clk_p : out std_logic;
         TMDS_Clk_n : out std_logic;
         TMDS_Data_p: out std_logic_vector(2 downto 0);
-        TMDS_Data_n: out std_logic_vector(2 downto 0)
+        TMDS_Data_n: out std_logic_vector(2 downto 0);
+        
+        -- Diagnostic LEDs
+        led        : out std_logic_vector(3 downto 0)
     );
 end hdmi_telemetry_top;
 
@@ -70,6 +74,10 @@ architecture structural of hdmi_telemetry_top is
     -- Video RGB Data
     signal red_data, green_data, blue_data : std_logic_vector(7 downto 0);
     signal rgb_combined : std_logic_vector(23 downto 0);
+
+    -- LED pulse stretchers for visible heartbeat diagnostics
+    constant LED_HOLD_TICKS : unsigned(23 downto 0) := to_unsigned(12500000, 24); -- ~100 ms @125 MHz
+    signal imu_led_cnt, jstk_led_cnt, math_led_cnt : unsigned(23 downto 0) := (others => '0');
 
 begin
 
@@ -197,5 +205,44 @@ begin
             PixelClk    => pclk,
             SerialClk   => serial_clk -- Locked to the Clocking Wizard to resolve timing violation
         );
+
+    process(sysclk)
+    begin
+        if rising_edge(sysclk) then
+            if rst = '1' then
+                imu_led_cnt <= (others => '0');
+                jstk_led_cnt <= (others => '0');
+                math_led_cnt <= (others => '0');
+            else
+                if imu_valid = '1' then
+                    imu_led_cnt <= LED_HOLD_TICKS;
+                elsif imu_led_cnt /= (others => '0') then
+                    imu_led_cnt <= imu_led_cnt - 1;
+                end if;
+
+                if jstk_valid = '1' then
+                    jstk_led_cnt <= LED_HOLD_TICKS;
+                elsif jstk_led_cnt /= (others => '0') then
+                    jstk_led_cnt <= jstk_led_cnt - 1;
+                end if;
+
+                if math_done = '1' then
+                    math_led_cnt <= LED_HOLD_TICKS;
+                elsif math_led_cnt /= (others => '0') then
+                    math_led_cnt <= math_led_cnt - 1;
+                end if;
+            end if;
+        end if;
+    end process;
+    
+    -- LED 0/1/2: stretched heartbeats for human-visible diagnostics
+    led(0) <= '1' when imu_led_cnt /= (others => '0') else '0';
+    led(1) <= '1' when jstk_led_cnt /= (others => '0') else '0';
+    led(2) <= '1' when math_led_cnt /= (others => '0') else '0';
+    
+    -- LED 3: "waiting on handshake" indicator
+    led(3) <= (imu_start and not imu_valid) or
+              (jstk_start and not jstk_valid) or
+              (math_start and not math_done);
 
 end structural;

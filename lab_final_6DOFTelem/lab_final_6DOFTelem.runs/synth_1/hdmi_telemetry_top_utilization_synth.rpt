@@ -1,8 +1,8 @@
 Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2021.1 (lin64) Build 3247384 Thu Jun 10 19:36:07 MDT 2021
-| Date         : Wed May  6 14:27:47 2026
-| Host         : ece15 running 64-bit Ubuntu 20.04.2 LTS
+| Date         : Fri May  8 15:45:13 2026
+| Host         : ece28 running 64-bit Ubuntu 20.04.2 LTS
 | Command      : report_utilization -file hdmi_telemetry_top_utilization_synth.rpt -pb hdmi_telemetry_top_utilization_synth.pb
 | Design       : hdmi_telemetry_top
 | Device       : 7z010clg400-1
@@ -30,11 +30,11 @@ Table of Contents
 +-------------------------+------+-------+------------+-----------+-------+
 |        Site Type        | Used | Fixed | Prohibited | Available | Util% |
 +-------------------------+------+-------+------------+-----------+-------+
-| Slice LUTs*             |  323 |     0 |          0 |     17600 |  1.84 |
-|   LUT as Logic          |  323 |     0 |          0 |     17600 |  1.84 |
+| Slice LUTs*             |  341 |     0 |          0 |     17600 |  1.94 |
+|   LUT as Logic          |  341 |     0 |          0 |     17600 |  1.94 |
 |   LUT as Memory         |    0 |     0 |          0 |      6000 |  0.00 |
-| Slice Registers         |  256 |     0 |          0 |     35200 |  0.73 |
-|   Register as Flip Flop |  256 |     0 |          0 |     35200 |  0.73 |
+| Slice Registers         |  278 |     0 |          0 |     35200 |  0.79 |
+|   Register as Flip Flop |  278 |     0 |          0 |     35200 |  0.79 |
 |   Register as Latch     |    0 |     0 |          0 |     35200 |  0.00 |
 | F7 Muxes                |    0 |     0 |          0 |      8800 |  0.00 |
 | F8 Muxes                |    0 |     0 |          0 |      4400 |  0.00 |
@@ -56,8 +56,8 @@ Table of Contents
 | 0     |          Yes |           - |            - |
 | 0     |          Yes |           - |          Set |
 | 0     |          Yes |           - |        Reset |
-| 5     |          Yes |         Set |            - |
-| 251   |          Yes |       Reset |            - |
+| 7     |          Yes |         Set |            - |
+| 271   |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -90,7 +90,7 @@ Table of Contents
 +-----------------------------+------+-------+------------+-----------+-------+
 |          Site Type          | Used | Fixed | Prohibited | Available | Util% |
 +-----------------------------+------+-------+------------+-----------+-------+
-| Bonded IOB                  |    9 |     0 |          0 |       100 |  9.00 |
+| Bonded IOB                  |   13 |     0 |          0 |       100 | 13.00 |
 | Bonded IPADs                |    0 |     0 |          0 |         2 |  0.00 |
 | Bonded IOPADs               |    0 |     0 |          0 |       130 |  0.00 |
 | PHY_CONTROL                 |    0 |     0 |          0 |         2 |  0.00 |
@@ -146,16 +146,16 @@ Table of Contents
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| FDRE     |  251 |        Flop & Latch |
-| LUT2     |   82 |                 LUT |
-| LUT5     |   67 |                 LUT |
-| LUT4     |   63 |                 LUT |
-| LUT6     |   61 |                 LUT |
+| FDRE     |  271 |        Flop & Latch |
+| LUT2     |   84 |                 LUT |
+| LUT4     |   82 |                 LUT |
+| LUT6     |   70 |                 LUT |
+| LUT5     |   68 |                 LUT |
 | CARRY4   |   56 |          CarryLogic |
 | LUT1     |   44 |                 LUT |
-| LUT3     |   39 |                 LUT |
-| OBUF     |    6 |                  IO |
-| FDSE     |    5 |        Flop & Latch |
+| LUT3     |   37 |                 LUT |
+| OBUF     |   10 |                  IO |
+| FDSE     |    7 |        Flop & Latch |
 | IBUF     |    3 |                  IO |
 +----------+------+---------------------+
 

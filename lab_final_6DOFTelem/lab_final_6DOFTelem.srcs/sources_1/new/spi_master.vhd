@@ -42,17 +42,21 @@ begin
                 mosi <= '0';
                 sclk_reg <= '0';
                 bit_cnt <= 7;
+                tx_shift <= (others => '0');
+                rx_shift <= (others => '0');
+                data_out <= (others => '0');
             elsif spi_en = '1' then
                 case state is
                     when IDLE =>
                         sclk_reg <= '0';
+                        ready <= '1';
                         if start = '1' then
                             tx_shift <= data_in;
+                            rx_shift <= (others => '0');
+                            mosi <= data_in(7); -- Present MSB before first rising edge
                             ready <= '0';
                             bit_cnt <= 7;
                             state <= SHIFT;
-                        else
-                            ready <= '1';
                         end if;
                         
                     when SHIFT =>
@@ -71,14 +75,10 @@ begin
                                 state <= IDLE;
                             else
                                 bit_cnt <= bit_cnt - 1;
+                                mosi <= tx_shift(bit_cnt - 1);
                             end if;
                         end if;
                 end case;
-            end if;
-            
-            -- Drive MOSI asynchronously to the clock edge for setup time
-            if state = SHIFT and sclk_reg = '0' then
-                mosi <= tx_shift(bit_cnt);
             end if;
         end if;
     end process;

@@ -1,8 +1,8 @@
 Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2021.1 (lin64) Build 3247384 Thu Jun 10 19:36:07 MDT 2021
-| Date             : Wed May  6 14:28:39 2026
-| Host             : ece15 running 64-bit Ubuntu 20.04.2 LTS
+| Date             : Fri May  8 15:46:04 2026
+| Host             : ece28 running 64-bit Ubuntu 20.04.2 LTS
 | Command          : report_power -file hdmi_telemetry_top_power_routed.rpt -pb hdmi_telemetry_top_power_summary_routed.pb -rpx hdmi_telemetry_top_power_routed.rpx
 | Design           : hdmi_telemetry_top
 | Device           : xc7z010clg400-1
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.345        |
+| Total On-Chip Power (W)  | 0.347        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.249        |
+| Dynamic (W)              | 0.252        |
 | Device Static (W)        | 0.096        |
 | Effective TJA (C/W)      | 11.5         |
 | Max Ambient (C)          | 81.0         |
@@ -52,17 +52,17 @@ Table of Contents
 +----------------+-----------+----------+-----------+-----------------+
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
-| Clocks         |     0.003 |        7 |       --- |             --- |
-| Slice Logic    |     0.001 |     1006 |       --- |             --- |
-|   LUT as Logic |    <0.001 |      443 |     17600 |            2.52 |
+| Clocks         |     0.004 |        7 |       --- |             --- |
+| Slice Logic    |     0.001 |     1057 |       --- |             --- |
+|   LUT as Logic |     0.001 |      464 |     17600 |            2.64 |
 |   CARRY4       |    <0.001 |       56 |      4400 |            1.27 |
-|   Register     |    <0.001 |      384 |     35200 |            1.09 |
+|   Register     |    <0.001 |      405 |     35200 |            1.15 |
 |   Others       |     0.000 |       44 |       --- |             --- |
-| Signals        |     0.001 |      725 |       --- |             --- |
+| Signals        |     0.001 |      763 |       --- |             --- |
 | MMCM           |     0.106 |        1 |         2 |           50.00 |
-| I/O            |     0.137 |       17 |       100 |           17.00 |
+| I/O            |     0.139 |       21 |       100 |           21.00 |
 | Static Power   |     0.096 |          |           |                 |
-| Total          |     0.345 |          |           |                 |
+| Total          |     0.347 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -72,9 +72,9 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.011 |       0.007 |      0.004 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.012 |       0.007 |      0.004 |       NA    | Unspecified | NA         |
 | Vccaux    |       1.800 |     0.065 |       0.059 |      0.006 |       NA    | Unspecified | NA         |
-| Vcco33    |       3.300 |     0.042 |       0.041 |      0.001 |       NA    | Unspecified | NA         |
+| Vcco33    |       3.300 |     0.043 |       0.042 |      0.001 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -152,14 +152,14 @@ Table of Contents
 +--------------------------------------+-----------+
 | Name                                 | Power (W) |
 +--------------------------------------+-----------+
-| hdmi_telemetry_top                   |     0.249 |
+| hdmi_telemetry_top                   |     0.252 |
 |   U_CLK_WIZ                          |     0.107 |
 |     inst                             |     0.107 |
 |   U_MATH                             |     0.001 |
 |   U_RGB2DVI                          |     0.134 |
 |     U0                               |     0.134 |
 |       ClockSerializer                |     0.033 |
-|       DataEncoders[0].DataSerializer |     0.033 |
+|       DataEncoders[0].DataSerializer |     0.034 |
 |       DataEncoders[1].DataSerializer |     0.034 |
 |       DataEncoders[2].DataSerializer |     0.034 |
 +--------------------------------------+-----------+
