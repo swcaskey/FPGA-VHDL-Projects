@@ -80,6 +80,10 @@ architecture structural of hdmi_telemetry_top is
     constant LED_ZERO       : unsigned(23 downto 0) := to_unsigned(0, 24);
     signal imu_led_cnt, jstk_led_cnt, math_led_cnt : unsigned(23 downto 0) := (others => '0');
 
+    -- LED 3 watchdog: assert only if no subsystem handshake activity for ~1 second
+    constant ACTIVITY_TIMEOUT : unsigned(26 downto 0) := to_unsigned(125000000, 27);
+    signal activity_cnt : unsigned(26 downto 0) := (others => '0');
+
 begin
 
     -- Standardize Resets
@@ -214,6 +218,7 @@ begin
                 imu_led_cnt <= (others => '0');
                 jstk_led_cnt <= (others => '0');
                 math_led_cnt <= (others => '0');
+                activity_cnt <= (others => '0');
             else
                 if imu_valid = '1' then
                     imu_led_cnt <= LED_HOLD_TICKS;
@@ -232,6 +237,12 @@ begin
                 elsif math_led_cnt /= LED_ZERO then
                     math_led_cnt <= math_led_cnt - 1;
                 end if;
+
+                if (imu_valid = '1') or (jstk_valid = '1') or (math_done = '1') then
+                    activity_cnt <= (others => '0');
+                elsif activity_cnt < ACTIVITY_TIMEOUT then
+                    activity_cnt <= activity_cnt + 1;
+                end if;
             end if;
         end if;
     end process;
@@ -241,9 +252,7 @@ begin
     led(1) <= '1' when jstk_led_cnt /= LED_ZERO else '0';
     led(2) <= '1' when math_led_cnt /= LED_ZERO else '0';
     
-    -- LED 3: "waiting on handshake" indicator
-    led(3) <= (imu_start and not imu_valid) or
-              (jstk_start and not jstk_valid) or
-              (math_start and not math_done);
+    -- LED 3: lit only if no progress events are observed for the timeout window
+    led(3) <= '1' when activity_cnt = ACTIVITY_TIMEOUT else '0';
 
 end structural;

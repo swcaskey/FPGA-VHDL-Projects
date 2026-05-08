@@ -43,6 +43,8 @@ architecture behavioral of math_pipeline is
     signal trans_x, trans_y        : vertex_array := (others => (others => '0'));
     signal proj_x, proj_y          : vertex_array := (others => (others => '0'));
 
+    constant JSTK_CENTER : signed(15 downto 0) := to_signed(512, 16);
+
 begin
 
     process(clk)
@@ -65,22 +67,20 @@ begin
                         end if;
 
                     when ROTATE =>
-                        -- 1. 3D ROTATION MATRICES (Apply Pitch/Roll/Yaw)
-                        -- *NOTE*: Full matrix multiplication requires a SIN/COS LUT. 
-                        -- For datapath validation, we pass the original vertices through.
+                        -- 1. Coarse IMU-driven motion response (fixed-point friendly).
+                        -- This keeps timing light while making NAV movement visible.
                         for i in 0 to 3 loop
-                            rot_x(i) <= ORIG_X(i);
-                            rot_y(i) <= ORIG_Y(i);
+                            rot_x(i) <= resize(ORIG_X(i) + (signed(yaw) / 32) + (signed(roll) / 64), 16);
+                            rot_y(i) <= resize(ORIG_Y(i) + (signed(pitch) / 32) - (signed(roll) / 64), 16);
                             rot_z(i) <= ORIG_Z(i);
                         end loop;
                         state <= TRANSLATE;
 
                     when TRANSLATE =>
-                        -- 2. VECTOR ADDITION (Apply JSTK2 Pan Offsets)
-                        -- Added resize() to prevent width expansion from division
+                        -- 2. Apply joystick pan around center with stronger gain.
                         for i in 0 to 3 loop
-                            trans_x(i) <= resize(rot_x(i) + (signed(jstk_x) / 64), 16); 
-                            trans_y(i) <= resize(rot_y(i) + (signed(jstk_y) / 64), 16);
+                            trans_x(i) <= resize(rot_x(i) + ((signed(jstk_x) - JSTK_CENTER) / 8), 16);
+                            trans_y(i) <= resize(rot_y(i) - ((signed(jstk_y) - JSTK_CENTER) / 8), 16);
                         end loop;
                         state <= PROJECT;
 
