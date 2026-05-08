@@ -77,6 +77,7 @@ architecture structural of hdmi_telemetry_top is
 
     -- LED pulse stretchers for visible heartbeat diagnostics
     constant LED_HOLD_TICKS : unsigned(23 downto 0) := to_unsigned(12500000, 24); -- ~100 ms @125 MHz
+    constant LED_ZERO       : unsigned(23 downto 0) := to_unsigned(0, 24);
     signal imu_led_cnt, jstk_led_cnt, math_led_cnt : unsigned(23 downto 0) := (others => '0');
 
 begin
@@ -216,19 +217,19 @@ begin
             else
                 if imu_valid = '1' then
                     imu_led_cnt <= LED_HOLD_TICKS;
-                elsif imu_led_cnt /= (others => '0') then
+                elsif imu_led_cnt /= LED_ZERO then
                     imu_led_cnt <= imu_led_cnt - 1;
                 end if;
 
                 if jstk_valid = '1' then
                     jstk_led_cnt <= LED_HOLD_TICKS;
-                elsif jstk_led_cnt /= (others => '0') then
+                elsif jstk_led_cnt /= LED_ZERO then
                     jstk_led_cnt <= jstk_led_cnt - 1;
                 end if;
 
                 if math_done = '1' then
                     math_led_cnt <= LED_HOLD_TICKS;
-                elsif math_led_cnt /= (others => '0') then
+                elsif math_led_cnt /= LED_ZERO then
                     math_led_cnt <= math_led_cnt - 1;
                 end if;
             end if;
@@ -236,9 +237,9 @@ begin
     end process;
     
     -- LED 0/1/2: stretched heartbeats for human-visible diagnostics
-    led(0) <= '1' when imu_led_cnt /= (others => '0') else '0';
-    led(1) <= '1' when jstk_led_cnt /= (others => '0') else '0';
-    led(2) <= '1' when math_led_cnt /= (others => '0') else '0';
+    led(0) <= '1' when imu_led_cnt /= LED_ZERO else '0';
+    led(1) <= '1' when jstk_led_cnt /= LED_ZERO else '0';
+    led(2) <= '1' when math_led_cnt /= LED_ZERO else '0';
     
     -- LED 3: "waiting on handshake" indicator
     led(3) <= (imu_start and not imu_valid) or
