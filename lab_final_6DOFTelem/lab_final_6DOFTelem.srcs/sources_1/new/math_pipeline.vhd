@@ -43,7 +43,7 @@ architecture behavioral of math_pipeline is
     signal trans_x, trans_y        : vertex_array := (others => (others => '0'));
     signal proj_x, proj_y          : vertex_array := (others => (others => '0'));
 
-    constant JSTK_CENTER : signed(15 downto 0) := to_signed(512, 16);
+    constant JSTK_CENTER : signed(15 downto 0) := to_signed(128, 16);
     constant IMU_MAIN_SHIFT : integer := 12;
     constant IMU_ROLL_SHIFT : integer := 13;
 
@@ -95,8 +95,8 @@ begin
                     when TRANSLATE =>
                         -- 2. Apply joystick pan around center with stronger gain.
                         for i in 0 to 3 loop
-                            trans_x(i) <= resize(rot_x(i) + resize(shift_right((signed(jstk_x) - JSTK_CENTER), 4), 16), 16);
-                            trans_y(i) <= resize(rot_y(i) - resize(shift_right((signed(jstk_y) - JSTK_CENTER), 4), 16), 16);
+                            trans_x(i) <= resize(rot_x(i) + resize(shift_right((signed(jstk_x) - JSTK_CENTER), 2), 16), 16);
+                            trans_y(i) <= resize(rot_y(i) - resize(shift_right((signed(jstk_y) - JSTK_CENTER), 2), 16), 16);
                         end loop;
                         state <= PROJECT;
 
