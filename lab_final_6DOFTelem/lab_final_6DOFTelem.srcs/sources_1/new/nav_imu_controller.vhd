@@ -136,7 +136,7 @@ begin
                             step <= step + 1;
                         elsif go_spi = '0' then
                             cs_ag <= '0';
-                            if step = 0 then tx_byte <= x"E8"; go_spi <= '1'; -- Read + auto-increment from OUT_X_L_XL (accelerometer)
+                            if step = 0 then tx_byte <= x"D8"; go_spi <= '1'; -- Read + auto-increment from OUT_X_L_G (gyro)
                             elsif step < 7 then tx_byte <= x"00"; go_spi <= '1'; -- Send Dummy Bytes to read MISO
                             else state <= DONE;
                             end if;

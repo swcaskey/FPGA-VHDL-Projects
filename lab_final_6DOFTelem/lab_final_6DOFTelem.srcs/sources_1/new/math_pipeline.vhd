@@ -44,8 +44,8 @@ architecture behavioral of math_pipeline is
     signal proj_x, proj_y          : vertex_array := (others => (others => '0'));
 
     constant JSTK_CENTER : signed(15 downto 0) := to_signed(128, 16);
-    constant IMU_MAIN_SHIFT : integer := 12;
-    constant IMU_ROLL_SHIFT : integer := 13;
+    constant IMU_MAIN_SHIFT : integer := 8;
+    constant IMU_ROLL_SHIFT : integer := 9;
 
     function clamp_to_10(value : signed(15 downto 0); max_value : integer) return std_logic_vector is
         variable val_i : integer;
@@ -84,19 +84,35 @@ begin
                         end if;
 
                     when ROTATE =>
-                        -- 1. Heavily scaled IMU response so raw +/-32768 data maps to sane pixels.
+                        -- 1. Rotation-style control:
+                        --    - Joystick X performs in-plane rotation (left/right fixed here by sign inversion).
+                        --    - Joystick Y applies pitch-style vertical skew.
+                        --    - IMU pitch/roll/yaw add visible live perturbations.
                         for i in 0 to 3 loop
-                            rot_x(i) <= resize(ORIG_X(i) + resize(shift_right(signed(yaw), IMU_MAIN_SHIFT), 16) + resize(shift_right(signed(roll), IMU_ROLL_SHIFT), 16), 16);
-                            rot_y(i) <= resize(ORIG_Y(i) + resize(shift_right(signed(pitch), IMU_MAIN_SHIFT), 16) - resize(shift_right(signed(roll), IMU_ROLL_SHIFT), 16), 16);
+                            rot_x(i) <= resize(
+                                ORIG_X(i)
+                                - resize(shift_right((JSTK_CENTER - signed(jstk_x)) * ORIG_Y(i), 8), 16)
+                                + resize(shift_right(signed(yaw), IMU_MAIN_SHIFT), 16)
+                                + resize(shift_right(signed(roll), IMU_ROLL_SHIFT), 16),
+                                16
+                            );
+                            rot_y(i) <= resize(
+                                ORIG_Y(i)
+                                + resize(shift_right((JSTK_CENTER - signed(jstk_x)) * ORIG_X(i), 8), 16)
+                                - resize(shift_right((signed(jstk_y) - JSTK_CENTER) * ORIG_Z(i), 8), 16)
+                                + resize(shift_right(signed(pitch), IMU_MAIN_SHIFT), 16)
+                                - resize(shift_right(signed(roll), IMU_ROLL_SHIFT), 16),
+                                16
+                            );
                             rot_z(i) <= ORIG_Z(i);
                         end loop;
                         state <= TRANSLATE;
 
                     when TRANSLATE =>
-                        -- 2. Apply joystick pan around center with stronger gain.
+                        -- 2. Translation is currently pass-through; control intent is rotational.
                         for i in 0 to 3 loop
-                            trans_x(i) <= resize(rot_x(i) + resize(shift_right((signed(jstk_x) - JSTK_CENTER), 2), 16), 16);
-                            trans_y(i) <= resize(rot_y(i) - resize(shift_right((signed(jstk_y) - JSTK_CENTER), 2), 16), 16);
+                            trans_x(i) <= rot_x(i);
+                            trans_y(i) <= rot_y(i);
                         end loop;
                         state <= PROJECT;
 
