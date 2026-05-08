@@ -74,6 +74,9 @@ begin
                 go_spi <= '0';
                 cs_jstk <= '1';
                 data_valid <= '0';
+                x_out <= std_logic_vector(to_unsigned(512, 16));
+                y_out <= std_logic_vector(to_unsigned(512, 16));
+                joystick_btn <= '0';
             else
                 case state is
                     when IDLE =>
@@ -109,8 +112,9 @@ begin
 
                     when DONE =>
                         cs_jstk <= '1';
-                        x_out <= xh & xl;
-                        y_out <= yh & yl;
+                        -- JSTK2 raw data is 10-bit, packed as LSB then 2-bit MSB
+                        x_out <= "000000" & xh(1 downto 0) & xl;
+                        y_out <= "000000" & yh(1 downto 0) & yl;
                         joystick_btn <= btn(0); 
                         data_valid <= '1';
                         if start_read = '0' then

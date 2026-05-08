@@ -77,6 +77,9 @@ begin
                 go_spi <= '0';
                 cs_ag <= '1';
                 data_valid <= '0';
+                pitch_out <= (others => '0');
+                roll_out <= (others => '0');
+                yaw_out <= (others => '0');
             else
                 case state is
                     when INIT =>
