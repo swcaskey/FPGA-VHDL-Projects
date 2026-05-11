@@ -145,8 +145,8 @@ begin
                             step <= step + 1;
                         elsif go_spi = '0' then
                             cs_ag <= '0';
-                            -- FIXED: True Auto-Increment Read Address for the Accelerometer
-                            if step = 0 then tx_byte <= x"A8";
+                            -- FIXED: Read Address for Gyroscope (0x18 + Read Bit)
+                            if step = 0 then tx_byte <= x"98";
                             go_spi <= '1'; 
                             elsif step < 7 then tx_byte <= x"00"; go_spi <= '1'; 
                             else state <= DONE;
