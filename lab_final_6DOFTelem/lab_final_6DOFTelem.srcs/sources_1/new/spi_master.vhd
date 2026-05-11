@@ -2,6 +2,9 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+-- https://forum.digikey.com/t/spi-master-vhdl/12717
+-- Reference on how-to
+
 entity spi_master is
     port (
         clk      : in  std_logic; -- 125 MHz
