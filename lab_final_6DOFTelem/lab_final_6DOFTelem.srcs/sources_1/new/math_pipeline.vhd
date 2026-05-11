@@ -44,9 +44,8 @@ architecture behavioral of math_pipeline is
     signal proj_x, proj_y          : vertex_array := (others => (others => '0'));
 
     constant JSTK_CENTER : signed(15 downto 0) := to_signed(128, 16);
-    constant ORBIT_MIX_SHIFT : integer := 7;
-    constant JSTK_ROT_SHIFT : integer := 1;
-    constant JSTK_TILT_SHIFT : integer := 1;
+    constant JSTK_ROT_SHIFT : integer := 2;
+    constant JSTK_TILT_SHIFT : integer := 2;
     constant IMU_MAIN_SHIFT : integer := 10;
     constant IMU_ROLL_SHIFT : integer := 11;
 
@@ -74,9 +73,9 @@ begin
         variable imu_yaw_off   : signed(15 downto 0);
         variable imu_pitch_off : signed(15 downto 0);
         variable imu_roll_off  : signed(15 downto 0);
-        variable x_tmp         : signed(15 downto 0);
-        variable y_tmp         : signed(15 downto 0);
-        variable z_tmp         : signed(15 downto 0);
+        variable x_spin        : signed(15 downto 0);
+        variable y_spin        : signed(15 downto 0);
+        variable z_spin        : signed(15 downto 0);
         variable z_depth       : integer;
         variable depth_scale   : integer range 0 to 3;
     begin
@@ -97,7 +96,7 @@ begin
                         end if;
 
                     when ROTATE =>
-                        -- 1. Orbit-style small-angle rotation (timing-safe).
+                        -- 1. Timing-safe pseudo-orbit model (multiplier-free).
                         spin_cmd      := resize(shift_right((JSTK_CENTER - signed(jstk_x)), JSTK_ROT_SHIFT), 16);
                         tilt_cmd      := resize(shift_right((signed(jstk_y) - JSTK_CENTER), JSTK_TILT_SHIFT), 16);
                         imu_yaw_off   := resize(shift_right(signed(yaw), IMU_MAIN_SHIFT), 16);
@@ -105,17 +104,23 @@ begin
                         imu_roll_off  := resize(shift_right(signed(roll), IMU_ROLL_SHIFT), 16);
 
                         for i in 0 to 3 loop
-                            -- Yaw (around Y axis)
-                            x_tmp := resize(ORIG_X(i) + shift_right(spin_cmd * ORIG_Z(i), ORBIT_MIX_SHIFT), 16);
-                            z_tmp := resize(ORIG_Z(i) - shift_right(spin_cmd * ORIG_X(i), ORBIT_MIX_SHIFT), 16);
+                            if ORIG_Y(i)(15) = '0' then
+                                x_spin := spin_cmd;
+                                z_spin := -spin_cmd;
+                            else
+                                x_spin := -spin_cmd;
+                                z_spin := spin_cmd;
+                            end if;
 
-                            -- Pitch (around X axis)
-                            y_tmp := resize(ORIG_Y(i) - shift_right(tilt_cmd * z_tmp, ORBIT_MIX_SHIFT), 16);
-                            z_tmp := resize(z_tmp + shift_right(tilt_cmd * ORIG_Y(i), ORBIT_MIX_SHIFT), 16);
+                            if ORIG_X(i)(15) = '0' then
+                                y_spin := spin_cmd;
+                            else
+                                y_spin := -spin_cmd;
+                            end if;
 
-                            rot_x(i) <= resize(x_tmp + imu_yaw_off + imu_roll_off, 16);
-                            rot_y(i) <= resize(y_tmp + imu_pitch_off - imu_roll_off, 16);
-                            rot_z(i) <= z_tmp;
+                            rot_x(i) <= resize(ORIG_X(i) + x_spin + imu_yaw_off + imu_roll_off, 16);
+                            rot_y(i) <= resize(ORIG_Y(i) + y_spin - tilt_cmd + imu_pitch_off - imu_roll_off, 16);
+                            rot_z(i) <= resize(ORIG_Z(i) + z_spin + tilt_cmd, 16);
                         end loop;
                         state <= TRANSLATE;
 
@@ -143,8 +148,19 @@ begin
                                 depth_scale := 0; -- farthest
                             end if;
 
-                            proj_x(i) <= resize(shift_left(trans_x(i), depth_scale) + 320, 16);
-                            proj_y(i) <= resize(shift_left(trans_y(i), depth_scale) + 240, 16);
+                            if depth_scale = 3 then
+                                proj_x(i) <= resize(shift_left(trans_x(i), 3) + 320, 16);
+                                proj_y(i) <= resize(shift_left(trans_y(i), 3) + 240, 16);
+                            elsif depth_scale = 2 then
+                                proj_x(i) <= resize(shift_left(trans_x(i), 2) + 320, 16);
+                                proj_y(i) <= resize(shift_left(trans_y(i), 2) + 240, 16);
+                            elsif depth_scale = 1 then
+                                proj_x(i) <= resize(shift_left(trans_x(i), 1) + 320, 16);
+                                proj_y(i) <= resize(shift_left(trans_y(i), 1) + 240, 16);
+                            else
+                                proj_x(i) <= resize(trans_x(i) + 320, 16);
+                                proj_y(i) <= resize(trans_y(i) + 240, 16);
+                            end if;
                         end loop;
                         state <= FINISH;
 
