@@ -208,7 +208,7 @@ begin
             vid_pHSync  => hsync,
             vid_pVSync  => vsync,
             PixelClk    => pclk,
-            SerialClk   => serial_clk -- Locked to the Clocking Wizard to resolve timing violation
+            SerialClk   => sysclk -- Use known-good board 125 MHz to avoid clk_wiz clk_out2 mismatch
         );
 
     process(sysclk)
