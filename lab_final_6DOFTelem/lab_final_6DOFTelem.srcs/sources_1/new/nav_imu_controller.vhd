@@ -24,14 +24,17 @@ architecture behavioral of nav_imu_controller is
     signal state : state_type := INIT;
     signal step  : integer range 0 to 8 := 0;
     
-    -- SPI Handshake Bridge FSM
     type spi_state_type is (S_IDLE, S_WAIT_ACK, S_WAIT_READY);
     signal spi_state : spi_state_type := S_IDLE;
     signal go_spi    : std_logic := '0';
     signal spi_done  : std_logic := '0';
-    signal tx_byte   : std_logic_vector(7 downto 0) := x"00";
     
+    signal tx_byte   : std_logic_vector(7 downto 0) := x"00";
     signal xl, xh, yl, yh, zl, zh : std_logic_vector(7 downto 0);
+    
+    -- The missing delay counter needed to wake up the IMU
+    signal delay_cnt : integer range 0 to 255 := 0; 
+
 begin
 
     -- The SPI Handshake Engine (125 MHz to 1 MHz bridge)
@@ -52,13 +55,11 @@ begin
                             spi_state <= S_WAIT_ACK;
                         end if;
                     when S_WAIT_ACK =>
-                        -- HOLD start high until Master drops ready (Acknowledgment)
                         if spi_ready = '0' then
                             spi_start <= '0';
                             spi_state <= S_WAIT_READY;
                         end if;
                     when S_WAIT_READY =>
-                        -- Wait for Master to finish sending the byte
                         if spi_ready = '1' then
                             spi_done <= '1';
                             spi_state <= S_IDLE;
@@ -80,33 +81,40 @@ begin
                 pitch_out <= (others => '0');
                 roll_out <= (others => '0');
                 yaw_out <= (others => '0');
+                delay_cnt <= 0;
             else
                 case state is
                     when INIT =>
-                        -- Power on the LSM9DS1 and enable register auto-increment.
+                        -- Power on the LSM9DS1 and enable register auto-increment
                         if spi_done = '1' then
                             go_spi <= '0';
                             step <= step + 1;
                         elsif go_spi = '0' then
-                            if step = 0 then
-                                cs_ag <= '0'; tx_byte <= x"22"; go_spi <= '1'; -- CTRL_REG8 Address
-                            elsif step = 1 then
-                                tx_byte <= x"04"; go_spi <= '1'; -- IF_ADD_INC = 1
+                            if step = 0 then cs_ag <= '0'; tx_byte <= x"22"; go_spi <= '1'; 
+                            elsif step = 1 then tx_byte <= x"04"; go_spi <= '1'; 
                             elsif step = 2 then
-                                cs_ag <= '1'; step <= 3; -- Ensure CS de-asserts between writes
-                            elsif step = 3 then
-                                cs_ag <= '0'; tx_byte <= x"10"; go_spi <= '1'; -- CTRL_REG1_G Address
-                            elsif step = 4 then
-                                tx_byte <= x"C0"; go_spi <= '1'; -- Wake Gyro
-                            elsif step = 5 then
-                                cs_ag <= '1'; step <= 6; -- Ensure CS de-asserts between writes
-                            elsif step = 6 then
-                                cs_ag <= '0'; tx_byte <= x"20"; go_spi <= '1'; -- CTRL_REG6_XL Address
-                            elsif step = 7 then
-                                tx_byte <= x"C0"; go_spi <= '1'; -- Wake Accel
-                            elsif step = 8 then
                                 cs_ag <= '1';
-                                state <= IDLE;
+                                -- FIXED: 2 microsecond delay to ensure CS de-asserts cleanly
+                                if delay_cnt < 250 then 
+                                    delay_cnt <= delay_cnt + 1;
+                                else 
+                                    delay_cnt <= 0; 
+                                    step <= 3; 
+                                end if;
+                            elsif step = 3 then cs_ag <= '0'; tx_byte <= x"10"; go_spi <= '1'; 
+                            elsif step = 4 then tx_byte <= x"C0"; go_spi <= '1'; 
+                            elsif step = 5 then
+                                cs_ag <= '1';
+                                -- FIXED: 2 microsecond delay to ensure CS de-asserts cleanly
+                                if delay_cnt < 250 then 
+                                    delay_cnt <= delay_cnt + 1;
+                                else 
+                                    delay_cnt <= 0; 
+                                    step <= 6; 
+                                end if;
+                            elsif step = 6 then cs_ag <= '0'; tx_byte <= x"20"; go_spi <= '1'; 
+                            elsif step = 7 then tx_byte <= x"C0"; go_spi <= '1'; 
+                            elsif step = 8 then cs_ag <= '1'; state <= IDLE;
                             end if;
                         end if;
 
@@ -126,7 +134,6 @@ begin
                             state <= IDLE;
                         elsif spi_done = '1' then
                             go_spi <= '0';
-                            -- Capture data exactly when the SPI engine finishes the byte
                             if step = 1 then xl <= spi_data_in; end if;
                             if step = 2 then xh <= spi_data_in; end if;
                             if step = 3 then yl <= spi_data_in; end if;
@@ -136,8 +143,9 @@ begin
                             step <= step + 1;
                         elsif go_spi = '0' then
                             cs_ag <= '0';
-                            if step = 0 then tx_byte <= x"D8"; go_spi <= '1'; -- Read + auto-increment from OUT_X_L_G (gyro)
-                            elsif step < 7 then tx_byte <= x"00"; go_spi <= '1'; -- Send Dummy Bytes to read MISO
+                            -- FIXED: Correct Gyroscope burst address (0x98)
+                            if step = 0 then tx_byte <= x"98"; go_spi <= '1'; 
+                            elsif step < 7 then tx_byte <= x"00"; go_spi <= '1'; 
                             else state <= DONE;
                             end if;
                         end if;
