@@ -32,7 +32,9 @@ architecture behavioral of nav_imu_controller is
 
     signal xl, xh, yl, yh, zl, zh : std_logic_vector(7 downto 0);
     signal delay_us  : integer range 0 to 255 := 0;
-    signal boot_cnt  : integer range 0 to 625000 := 0; -- 5ms delay at 125MHz
+    
+    -- INCREASED BOOT TIMER: Allow for up to 100ms. 
+    signal boot_cnt  : integer range 0 to 12500000 := 0; 
 
 begin
     -- SPI Handshake Engine
@@ -84,8 +86,8 @@ begin
                 case state is
                     when BOOT_WAIT =>
                         cs_ag <= '1';
-                        -- Hold here for 5 milliseconds so the physical silicon can wake up
-                        if boot_cnt < 625000 then
+                        -- Wait 50 milliseconds (6,250,000 cycles at 125MHz) for physical silicon to boot
+                        if boot_cnt < 6250000 then
                             boot_cnt <= boot_cnt + 1;
                         else
                             state <= INIT;
@@ -145,7 +147,7 @@ begin
                             step <= step + 1;
                         elsif go_spi = '0' then
                             cs_ag <= '0';
-                            -- FIXED: True Auto-Increment Read Address for the Accelerometer
+                            -- Read Address for the Accelerometer
                             if step = 0 then tx_byte <= x"A8";
                             go_spi <= '1'; 
                             elsif step < 7 then tx_byte <= x"00"; go_spi <= '1'; 
