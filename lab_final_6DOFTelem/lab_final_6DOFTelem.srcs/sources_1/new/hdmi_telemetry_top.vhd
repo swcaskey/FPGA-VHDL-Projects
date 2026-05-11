@@ -43,13 +43,21 @@ architecture structural of hdmi_telemetry_top is
     signal btn_center             : std_logic;
     signal jstk_start, jstk_valid : std_logic;
 
+    -- Thresholds
     constant IMU_THRESH_HI : signed(15 downto 0) := to_signed(2000, 16);
     constant IMU_THRESH_LO : signed(15 downto 0) := to_signed(-2000, 16);
-    constant JSTK_THRESH_HI : unsigned(15 downto 0) := to_unsigned(160, 16); -- 128 + 32
-    constant JSTK_THRESH_LO : unsigned(15 downto 0) := to_unsigned(96, 16);  -- 128 - 32
+    constant JSTK_THRESH_HI : unsigned(15 downto 0) := to_unsigned(160, 16);
+    constant JSTK_THRESH_LO : unsigned(15 downto 0) := to_unsigned(96, 16);
 
     signal imu_led0, imu_led1, imu_led2 : std_logic;
     signal jstk_led0, jstk_led1 : std_logic;
+
+    -- 100 Hz Pacing Timer
+    type poll_state_type is (IDLE, READ_SENSORS, WAIT_IMU, WAIT_JSTK);
+    signal poll_state : poll_state_type := IDLE;
+    signal timer_cnt : unsigned(23 downto 0) := (others => '0');
+    constant TIMER_MAX : unsigned(23 downto 0) := to_unsigned(1250000, 24); -- 10ms at 125MHz
+
 begin
     rst <= btn(0);
 
@@ -95,25 +103,44 @@ begin
             cs_jstk => jstk_cs
         );
 
-    -- Autonomous repeated reads for each sensor controller
+    -- Safe 100 Hz Polling FSM
     process(sysclk)
     begin
         if rising_edge(sysclk) then
             if rst = '1' then
                 imu_start <= '0';
                 jstk_start <= '0';
+                poll_state <= IDLE;
+                timer_cnt <= (others => '0');
             else
-                if imu_start = '0' then
-                    imu_start <= '1';
-                elsif imu_valid = '1' then
-                    imu_start <= '0';
-                end if;
+                case poll_state is
+                    when IDLE =>
+                        imu_start <= '0';
+                        jstk_start <= '0';
+                        if timer_cnt = TIMER_MAX then
+                            timer_cnt <= (others => '0');
+                            poll_state <= READ_SENSORS;
+                        else
+                            timer_cnt <= timer_cnt + 1;
+                        end if;
 
-                if jstk_start = '0' then
-                    jstk_start <= '1';
-                elsif jstk_valid = '1' then
-                    jstk_start <= '0';
-                end if;
+                    when READ_SENSORS =>
+                        imu_start <= '1';
+                        jstk_start <= '1';
+                        poll_state <= WAIT_IMU;
+
+                    when WAIT_IMU =>
+                        if imu_valid = '1' then
+                            imu_start <= '0';
+                            poll_state <= WAIT_JSTK;
+                        end if;
+
+                    when WAIT_JSTK =>
+                        if jstk_valid = '1' then
+                            jstk_start <= '0';
+                            poll_state <= IDLE;
+                        end if;
+                end case;
             end if;
         end if;
     end process;
