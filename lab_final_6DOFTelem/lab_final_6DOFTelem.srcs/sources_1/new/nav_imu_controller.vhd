@@ -32,7 +32,12 @@ architecture behavioral of nav_imu_controller is
 
     signal xl, xh, yl, yh, zl, zh : std_logic_vector(7 downto 0);
     signal delay_us  : integer range 0 to 255 := 0;
-    signal boot_cnt  : integer range 0 to 625000 := 0; -- 5ms delay at 125MHz
+    signal boot_cnt  : integer range 0 to 6250000 := 0; -- Extended 50ms boot delay
+
+    -- 32-bit Accumulators for Gyro Integration
+    signal pitch_acc : signed(31 downto 0) := (others => '0');
+    signal roll_acc  : signed(31 downto 0) := (others => '0');
+    signal yaw_acc   : signed(31 downto 0) := (others => '0');
 
 begin
     -- SPI Handshake Engine
@@ -77,15 +82,18 @@ begin
                 cs_ag <= '1';
                 data_valid <= '0';
                 pitch_out <= (others => '0');
-                roll_out <= (others => '0'); yaw_out <= (others => '0');
+                roll_out <= (others => '0'); 
+                yaw_out <= (others => '0');
                 boot_cnt <= 0;
                 delay_us <= 0;
+                pitch_acc <= (others => '0');
+                roll_acc <= (others => '0');
+                yaw_acc <= (others => '0');
             else
                 case state is
                     when BOOT_WAIT =>
                         cs_ag <= '1';
-                        -- Hold here for 5 milliseconds so the physical silicon can wake up
-                        if boot_cnt < 625000 then
+                        if boot_cnt < 6250000 then
                             boot_cnt <= boot_cnt + 1;
                         else
                             state <= INIT;
@@ -96,26 +104,20 @@ begin
                             go_spi <= '0';
                             step <= step + 1;
                         elsif go_spi = '0' then
-                            if step = 0 then cs_ag <= '0';
-                                tx_byte <= x"22"; go_spi <= '1'; -- CTRL_REG8
-                            elsif step = 1 then tx_byte <= x"04";
-                                go_spi <= '1'; -- Enable Auto-Increment
+                            if step = 0 then cs_ag <= '0'; tx_byte <= x"22"; go_spi <= '1'; 
+                            elsif step = 1 then tx_byte <= x"04"; go_spi <= '1'; 
                             elsif step = 2 then
                                 cs_ag <= '1';
                                 if delay_us < 250 then delay_us <= delay_us + 1;
                                 else delay_us <= 0; step <= 3; end if;
                             elsif step = 3 then cs_ag <= '0'; tx_byte <= x"10"; go_spi <= '1';
-                                -- CTRL_REG1_G
-                            elsif step = 4 then tx_byte <= x"C0";
-                                go_spi <= '1'; -- Wake Gyroscope
+                            elsif step = 4 then tx_byte <= x"C0"; go_spi <= '1'; 
                             elsif step = 5 then
                                 cs_ag <= '1';
                                 if delay_us < 250 then delay_us <= delay_us + 1;
                                 else delay_us <= 0; step <= 6; end if;
                             elsif step = 6 then cs_ag <= '0'; tx_byte <= x"20"; go_spi <= '1';
-                                -- CTRL_REG6_XL
-                            elsif step = 7 then tx_byte <= x"C0";
-                                go_spi <= '1'; -- Wake Accelerometer
+                            elsif step = 7 then tx_byte <= x"C0"; go_spi <= '1'; 
                             elsif step = 8 then
                                 cs_ag <= '1';
                                 state <= IDLE;
@@ -145,9 +147,8 @@ begin
                             step <= step + 1;
                         elsif go_spi = '0' then
                             cs_ag <= '0';
-                            -- FIXED: Read Address for Gyroscope (0x18 + Read Bit)
-                            if step = 0 then tx_byte <= x"A8"; go_spi <= '1';
-                            go_spi <= '1'; 
+                            -- Read Address for Gyroscope (0x18 + Read Bit)
+                            if step = 0 then tx_byte <= x"98"; go_spi <= '1'; 
                             elsif step < 7 then tx_byte <= x"00"; go_spi <= '1'; 
                             else state <= DONE;
                             end if;
@@ -155,9 +156,23 @@ begin
 
                     when DONE =>
                         cs_ag <= '1';
-                        pitch_out <= xh & xl;
-                        roll_out  <= yh & yl;
-                        yaw_out   <= zh & zl;
+                        
+                        -- Integrate Gyro with a noise deadband (ignores tiny vibrations)
+                        if abs(signed(xh & xl)) > 50 then
+                            pitch_acc <= pitch_acc + signed(xh & xl);
+                        end if;
+                        if abs(signed(yh & yl)) > 50 then
+                            roll_acc <= roll_acc + signed(yh & yl);
+                        end if;
+                        if abs(signed(zh & zl)) > 50 then
+                            yaw_acc <= yaw_acc + signed(zh & zl);
+                        end if;
+
+                        -- Scale the massive accumulated number down to fit nicely in 16 bits
+                        pitch_out <= std_logic_vector(resize(pitch_acc(31 downto 10), 16));
+                        roll_out  <= std_logic_vector(resize(roll_acc(31 downto 10), 16));
+                        yaw_out   <= std_logic_vector(resize(yaw_acc(31 downto 10), 16));
+                        
                         data_valid <= '1';
                         if start_read = '0' then
                             state <= IDLE;
