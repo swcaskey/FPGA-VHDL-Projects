@@ -29,9 +29,13 @@ architecture behavioral of nav_imu_controller is
     signal spi_state : spi_state_type := S_IDLE;
     signal go_spi    : std_logic := '0';
     signal spi_done  : std_logic := '0';
-    signal tx_byte   : std_logic_vector(7 downto 0) := x"00";
     
+    signal tx_byte   : std_logic_vector(7 downto 0) := x"00";
     signal xl, xh, yl, yh, zl, zh : std_logic_vector(7 downto 0);
+    
+    -- Missing declaration added here!
+    signal delay_cnt : integer range 0 to 255 := 0; 
+
 begin
 
     -- The SPI Handshake Engine (125 MHz to 1 MHz bridge)
@@ -83,30 +87,27 @@ begin
             else
                 case state is
                     when INIT =>
-                        -- Power on the LSM9DS1 and enable register auto-increment.
                         if spi_done = '1' then
                             go_spi <= '0';
                             step <= step + 1;
                         elsif go_spi = '0' then
-                            if step = 0 then
-                                cs_ag <= '0'; tx_byte <= x"22"; go_spi <= '1'; -- CTRL_REG8 Address
-                            elsif step = 1 then
-                                tx_byte <= x"04"; go_spi <= '1'; -- IF_ADD_INC = 1
+                            if step = 0 then cs_ag <= '0'; tx_byte <= x"22"; go_spi <= '1'; 
+                            elsif step = 1 then tx_byte <= x"04"; go_spi <= '1';
                             elsif step = 2 then
-                                cs_ag <= '1'; step <= 3; -- Ensure CS de-asserts between writes
-                            elsif step = 3 then
-                                cs_ag <= '0'; tx_byte <= x"10"; go_spi <= '1'; -- CTRL_REG1_G Address
-                            elsif step = 4 then
-                                tx_byte <= x"C0"; go_spi <= '1'; -- Wake Gyro
-                            elsif step = 5 then
-                                cs_ag <= '1'; step <= 6; -- Ensure CS de-asserts between writes
-                            elsif step = 6 then
-                                cs_ag <= '0'; tx_byte <= x"20"; go_spi <= '1'; -- CTRL_REG6_XL Address
-                            elsif step = 7 then
-                                tx_byte <= x"C0"; go_spi <= '1'; -- Wake Accel
-                            elsif step = 8 then
                                 cs_ag <= '1';
-                                state <= IDLE;
+                                -- 2 microsecond delay!
+                                if delay_cnt < 250 then delay_cnt <= delay_cnt + 1;
+                                else delay_cnt <= 0; step <= 3; end if;
+                            elsif step = 3 then cs_ag <= '0'; tx_byte <= x"10"; go_spi <= '1';
+                            elsif step = 4 then tx_byte <= x"C0"; go_spi <= '1';
+                            elsif step = 5 then
+                                cs_ag <= '1';
+                                -- 2 microsecond delay!
+                                if delay_cnt < 250 then delay_cnt <= delay_cnt + 1;
+                                else delay_cnt <= 0; step <= 6; end if;
+                            elsif step = 6 then cs_ag <= '0'; tx_byte <= x"20"; go_spi <= '1';
+                            elsif step = 7 then tx_byte <= x"C0"; go_spi <= '1'; 
+                            elsif step = 8 then cs_ag <= '1'; state <= IDLE;
                             end if;
                         end if;
 
@@ -136,8 +137,9 @@ begin
                             step <= step + 1;
                         elsif go_spi = '0' then
                             cs_ag <= '0';
-                            if step = 0 then tx_byte <= x"D8"; go_spi <= '1'; -- Read + auto-increment from OUT_X_L_G (gyro)
-                            elsif step < 7 then tx_byte <= x"00"; go_spi <= '1'; -- Send Dummy Bytes to read MISO
+                            -- Fixed Read + Auto-increment Address from OUT_X_L_XL (Accelerometer)
+                            if step = 0 then tx_byte <= x"E8"; go_spi <= '1';
+                            elsif step < 7 then tx_byte <= x"00"; go_spi <= '1'; -- Send Dummy Bytes
                             else state <= DONE;
                             end if;
                         end if;
