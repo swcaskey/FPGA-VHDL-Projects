@@ -32,20 +32,21 @@ architecture behavioral of math_pipeline is
     signal state : state_type := IDLE;
 
     -- Hardcoded 3D Wireframe Vertices (Fixed Point)
-    -- Representing a simple plane centered around 0
+    -- Slight depth spread gives a visible "orbit camera" effect.
     type vertex_array is array (0 to 3) of signed(15 downto 0);
     constant ORIG_X : vertex_array := (to_signed(-50, 16), to_signed(50, 16), to_signed(50, 16), to_signed(-50, 16));
     constant ORIG_Y : vertex_array := (to_signed(-50, 16), to_signed(-50, 16), to_signed(50, 16), to_signed(50, 16));
-    constant ORIG_Z : vertex_array := (to_signed(100, 16), to_signed(100, 16), to_signed(100, 16), to_signed(100, 16));
+    constant ORIG_Z : vertex_array := (to_signed(80, 16), to_signed(120, 16), to_signed(120, 16), to_signed(80, 16));
 
     -- Pipeline registers
     signal rot_x, rot_y, rot_z     : vertex_array := (others => (others => '0'));
-    signal trans_x, trans_y        : vertex_array := (others => (others => '0'));
+    signal trans_x, trans_y, trans_z : vertex_array := (others => (others => '0'));
     signal proj_x, proj_y          : vertex_array := (others => (others => '0'));
 
     constant JSTK_CENTER : signed(15 downto 0) := to_signed(128, 16);
-    constant JSTK_ROT_SHIFT : integer := 2;
-    constant JSTK_TILT_SHIFT : integer := 3;
+    constant ORBIT_MIX_SHIFT : integer := 7;
+    constant JSTK_ROT_SHIFT : integer := 1;
+    constant JSTK_TILT_SHIFT : integer := 1;
     constant IMU_MAIN_SHIFT : integer := 10;
     constant IMU_ROLL_SHIFT : integer := 11;
 
@@ -73,8 +74,11 @@ begin
         variable imu_yaw_off   : signed(15 downto 0);
         variable imu_pitch_off : signed(15 downto 0);
         variable imu_roll_off  : signed(15 downto 0);
-        variable x_spin        : signed(15 downto 0);
-        variable y_spin        : signed(15 downto 0);
+        variable x_tmp         : signed(15 downto 0);
+        variable y_tmp         : signed(15 downto 0);
+        variable z_tmp         : signed(15 downto 0);
+        variable z_depth       : integer;
+        variable depth_scale   : integer range 0 to 3;
     begin
         if rising_edge(clk) then
             if rst = '1' then
@@ -93,7 +97,7 @@ begin
                         end if;
 
                     when ROTATE =>
-                        -- 1. Lightweight rotation-style control (timing-safe).
+                        -- 1. Orbit-style small-angle rotation (timing-safe).
                         spin_cmd      := resize(shift_right((JSTK_CENTER - signed(jstk_x)), JSTK_ROT_SHIFT), 16);
                         tilt_cmd      := resize(shift_right((signed(jstk_y) - JSTK_CENTER), JSTK_TILT_SHIFT), 16);
                         imu_yaw_off   := resize(shift_right(signed(yaw), IMU_MAIN_SHIFT), 16);
@@ -101,39 +105,46 @@ begin
                         imu_roll_off  := resize(shift_right(signed(roll), IMU_ROLL_SHIFT), 16);
 
                         for i in 0 to 3 loop
-                            if ORIG_Y(i)(15) = '0' then
-                                x_spin := spin_cmd;
-                            else
-                                x_spin := -spin_cmd;
-                            end if;
+                            -- Yaw (around Y axis)
+                            x_tmp := resize(ORIG_X(i) + shift_right(spin_cmd * ORIG_Z(i), ORBIT_MIX_SHIFT), 16);
+                            z_tmp := resize(ORIG_Z(i) - shift_right(spin_cmd * ORIG_X(i), ORBIT_MIX_SHIFT), 16);
 
-                            if ORIG_X(i)(15) = '0' then
-                                y_spin := spin_cmd;
-                            else
-                                y_spin := -spin_cmd;
-                            end if;
+                            -- Pitch (around X axis)
+                            y_tmp := resize(ORIG_Y(i) - shift_right(tilt_cmd * z_tmp, ORBIT_MIX_SHIFT), 16);
+                            z_tmp := resize(z_tmp + shift_right(tilt_cmd * ORIG_Y(i), ORBIT_MIX_SHIFT), 16);
 
-                            rot_x(i) <= resize(ORIG_X(i) + x_spin + imu_yaw_off + imu_roll_off, 16);
-                            rot_y(i) <= resize(ORIG_Y(i) + y_spin - tilt_cmd + imu_pitch_off - imu_roll_off, 16);
-                            rot_z(i) <= ORIG_Z(i);
+                            rot_x(i) <= resize(x_tmp + imu_yaw_off + imu_roll_off, 16);
+                            rot_y(i) <= resize(y_tmp + imu_pitch_off - imu_roll_off, 16);
+                            rot_z(i) <= z_tmp;
                         end loop;
                         state <= TRANSLATE;
 
                     when TRANSLATE =>
-                        -- 2. Translation is currently pass-through; control intent is rotational.
+                        -- 2. Pass-through stage
                         for i in 0 to 3 loop
                             trans_x(i) <= rot_x(i);
                             trans_y(i) <= rot_y(i);
+                            trans_z(i) <= rot_z(i);
                         end loop;
                         state <= PROJECT;
 
                     when PROJECT =>
-                        -- 3. PERSPECTIVE PROJECTION (Divide by Z -> 2D)
-                        -- TIMING FIX: Combinational division (/) is too slow for an 8ns clock cycle.
-                        -- Since Z is currently hardcoded to 100, (X * 200) / 100 simplifies to X * 2.
+                        -- 3. Depth-aware projection without expensive general division.
                         for i in 0 to 3 loop
-                            proj_x(i) <= resize((trans_x(i) * 2) + 320, 16);
-                            proj_y(i) <= resize((trans_y(i) * 2) + 240, 16);
+                            z_depth := to_integer(trans_z(i));
+
+                            if z_depth < 80 then
+                                depth_scale := 3; -- nearest
+                            elsif z_depth < 100 then
+                                depth_scale := 2;
+                            elsif z_depth < 120 then
+                                depth_scale := 1;
+                            else
+                                depth_scale := 0; -- farthest
+                            end if;
+
+                            proj_x(i) <= resize(shift_left(trans_x(i), depth_scale) + 320, 16);
+                            proj_y(i) <= resize(shift_left(trans_y(i), depth_scale) + 240, 16);
                         end loop;
                         state <= FINISH;
 
