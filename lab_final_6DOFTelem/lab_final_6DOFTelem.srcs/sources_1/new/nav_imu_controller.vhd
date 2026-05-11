@@ -102,9 +102,15 @@ begin
                                 cs_ag <= '1';
                                 if delay_us < 250 then delay_us <= delay_us + 1;
                                 else delay_us <= 0; step <= 3; end if;
-                            elsif step = 3 then cs_ag <= '0'; tx_byte <= x"20"; go_spi <= '1'; -- CTRL_REG6_XL
-                            elsif step = 4 then tx_byte <= x"C0"; go_spi <= '1'; -- Wake Accelerometer
+                            elsif step = 3 then cs_ag <= '0'; tx_byte <= x"10"; go_spi <= '1'; -- CTRL_REG1_G
+                            elsif step = 4 then tx_byte <= x"C0"; go_spi <= '1'; -- Wake Gyroscope
                             elsif step = 5 then
+                                cs_ag <= '1';
+                                if delay_us < 250 then delay_us <= delay_us + 1;
+                                else delay_us <= 0; step <= 6; end if;
+                            elsif step = 6 then cs_ag <= '0'; tx_byte <= x"20"; go_spi <= '1'; -- CTRL_REG6_XL
+                            elsif step = 7 then tx_byte <= x"C0"; go_spi <= '1'; -- Wake Accelerometer
+                            elsif step = 8 then
                                 cs_ag <= '1';
                                 state <= IDLE;
                             end if;
@@ -132,8 +138,8 @@ begin
                             step <= step + 1;
                         elsif go_spi = '0' then
                             cs_ag <= '0';
-                            -- FIXED: Burst Read Accelerometer (0xA8)
-                            if step = 0 then tx_byte <= x"A8"; go_spi <= '1'; 
+                            -- FIXED: True Auto-Increment Read Address for the Accelerometer
+                            if step = 0 then tx_byte <= x"E8"; go_spi <= '1'; 
                             elsif step < 7 then tx_byte <= x"00"; go_spi <= '1'; 
                             else state <= DONE;
                             end if;
