@@ -252,7 +252,9 @@ begin
     led(1) <= '1' when jstk_led_cnt /= LED_ZERO else '0';
     led(2) <= '1' when math_led_cnt /= LED_ZERO else '0';
     
-    -- LED 3: lit only if no progress events are observed for the timeout window
-    led(3) <= '1' when activity_cnt = ACTIVITY_TIMEOUT else '0';
+    -- LED 3: immediate clock-lock fault, otherwise no-activity watchdog
+    led(3) <= '1' when clk_lock = '0' else
+              '1' when activity_cnt = ACTIVITY_TIMEOUT else
+              '0';
 
 end structural;
