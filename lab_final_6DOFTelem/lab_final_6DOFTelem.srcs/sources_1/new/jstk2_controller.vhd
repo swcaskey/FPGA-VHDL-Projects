@@ -95,9 +95,9 @@ begin
                         end if;
                     when DONE =>
                         cs_jstk <= '1';
-                        -- Reconstruct the 10-bit raw value
-                        x_out <= x"00" & xh(1 downto 0) & xl(7 downto 2);
-                        y_out <= x"00" & yh(1 downto 0) & yl(7 downto 2);
+                        -- FIXED: True 10-bit reconstruction mapped to 16 bits
+                        x_out <= "000000" & xh(1 downto 0) & xl(7 downto 0);
+                        y_out <= "000000" & yh(1 downto 0) & yl(7 downto 0);
                         data_valid <= '1';
                         if start_read = '0' then state <= IDLE; end if;
                 end case;
