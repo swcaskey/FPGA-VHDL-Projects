@@ -86,9 +86,9 @@ architecture structural of hdmi_telemetry_top is
 
 begin
 
-    -- Standardize Resets
-    rst <= btn(0);
-    rst_n <= not btn(0);
+    -- Force reset inactive for bring-up/debug to avoid bad BTN pin mapping holding MMCM reset.
+    rst <= '0';
+    rst_n <= '1';
     vid_reset <= not clk_lock;
     rgb_combined <= red_data & green_data & blue_data;
 
