@@ -123,7 +123,6 @@ set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
   set_param chipscope.maxJobs 2
-  set_param xicom.use_bs_reader 1
 OPTRACE "create in-memory project" START { }
   create_project -in_memory -part xc7z010clg400-1
   set_property design_mode GateLvl [current_fileset]
@@ -136,12 +135,9 @@ OPTRACE "set parameters" START { }
   update_ip_catalog
   set_property ip_output_repo /home/user/Desktop/lab_final_6DOFTelem/lab_final_6DOFTelem.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
-  set_property XPM_LIBRARIES XPM_CDC [current_project]
 OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
   add_files -quiet /home/user/Desktop/lab_final_6DOFTelem/lab_final_6DOFTelem.runs/synth_1/hdmi_telemetry_top.dcp
-  read_ip -quiet /home/user/Desktop/lab_final_6DOFTelem/lab_final_6DOFTelem.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
-  read_ip -quiet /home/user/Desktop/lab_final_6DOFTelem/lab_final_6DOFTelem.srcs/sources_1/ip/rgb2dvi_0/rgb2dvi_0.xci
 OPTRACE "read constraints: implementation" START { }
   read_xdc /home/user/Desktop/lab_final_6DOFTelem/lab_final_6DOFTelem.srcs/constrs_1/new/zybo_old_board.xdc
 OPTRACE "read constraints: implementation" END { }
@@ -308,7 +304,6 @@ set rc [catch {
   create_msg_db write_bitstream.pb
 OPTRACE "read constraints: write_bitstream" START { }
 OPTRACE "read constraints: write_bitstream" END { }
-  set_property XPM_LIBRARIES XPM_CDC [current_project]
   catch { write_mem_info -force -no_partial_mmi hdmi_telemetry_top.mmi }
 OPTRACE "write_bitstream setup" END { }
 OPTRACE "write_bitstream" START { }

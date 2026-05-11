@@ -43,11 +43,11 @@ architecture structural of hdmi_telemetry_top is
     signal btn_center             : std_logic;
     signal jstk_start, jstk_valid : std_logic;
 
-    -- Thresholds restored back to 8000
-    constant IMU_THRESH_HI : signed(15 downto 0) := to_signed(8000, 16);
-    constant IMU_THRESH_LO : signed(15 downto 0) := to_signed(-8000, 16);
-    constant JSTK_THRESH_HI : unsigned(15 downto 0) := to_unsigned(612, 16);
-    constant JSTK_THRESH_LO : unsigned(15 downto 0) := to_unsigned(412, 16);
+    -- Thresholds
+    constant IMU_THRESH_HI : signed(15 downto 0) := to_signed(2000, 16);
+    constant IMU_THRESH_LO : signed(15 downto 0) := to_signed(-2000, 16);
+    constant JSTK_THRESH_HI : unsigned(15 downto 0) := to_unsigned(160, 16);
+    constant JSTK_THRESH_LO : unsigned(15 downto 0) := to_unsigned(96, 16);
 
     signal imu_led0, imu_led1, imu_led2 : std_logic;
     signal jstk_led0, jstk_led1 : std_logic;
