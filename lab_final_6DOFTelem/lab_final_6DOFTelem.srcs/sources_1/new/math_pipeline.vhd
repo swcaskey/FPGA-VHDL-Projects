@@ -44,8 +44,10 @@ architecture behavioral of math_pipeline is
     signal proj_x, proj_y          : vertex_array := (others => (others => '0'));
 
     constant JSTK_CENTER : signed(15 downto 0) := to_signed(128, 16);
-    constant IMU_MAIN_SHIFT : integer := 8;
-    constant IMU_ROLL_SHIFT : integer := 9;
+    constant JSTK_ROT_SHIFT : integer := 2;
+    constant JSTK_TILT_SHIFT : integer := 3;
+    constant IMU_MAIN_SHIFT : integer := 10;
+    constant IMU_ROLL_SHIFT : integer := 11;
 
     function clamp_to_10(value : signed(15 downto 0); max_value : integer) return std_logic_vector is
         variable val_i : integer;
@@ -66,6 +68,13 @@ begin
 
     process(clk)
         variable i : integer range 0 to 3;
+        variable spin_cmd      : signed(15 downto 0);
+        variable tilt_cmd      : signed(15 downto 0);
+        variable imu_yaw_off   : signed(15 downto 0);
+        variable imu_pitch_off : signed(15 downto 0);
+        variable imu_roll_off  : signed(15 downto 0);
+        variable x_spin        : signed(15 downto 0);
+        variable y_spin        : signed(15 downto 0);
     begin
         if rising_edge(clk) then
             if rst = '1' then
@@ -84,26 +93,28 @@ begin
                         end if;
 
                     when ROTATE =>
-                        -- 1. Rotation-style control:
-                        --    - Joystick X performs in-plane rotation (left/right fixed here by sign inversion).
-                        --    - Joystick Y applies pitch-style vertical skew.
-                        --    - IMU pitch/roll/yaw add visible live perturbations.
+                        -- 1. Lightweight rotation-style control (timing-safe).
+                        spin_cmd      := resize(shift_right((JSTK_CENTER - signed(jstk_x)), JSTK_ROT_SHIFT), 16);
+                        tilt_cmd      := resize(shift_right((signed(jstk_y) - JSTK_CENTER), JSTK_TILT_SHIFT), 16);
+                        imu_yaw_off   := resize(shift_right(signed(yaw), IMU_MAIN_SHIFT), 16);
+                        imu_pitch_off := resize(shift_right(signed(pitch), IMU_MAIN_SHIFT), 16);
+                        imu_roll_off  := resize(shift_right(signed(roll), IMU_ROLL_SHIFT), 16);
+
                         for i in 0 to 3 loop
-                            rot_x(i) <= resize(
-                                ORIG_X(i)
-                                - resize(shift_right((JSTK_CENTER - signed(jstk_x)) * ORIG_Y(i), 8), 16)
-                                + resize(shift_right(signed(yaw), IMU_MAIN_SHIFT), 16)
-                                + resize(shift_right(signed(roll), IMU_ROLL_SHIFT), 16),
-                                16
-                            );
-                            rot_y(i) <= resize(
-                                ORIG_Y(i)
-                                + resize(shift_right((JSTK_CENTER - signed(jstk_x)) * ORIG_X(i), 8), 16)
-                                - resize(shift_right((signed(jstk_y) - JSTK_CENTER) * ORIG_Z(i), 8), 16)
-                                + resize(shift_right(signed(pitch), IMU_MAIN_SHIFT), 16)
-                                - resize(shift_right(signed(roll), IMU_ROLL_SHIFT), 16),
-                                16
-                            );
+                            if ORIG_Y(i)(15) = '0' then
+                                x_spin := spin_cmd;
+                            else
+                                x_spin := -spin_cmd;
+                            end if;
+
+                            if ORIG_X(i)(15) = '0' then
+                                y_spin := spin_cmd;
+                            else
+                                y_spin := -spin_cmd;
+                            end if;
+
+                            rot_x(i) <= resize(ORIG_X(i) + x_spin + imu_yaw_off + imu_roll_off, 16);
+                            rot_y(i) <= resize(ORIG_Y(i) + y_spin - tilt_cmd + imu_pitch_off - imu_roll_off, 16);
                             rot_z(i) <= ORIG_Z(i);
                         end loop;
                         state <= TRANSLATE;
