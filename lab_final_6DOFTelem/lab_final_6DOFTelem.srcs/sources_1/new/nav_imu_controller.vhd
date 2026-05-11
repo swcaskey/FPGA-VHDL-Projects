@@ -33,7 +33,7 @@ architecture behavioral of nav_imu_controller is
     signal xl, xh, yl, yh, zl, zh : std_logic_vector(7 downto 0);
     
     signal delay_us  : integer range 0 to 255 := 0; 
-    signal boot_cnt  : integer range 0 to 625000 := 0; -- 5ms delay at 125MHz
+    signal boot_cnt  : integer range 0 to 625000 := 0; 
 
 begin
     -- SPI Handshake Engine
@@ -84,7 +84,6 @@ begin
                 case state is
                     when BOOT_WAIT =>
                         cs_ag <= '1';
-                        -- Hold here for 5 milliseconds so the physical silicon can wake up
                         if boot_cnt < 625000 then
                             boot_cnt <= boot_cnt + 1;
                         else
@@ -96,20 +95,20 @@ begin
                             go_spi <= '0';
                             step <= step + 1;
                         elsif go_spi = '0' then
-                            if step = 0 then cs_ag <= '0'; tx_byte <= x"22"; go_spi <= '1'; -- CTRL_REG8
-                            elsif step = 1 then tx_byte <= x"04"; go_spi <= '1'; -- Enable Auto-Increment
+                            if step = 0 then cs_ag <= '0'; tx_byte <= x"22"; go_spi <= '1'; 
+                            elsif step = 1 then tx_byte <= x"04"; go_spi <= '1'; 
                             elsif step = 2 then
                                 cs_ag <= '1';
                                 if delay_us < 250 then delay_us <= delay_us + 1;
                                 else delay_us <= 0; step <= 3; end if;
-                            elsif step = 3 then cs_ag <= '0'; tx_byte <= x"10"; go_spi <= '1'; -- CTRL_REG1_G
-                            elsif step = 4 then tx_byte <= x"C0"; go_spi <= '1'; -- Wake Gyroscope
+                            elsif step = 3 then cs_ag <= '0'; tx_byte <= x"10"; go_spi <= '1'; 
+                            elsif step = 4 then tx_byte <= x"C0"; go_spi <= '1'; 
                             elsif step = 5 then
                                 cs_ag <= '1';
                                 if delay_us < 250 then delay_us <= delay_us + 1;
                                 else delay_us <= 0; step <= 6; end if;
-                            elsif step = 6 then cs_ag <= '0'; tx_byte <= x"20"; go_spi <= '1'; -- CTRL_REG6_XL
-                            elsif step = 7 then tx_byte <= x"C0"; go_spi <= '1'; -- Wake Accelerometer
+                            elsif step = 6 then cs_ag <= '0'; tx_byte <= x"20"; go_spi <= '1'; 
+                            elsif step = 7 then tx_byte <= x"C0"; go_spi <= '1'; 
                             elsif step = 8 then
                                 cs_ag <= '1';
                                 state <= IDLE;
@@ -129,16 +128,16 @@ begin
                             go_spi <= '0'; cs_ag <= '1'; step <= 0; state <= IDLE;
                         elsif spi_done = '1' then
                             go_spi <= '0';
-                            if step = 1 then xl <= spi_data_in; end if;
-                            if step = 2 then xh <= spi_data_in; end if;
-                            if step = 3 then yl <= spi_data_in; end if;
-                            if step = 4 then yh <= spi_data_in; end if;
-                            if step = 5 then zl <= spi_data_in; end if;
-                            if step = 6 then zh <= spi_data_in; end if;
+                            -- THE FIX: Ignoring the step 1 garbage and capturing perfectly aligned data
+                            if step = 2 then xl <= spi_data_in; end if;
+                            if step = 3 then xh <= spi_data_in; end if;
+                            if step = 4 then yl <= spi_data_in; end if;
+                            if step = 5 then yh <= spi_data_in; end if;
+                            if step = 6 then zl <= spi_data_in; end if;
+                            if step = 7 then zh <= spi_data_in; end if;
                             step <= step + 1;
                         elsif go_spi = '0' then
                             cs_ag <= '0';
-                            -- FIXED: True Auto-Increment Read Address for the Accelerometer
                             if step = 0 then tx_byte <= x"E8"; go_spi <= '1'; 
                             elsif step < 7 then tx_byte <= x"00"; go_spi <= '1'; 
                             else state <= DONE;
