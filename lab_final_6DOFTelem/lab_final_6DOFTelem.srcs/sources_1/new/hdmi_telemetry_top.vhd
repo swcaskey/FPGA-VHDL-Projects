@@ -29,7 +29,7 @@ end hdmi_telemetry_top;
 architecture structural of hdmi_telemetry_top is
     signal rst : std_logic;
     signal spi_en : std_logic;
-
+    
     -- NAV SPI bus and outputs
     signal spi1_start, spi1_ready : std_logic;
     signal spi1_din, spi1_dout    : std_logic_vector(7 downto 0);
@@ -44,14 +44,16 @@ architecture structural of hdmi_telemetry_top is
     signal jstk_start, jstk_valid : std_logic;
 
     -- Thresholds
-    constant IMU_THRESH_HI : signed(15 downto 0) := to_signed(2000, 16);
-    constant IMU_THRESH_LO : signed(15 downto 0) := to_signed(-2000, 16);
+    -- 10 degrees of tilt on the accelerometer = ~2844
+    constant IMU_THRESH_HI : signed(15 downto 0) := to_signed(2844, 16);
+    constant IMU_THRESH_LO : signed(15 downto 0) := to_signed(-2844, 16);
+    
     constant JSTK_THRESH_HI : unsigned(15 downto 0) := to_unsigned(160, 16);
     constant JSTK_THRESH_LO : unsigned(15 downto 0) := to_unsigned(96, 16);
 
     signal imu_led0, imu_led1, imu_led2 : std_logic;
     signal jstk_led0, jstk_led1 : std_logic;
-
+    
     -- 100 Hz Pacing Timer
     type poll_state_type is (IDLE, READ_SENSORS, WAIT_IMU, WAIT_JSTK);
     signal poll_state : poll_state_type := IDLE;
@@ -145,17 +147,24 @@ begin
         end if;
     end process;
 
-    -- Mode 0 (SW0=0): NAV gyro thresholds
-    imu_led0 <= '1' when (signed(yaw_val) > IMU_THRESH_HI) or (signed(yaw_val) < IMU_THRESH_LO) else '0';
-    imu_led1 <= '1' when (signed(roll_val) > IMU_THRESH_HI) or (signed(roll_val) < IMU_THRESH_LO) else '0';
+    -- Mode 0 (SW0=0): NAV Accelerometer thresholds
+    -- Pitch (X-axis tilt)
     imu_led2 <= '1' when (signed(pitch_val) > IMU_THRESH_HI) or (signed(pitch_val) < IMU_THRESH_LO) else '0';
+    
+    -- Roll (Y-axis tilt)
+    imu_led1 <= '1' when (signed(roll_val) > IMU_THRESH_HI) or (signed(roll_val) < IMU_THRESH_LO) else '0';
+    
+    -- Yaw (Z-axis). Tied to 0 because Z rests at 1g (16384). 
+    imu_led0 <= '0'; 
 
     -- Mode 1 (SW0=1): JSTK thresholds
     jstk_led0 <= '1' when (unsigned(jstk_x_val) > JSTK_THRESH_HI) or (unsigned(jstk_x_val) < JSTK_THRESH_LO) else '0';
     jstk_led1 <= '1' when (unsigned(jstk_y_val) > JSTK_THRESH_HI) or (unsigned(jstk_y_val) < JSTK_THRESH_LO) else '0';
 
+    -- LED Routing
     led(0) <= imu_led0 when sw(0) = '0' else jstk_led0;
     led(1) <= imu_led1 when sw(0) = '0' else jstk_led1;
     led(2) <= imu_led2 when sw(0) = '0' else '0';
     led(3) <= '0';
+
 end structural;
