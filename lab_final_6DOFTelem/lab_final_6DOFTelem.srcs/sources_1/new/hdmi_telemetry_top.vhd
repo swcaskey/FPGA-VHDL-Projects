@@ -43,10 +43,9 @@ architecture structural of hdmi_telemetry_top is
     signal btn_center             : std_logic;
     signal jstk_start, jstk_valid : std_logic;
 
-    -- Thresholds
-    -- 10 degrees of rotation = ~111 in our scaled accumulator
-    constant IMU_THRESH_HI : signed(15 downto 0) := to_signed(111, 16);
-    constant IMU_THRESH_LO : signed(15 downto 0) := to_signed(-111, 16);
+    -- Thresholds for 0.5g (roughly a 30-degree tilt)
+    constant IMU_THRESH_HI : signed(15 downto 0) := to_signed(8192, 16);
+    constant IMU_THRESH_LO : signed(15 downto 0) := to_signed(-8192, 16);
     
     constant JSTK_THRESH_HI : unsigned(15 downto 0) := to_unsigned(160, 16);
     constant JSTK_THRESH_LO : unsigned(15 downto 0) := to_unsigned(96, 16);
@@ -58,7 +57,7 @@ architecture structural of hdmi_telemetry_top is
     type poll_state_type is (IDLE, READ_SENSORS, WAIT_IMU, WAIT_JSTK);
     signal poll_state : poll_state_type := IDLE;
     signal timer_cnt : unsigned(23 downto 0) := (others => '0');
-    constant TIMER_MAX : unsigned(23 downto 0) := to_unsigned(1250000, 24); 
+    constant TIMER_MAX : unsigned(23 downto 0) := to_unsigned(1250000, 24); -- 10ms at 125MHz
 
 begin
     rst <= btn(0);
@@ -147,10 +146,17 @@ begin
         end if;
     end process;
 
-    -- Mode 0 (SW0=0): NAV Gyroscope Accumulator thresholds
-    imu_led0 <= '1' when (signed(yaw_val) > IMU_THRESH_HI) or (signed(yaw_val) < IMU_THRESH_LO) else '0';
-    imu_led1 <= '1' when (signed(roll_val) > IMU_THRESH_HI) or (signed(roll_val) < IMU_THRESH_LO) else '0';
+    -- Mode 0 (SW0=0): NAV Accelerometer Tilt-O-Meter
+    
+    -- Pitch: Lights up if tilted > 30 degrees forward or backward
     imu_led2 <= '1' when (signed(pitch_val) > IMU_THRESH_HI) or (signed(pitch_val) < IMU_THRESH_LO) else '0';
+    
+    -- Roll: Lights up if tilted > 30 degrees left or right
+    imu_led1 <= '1' when (signed(roll_val) > IMU_THRESH_HI) or (signed(roll_val) < IMU_THRESH_LO) else '0';
+    
+    -- Upside Down: The Z-axis normally reads ~16384 (gravity pulling down). 
+    -- If it goes below zero, the board has been flipped upside down!
+    imu_led0 <= '1' when (signed(yaw_val) < 0) else '0';
 
     -- Mode 1 (SW0=1): JSTK thresholds
     jstk_led0 <= '1' when (unsigned(jstk_x_val) > JSTK_THRESH_HI) or (unsigned(jstk_x_val) < JSTK_THRESH_LO) else '0';
