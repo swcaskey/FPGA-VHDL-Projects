@@ -21,7 +21,7 @@ entity hdmi_telemetry_top is
         jstk_sclk  : out std_logic;
         jstk_cs    : out std_logic;
 
-        -- Diagnostic LEDs
+        -- Showcase LEDs
         led        : out std_logic_vector(3 downto 0)
     );
 end hdmi_telemetry_top;
@@ -155,7 +155,7 @@ begin
     imu_led1 <= '1' when (signed(roll_val) > IMU_THRESH_HI) or (signed(roll_val) < IMU_THRESH_LO) else '0';
     
     -- Upside Down: The Z-axis normally reads ~16384 (gravity pulling down). 
-    -- If it goes below zero, the board has been flipped upside down!
+    -- If it goes below zero, the board has been flipped upside down
     imu_led0 <= '1' when (signed(yaw_val) < 0) else '0';
 
     -- Mode 1 (SW0=1): JSTK thresholds
