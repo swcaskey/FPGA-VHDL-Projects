@@ -101,8 +101,7 @@ begin
                             step <= step + 1;
                         elsif go_spi = '0' then
                             cs_ag <= '0';
-                            -- FIXED: Burst read from Gyroscope with Auto-Increment
-                            if step = 0 then tx_byte <= x"D8"; go_spi <= '1';
+                            if step = 0 then tx_byte <= x"98"; go_spi <= '1';
                             elsif step < 7 then tx_byte <= x"00"; go_spi <= '1';
                             else state <= DONE;
                             end if;

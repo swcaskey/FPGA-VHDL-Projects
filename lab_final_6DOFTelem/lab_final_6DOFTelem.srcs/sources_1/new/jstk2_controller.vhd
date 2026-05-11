@@ -77,8 +77,8 @@ begin
                         elsif spi_done = '1' then
                             go_spi <= '0';
                             if step = 0 then xl <= spi_data_in; end if;
-                            if step = 1 then yl <= spi_data_in; end if;
-                            if step = 2 then xh <= spi_data_in; end if;
+                            if step = 1 then xh <= spi_data_in; end if;
+                            if step = 2 then yl <= spi_data_in; end if;
                             if step = 3 then yh <= spi_data_in; end if;
                             step <= step + 1;
                         elsif go_spi = '0' then
@@ -95,7 +95,6 @@ begin
                         end if;
                     when DONE =>
                         cs_jstk <= '1';
-                        -- FIXED: True 10-bit reconstruction mapped to 16 bits
                         x_out <= "000000" & xh(1 downto 0) & xl(7 downto 0);
                         y_out <= "000000" & yh(1 downto 0) & yl(7 downto 0);
                         data_valid <= '1';
