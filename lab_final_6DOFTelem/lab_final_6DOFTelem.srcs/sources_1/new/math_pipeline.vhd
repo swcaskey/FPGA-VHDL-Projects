@@ -32,15 +32,14 @@ architecture behavioral of math_pipeline is
     signal state : state_type := IDLE;
 
     -- Hardcoded 3D Wireframe Vertices (Fixed Point)
-    -- Slight depth spread gives a visible "orbit camera" effect.
     type vertex_array is array (0 to 3) of signed(15 downto 0);
     constant ORIG_X : vertex_array := (to_signed(-50, 16), to_signed(50, 16), to_signed(50, 16), to_signed(-50, 16));
     constant ORIG_Y : vertex_array := (to_signed(-50, 16), to_signed(-50, 16), to_signed(50, 16), to_signed(50, 16));
-    constant ORIG_Z : vertex_array := (to_signed(80, 16), to_signed(120, 16), to_signed(120, 16), to_signed(80, 16));
+    constant ORIG_Z : vertex_array := (to_signed(100, 16), to_signed(100, 16), to_signed(100, 16), to_signed(100, 16));
 
     -- Pipeline registers
     signal rot_x, rot_y, rot_z     : vertex_array := (others => (others => '0'));
-    signal trans_x, trans_y, trans_z : vertex_array := (others => (others => '0'));
+    signal trans_x, trans_y : vertex_array := (others => (others => '0'));
     signal proj_x, proj_y          : vertex_array := (others => (others => '0'));
 
     constant JSTK_CENTER : signed(15 downto 0) := to_signed(128, 16);
@@ -75,9 +74,6 @@ begin
         variable imu_roll_off  : signed(15 downto 0);
         variable x_spin        : signed(15 downto 0);
         variable y_spin        : signed(15 downto 0);
-        variable z_spin        : signed(15 downto 0);
-        variable z_depth       : integer;
-        variable depth_scale   : integer range 0 to 3;
     begin
         if rising_edge(clk) then
             if rst = '1' then
@@ -106,10 +102,8 @@ begin
                         for i in 0 to 3 loop
                             if ORIG_Y(i)(15) = '0' then
                                 x_spin := spin_cmd;
-                                z_spin := -spin_cmd;
                             else
                                 x_spin := -spin_cmd;
-                                z_spin := spin_cmd;
                             end if;
 
                             if ORIG_X(i)(15) = '0' then
@@ -120,7 +114,7 @@ begin
 
                             rot_x(i) <= resize(ORIG_X(i) + x_spin + imu_yaw_off + imu_roll_off, 16);
                             rot_y(i) <= resize(ORIG_Y(i) + y_spin - tilt_cmd + imu_pitch_off - imu_roll_off, 16);
-                            rot_z(i) <= resize(ORIG_Z(i) + z_spin + tilt_cmd, 16);
+                            rot_z(i) <= ORIG_Z(i);
                         end loop;
                         state <= TRANSLATE;
 
@@ -129,38 +123,14 @@ begin
                         for i in 0 to 3 loop
                             trans_x(i) <= rot_x(i);
                             trans_y(i) <= rot_y(i);
-                            trans_z(i) <= rot_z(i);
                         end loop;
                         state <= PROJECT;
 
                     when PROJECT =>
-                        -- 3. Depth-aware projection without expensive general division.
+                        -- 3. Fixed scale projection (timing-safe and HDMI-proven).
                         for i in 0 to 3 loop
-                            z_depth := to_integer(trans_z(i));
-
-                            if z_depth < 80 then
-                                depth_scale := 3; -- nearest
-                            elsif z_depth < 100 then
-                                depth_scale := 2;
-                            elsif z_depth < 120 then
-                                depth_scale := 1;
-                            else
-                                depth_scale := 0; -- farthest
-                            end if;
-
-                            if depth_scale = 3 then
-                                proj_x(i) <= resize(shift_left(trans_x(i), 3) + 320, 16);
-                                proj_y(i) <= resize(shift_left(trans_y(i), 3) + 240, 16);
-                            elsif depth_scale = 2 then
-                                proj_x(i) <= resize(shift_left(trans_x(i), 2) + 320, 16);
-                                proj_y(i) <= resize(shift_left(trans_y(i), 2) + 240, 16);
-                            elsif depth_scale = 1 then
-                                proj_x(i) <= resize(shift_left(trans_x(i), 1) + 320, 16);
-                                proj_y(i) <= resize(shift_left(trans_y(i), 1) + 240, 16);
-                            else
-                                proj_x(i) <= resize(trans_x(i) + 320, 16);
-                                proj_y(i) <= resize(trans_y(i) + 240, 16);
-                            end if;
+                            proj_x(i) <= resize(shift_left(trans_x(i), 1) + 320, 16);
+                            proj_y(i) <= resize(shift_left(trans_y(i), 1) + 240, 16);
                         end loop;
                         state <= FINISH;
 

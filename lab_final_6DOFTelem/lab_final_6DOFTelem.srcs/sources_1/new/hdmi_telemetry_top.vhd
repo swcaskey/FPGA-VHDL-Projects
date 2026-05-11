@@ -208,7 +208,7 @@ begin
             vid_pHSync  => hsync,
             vid_pVSync  => vsync,
             PixelClk    => pclk,
-            SerialClk   => sysclk -- Use known-good board 125 MHz to avoid clk_wiz clk_out2 mismatch
+            SerialClk   => serial_clk -- Must be phase-related to PixelClk from same clk_wiz/MMCM
         );
 
     process(sysclk)
